@@ -1,5 +1,8 @@
 package net.panda2.roma.game;
 
+import net.panda2.roma.game.exception.RomaException;
+import net.panda2.roma.game.exception.RomaUnAuthException;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -46,7 +49,17 @@ public class GameEngine {
         RunGame();
     }
 
-    private void RunGame() {
+    VictoryPoints allocateVPs(int amt) {
+        return gs.vpStash.makeVP(amt);
+    }
 
+    private void RunGame() {
+        
+    }
+
+    public void authenticateOrDie(AuthToken tk) throws RomaException{
+        if(!authenticateToken(tk)) {
+            throw new RomaUnAuthException();
+        }
     }
 }
