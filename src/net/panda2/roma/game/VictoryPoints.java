@@ -1,8 +1,4 @@
-package gameEngine;
-
-import Roma.AuthToken;
-import Roma.RomaException;
-import Roma.RomaUnAuthException;
+package net.panda2.roma.game;
 
 /**
  * Created with IntelliJ IDEA.

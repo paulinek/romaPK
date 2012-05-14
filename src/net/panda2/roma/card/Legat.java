@@ -1,9 +1,9 @@
-package card;
+package net.panda2.roma.card;
 
-import Roma.AuthToken;
-import Roma.RomaException;
-import gameEngine.GameState;
-import gameEngine.PlayerState;
+import net.panda2.roma.game.AuthToken;
+import net.panda2.roma.game.GameState;
+import net.panda2.roma.game.PlayerState;
+import net.panda2.roma.game.RomaException;
 
 /**
  * Created with IntelliJ IDEA.

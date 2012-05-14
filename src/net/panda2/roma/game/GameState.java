@@ -1,11 +1,8 @@
-package gameEngine;
+package net.panda2.roma.game;
 
-import Roma.AuthToken;
-import Roma.RomaException;
-import Roma.RomaUnAuthException;
-import card.Card;
-import card.CardDeck;
-import card.Legat;
+import net.panda2.game.card.Card;
+import net.panda2.game.card.CardDeck;
+import net.panda2.roma.card.Legat;
 
 import java.util.Vector;
 
@@ -20,10 +17,13 @@ import java.util.Vector;
 public class GameState {
     int numPlayers;
     PlayerState player[];
+    int currentPlayerNo;
     VictoryPoints tabletopVPStockpile;
     CardDeck maindeck, discard;
     GameEngine ge;
     RomaRules ruleset;
+    boolean gameOver;
+
     private GameState(RomaRules ruleSet, GameEngine ge) throws RomaException {
         //ref rules for numPlayers
         numPlayers=ruleSet.numPlayers;
@@ -31,7 +31,7 @@ public class GameState {
         this.ruleset = ruleset;
         // player is an array of size numPlayers
         player=new PlayerState[numPlayers];
-        // create a new gameEngine.PlayerState object for each of numPlayers
+        // create a new net.panda2.roma.game.PlayerState object for each of numPlayers
         int i;
         for (i=0; i<numPlayers; i++){
             player[i]=new PlayerState(ruleSet, ge);
@@ -57,7 +57,7 @@ public class GameState {
     }
     private void seedCards(CardDeck d) {
         // this function creates a bunch of card objects
-        Vector<Card> cards = new Vector<Card>()
+        Vector<Card> cards = new Vector<Card>();
         int i;
         for(i = 0; i < ruleset.LegatCount; i++ ) {
             cards.add(new Legat());

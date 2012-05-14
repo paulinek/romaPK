@@ -1,4 +1,4 @@
-package Roma;
+package net.panda2.roma.game;
 
 /**
 * Created with IntelliJ IDEA.

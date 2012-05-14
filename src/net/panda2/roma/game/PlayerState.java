@@ -1,8 +1,6 @@
-package gameEngine;
+package net.panda2.roma.game;
 
-import Roma.AuthToken;
-import Roma.RomaException;
-import Roma.RomaUnAuthException;
+import net.panda2.game.card.CardDeck;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +12,8 @@ import Roma.RomaUnAuthException;
 public class PlayerState {
     VictoryPoints vp;
     GameEngine ge;
-
+    CardDeck hand;
+    int money;
     public PlayerState(RomaRules rules, GameEngine ge) {
         vp = new VictoryPoints(rules.playerInitVP, rules.minVP);
         this.ge = ge;

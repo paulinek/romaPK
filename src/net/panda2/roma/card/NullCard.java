@@ -1,4 +1,4 @@
-package card;
+package net.panda2.roma.card;
 
 /**
  * Created with IntelliJ IDEA.

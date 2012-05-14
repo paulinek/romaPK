@@ -1,4 +1,6 @@
-package card;
+package net.panda2.roma.card;
+
+import net.panda2.game.card.Card;
 
 /**
  * Created with IntelliJ IDEA.

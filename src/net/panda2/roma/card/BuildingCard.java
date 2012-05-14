@@ -1,4 +1,4 @@
-package card;
+package net.panda2.roma.card;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,13 +7,5 @@ package card;
  * Time: 5:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class RomaCard extends ActiveCard {
-
-
-    String title;
-    int price;
-    int defence;
-    int dice;
-
-
+public abstract class BuildingCard extends RomaCard {
 }

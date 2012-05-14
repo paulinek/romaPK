@@ -1,11 +1,11 @@
-package Roma;
+package net.panda2.roma.card;
 
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
- * Date: 14/05/12
- * Time: 1:45 AM
+ * Date: 17/04/12
+ * Time: 5:09 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RomaUnAuthException extends RomaException {
+public abstract class CharacterCard extends RomaCard {
 }

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Dropbox/2911/acceptance/lib/dom4j-1.6.1.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/2911/acceptance/lib/guava-10.0.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/2911/acceptance/lib/javassist.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/2911/acceptance/lib/reflections-0.9.5.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/2911/acceptance/lib/slf4j-api-1.6.1.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/2911/acceptance/lib/slf4j-nop-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

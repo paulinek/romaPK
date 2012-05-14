@@ -1,7 +1,4 @@
-package gameEngine;
-
-import Roma.AuthToken;
-import Roma.RomaException;
+package net.panda2.roma.game;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +10,7 @@ import Roma.RomaException;
 public class GameEngine {
     GameState gs;
     RomaRules ruleSet;
-   
+    AuthToken masterToken;
 
     private GameEngine() {
     }
@@ -27,7 +24,15 @@ public class GameEngine {
     public static GameEngine createGameEngine() {
         
         return new GameEngine();
-}
+    }
+
+
+    public static GameEngine createGameEngine(AuthToken tk) {
+        GameEngine ge = new GameEngine();
+        ge.masterToken = tk;
+        return ge;
+    }
+
 
     public void newGame() {
         ruleSet = new RomaRules();

@@ -1,11 +1,11 @@
-package Roma;
+package net.panda2.roma.game;
 
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
  * Date: 14/05/12
- * Time: 1:41 AM
+ * Time: 3:52 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AuthToken {
+public class RomaInvalidMoveException extends RomaException {
 }
