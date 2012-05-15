@@ -19,8 +19,16 @@ public class RomaRules {
 
     // cards
     public final int LegatCount = 2;
+    public final int  LegatDefense = 5;
+    public final int LegatCost = 2;
     // phases
 
     // victory conditions / endgame
     public final int minVP = 0;
+
+    // how many card slots / dice discs there are
+    // these two should always be the same!
+    public final int diceSize = 6;
+    public final int diceDiscs = 6;
+    public final int nDice = 3;
 }

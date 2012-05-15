@@ -1,10 +1,11 @@
 package net.panda2.roma.game;
 
-import net.panda2.game.card.Card;
-import net.panda2.game.card.CardDeck;
-import net.panda2.roma.card.Legat;
-
-import java.util.Vector;
+import net.panda2.RingInteger;
+import net.panda2.game.card.Tableau;
+import net.panda2.game.dice.DiceCollection;
+import net.panda2.roma.card.PJRomaCard;
+import net.panda2.roma.game.exception.RomaCheatingException;
+import net.panda2.roma.game.exception.RomaException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,12 +18,47 @@ import java.util.Vector;
 public class GameState {
     int numPlayers;
     PlayerState player[];
-    int currentPlayerNo;
-    VictoryPoints tabletopVPStockpile;
-    CardDeck maindeck, discard;
+    RingInteger playerNo;
+    StashFactory vpStash;
+    Stash tabletopVPStockpile;
+    ViewableCardDeck maindeck, discard;
     GameEngine ge;
     RomaRules ruleset;
     boolean gameOver;
+
+    Tableau<PJRomaCard> diceDiscs;
+    DiceCollection battleDice;
+
+    public PJRomaCard dealRandomCard(AuthToken tk) {
+        if(ge.authenticateToken(tk)) {
+            maindeck.shuffleDeck();
+            PJRomaCard c = maindeck.dealCard();
+            return c;
+        }
+        return null;
+    }
+
+    public    void reshuffleDeck(AuthToken tk) {
+        if(ge.authenticateToken(tk)) {
+            maindeck.shuffleDeck();
+        }
+    }
+
+    public    PlayerState currentPlayer(AuthToken tk) {
+    return        ge.authenticatedReturn(tk, currentPlayer());
+     }
+
+    PlayerState currentPlayer() {
+        return player[playerNo.get()];
+    }
+    public PlayerState getNextPlayer(AuthToken tk) {
+        return ge.authenticatedReturn(tk, getNextPlayer());
+    }
+
+    PlayerState getNextPlayer () {
+        return player[playerNo.next()];
+
+    }
 
     private GameState(RomaRules ruleSet, GameEngine ge) throws RomaException {
         //ref rules for numPlayers
@@ -31,55 +67,54 @@ public class GameState {
         this.ruleset = ruleset;
         // player is an array of size numPlayers
         player=new PlayerState[numPlayers];
+
+        // RingInteger expects the maximum valid number, so 0..numPlayers-1
+        playerNo =new RingInteger(numPlayers-1);
         // create a new net.panda2.roma.game.PlayerState object for each of numPlayers
         int i;
+
+        vpStash = new StashFactory(ruleSet.gameTotalVP);
+
         for (i=0; i<numPlayers; i++){
             player[i]=new PlayerState(ruleSet, ge);
         }
-
         // seed stockpile with init VP
-        tabletopVPStockpile= new VictoryPoints(ruleSet.tableInitVP, ruleSet.minVP);
+        tabletopVPStockpile=vpStash.make(ruleSet.tableInitVP, ruleSet.minVP);
 
         if (sanityCheckInitVPTotal(ruleSet)!=true){
             throw new RomaException("Sanity Check Failed: VP init doesn't add up");
         }
-        maindeck = new CardDeck();
-        discard = new CardDeck();
-        seedCards(maindeck);
-    }
-
-    public VictoryPoints getVP(AuthToken tk) throws RomaException {
-            if(ge.authenticateToken(tk)) {
-                return tabletopVPStockpile;
-            } else {
-                throw new RomaUnAuthException();
-            }
-    }
-    private void seedCards(CardDeck d) {
-        // this function creates a bunch of card objects
-        Vector<Card> cards = new Vector<Card>();
-        int i;
-        for(i = 0; i < ruleset.LegatCount; i++ ) {
-            cards.add(new Legat());
+        maindeck = new ViewableCardDeck();
+        discard = new ViewableCardDeck();
+        CardFactory.createInitialCards(maindeck);
+        diceDiscs = new Tableau<PJRomaCard>(ruleSet.diceDiscs);
+        battleDice = new DiceCollection();  // TODO - parameterise this
+        //
         }
 
-        d.seedCards(cards);
-
+    public Stash getVP(AuthToken tk) throws RomaException {
+        ge.authenticateOrDie(tk);
+        return tabletopVPStockpile;
     }
-    private boolean sanityCheckInitVPTotal(RomaRules ruleSet) {
+
+
+    private boolean sanityCheckInitVPTotal(RomaRules ruleSet) throws RomaCheatingException {
         // VP post-init sanity check
-        // get pointsTotal from each player
-        // get pointsTotal from tabletop stockpile
+        // get amount from each player
+        // get amount from tabletop stockpile
         // add them all up, and game total should be rules.gameTotalVP
 
+        if(vpStash.checkForCheaters()) {
+            return false;
+        }
         boolean saneQ=true;
 
         int gameTotalVPSoFar=0;
         int j;
         for (j=0; j<player.length; j++){
-            gameTotalVPSoFar+=player[j].vp.getPointsTotal();
+            gameTotalVPSoFar+=player[j].vp.getAmount();
         }
-        gameTotalVPSoFar+=tabletopVPStockpile.getPointsTotal();
+        gameTotalVPSoFar+=tabletopVPStockpile.getAmount();
 
         if (gameTotalVPSoFar!=ruleSet.gameTotalVP){
             saneQ=false;
@@ -90,4 +125,12 @@ public class GameState {
     public static GameState createGameState(RomaRules rules, GameEngine gameEngine) throws RomaException {
         return new GameState(rules, gameEngine);
     }
+
+    public void setPlayerNo(int player, AuthToken tk) {
+        try {
+            ge.authenticateOrDie(tk);
+        } catch (RomaException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        playerNo.set(player);}
 }

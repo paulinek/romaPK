@@ -1,6 +1,9 @@
 package net.panda2.roma.game;
 
-import net.panda2.game.card.CardDeck;
+import net.panda2.roma.card.*;
+import net.panda2.roma.game.exception.RomaException;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,22 +13,39 @@ import net.panda2.game.card.CardDeck;
  * To change this template use File | Settings | File Templates.
  */
 public class PlayerState {
-    VictoryPoints vp;
+    Stash vp;
     GameEngine ge;
-    CardDeck hand;
+    ViewableCardDeck hand;
     int money;
-    public PlayerState(RomaRules rules, GameEngine ge) {
-        vp = new VictoryPoints(rules.playerInitVP, rules.minVP);
-        this.ge = ge;
+    ViewableDiceCup dice;
+    ViewableTableau diceDiscCards;
 
+    public PlayerState(RomaRules rules, GameEngine ge) {
+        vp = Stash.createStash(rules.playerInitVP, rules.minVP);
+        this.ge = ge;
+        dice = new ViewableDiceCup(rules.nDice);
     }
 
 
-    public VictoryPoints getVP(AuthToken tk) throws RomaException {
-        if(ge.authenticateToken(tk)) {
-            return vp;
-        } else {
-            throw new RomaUnAuthException();
-        }
+    public Stash getVP(AuthToken tk) throws RomaException {
+        ge.authenticateOrDie(tk);
+        return vp;
+
+    }
+    public ViewableTableau getTableau(AuthToken tk) {
+        if(ge.authenticateToken(tk)) return diceDiscCards;
+        return null;
+    }
+    List<CardView> getDiscView() {
+        return diceDiscCards.getCardView();
+    }
+
+    int getIndexOfCard(PJRomaCard c) {
+        return diceDiscCards.getIndexOfCard(c);
+    }
+
+    public void receiveCard(AuthToken tk, PJRomaCard c) {
+    if(ge.authenticateToken(tk))
+        hand.addCard(c);
     }
 }

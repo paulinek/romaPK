@@ -2,8 +2,8 @@ package net.panda2.roma.game;
 
 import framework.cards.Card;
 import framework.interfaces.GameState;
-import net.panda2.game.card.CardDeck;
-import net.panda2.roma.card.RomaCard;
+import net.panda2.roma.card.PJRomaCard;
+import net.panda2.roma.game.exception.RomaException;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public int getWhoseTurn() {
-        return ge.gs.currentPlayerNo;
+        return ge.gs.playerNo.get();
     }
 
     /**
@@ -54,7 +54,7 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public void setWhoseTurn(int player) {
-        ge.gs.currentPlayerNo=player;
+        ge.gs.setPlayerNo(player,tk);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -77,13 +77,13 @@ public class PKGameStateTest implements GameState {
         }
         return null;
     }
-    List<Card> deck2card(CardDeck cardDeck) {
+    List<Card> deck2card(ViewableCardDeck cardDeck) {
 
-        Vector<net.panda2.game.card.Card> deck = new Vector<net.panda2.game.card.Card >(cardDeck.getCards(tk));
+        Vector<net.panda2.game.card.Card> deck = new Vector<net.panda2.game.card.Card >(cardDeck.getCards());
         Collections.reverse(deck);
         List<Card> list = new Vector<Card>();
         for(net.panda2.game.card.Card c:deck) {
-            list.add(getCardFromName(((RomaCard) c).getTitle())) ;
+            list.add(getCardFromName(((PJRomaCard) c).getName())) ;
 
         }
         return list;
@@ -194,7 +194,7 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public int getPlayerVictoryPoints(int playerNum) {
-    return pN(playerNum).vp.getPointsTotal();}
+    return pN(playerNum).vp.getAmount();}
 
     /**
      * Gives a player VPs from the stockpile or give the stockpile VPs from a player.
@@ -217,8 +217,8 @@ public class PKGameStateTest implements GameState {
     public void setPlayerVictoryPoints(int playerNum, int points) {
         int current = getPlayerVictoryPoints(playerNum);
        try {
-        pN(playerNum).vp.transferVPAway(ge.gs.tabletopVPStockpile, current,tk);
-        ge.gs.tabletopVPStockpile.transferVPAway(pN(playerNum).vp,points, tk);
+        pN(playerNum).vp.transferAway(ge.gs.tabletopVPStockpile, current, tk);
+        ge.gs.tabletopVPStockpile.transferAway(pN(playerNum).vp, points, tk);
        } catch (RomaException romaException) {
 
         }
@@ -344,7 +344,7 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public int getPoolVictoryPoints() {
-        return ge.gs.tabletopVPStockpile.getPointsTotal();
+        return ge.gs.tabletopVPStockpile.getAmount();
     }
 
     /**
