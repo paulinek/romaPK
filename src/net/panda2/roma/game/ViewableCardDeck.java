@@ -66,4 +66,8 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> {
      Vector<PJRomaCard> getCards() {
         return cards;
     }
+
+    public int numCards() {
+        return cards.size();
+    }
 }

@@ -7,9 +7,9 @@ package net.panda2.roma.card;
  * Time: 3:35 AM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class CharacterCardPJ extends PJRomaCard {
+public abstract class CharacterCard extends PJRomaCard {
 
-    public CharacterCardPJ(String name, int price, int defense) {
+    public CharacterCard(String name, int price, int defense) {
         super(name, price, defense, true);
     }
 }

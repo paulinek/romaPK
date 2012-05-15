@@ -73,7 +73,6 @@ public class GameState {
         // create a new net.panda2.roma.game.PlayerState object for each of numPlayers
         int i;
 
-        vpStash = new StashFactory(ruleSet.gameTotalVP);
 
         for (i=0; i<numPlayers; i++){
             player[i]=new PlayerState(ruleSet, ge);

@@ -1,5 +1,6 @@
 package net.panda2.roma.game;
 
+import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.ViewableTableau;
 import net.panda2.roma.game.exception.RomaException;
@@ -76,6 +77,11 @@ public class GameEngine {
     }
     }
 
+
+    // phases
+    // phase one has no user input
+    // phase two asks the user if they want to reroll under certain circumstances
+    // phase 3 lets the user do actions
     void phaseOne() throws RomaGameEndException {
         PlayerState p = gs.currentPlayer();
         // numEmpty returns how many of the diceDisc card slots are empty
@@ -99,9 +105,14 @@ public class GameEngine {
     }
 
     void phaseThree() {
-        PlayerGameView gv = new PlayerGameView(gs);
-    }
+        boolean ended = false;
+        while(!ended) {
 
+
+        PlayerGameView gv = new PlayerGameView(gs);
+        ActionData d = playerPhaseThree(gv, gs.currentPlayer());
+        }
+    }
 
     // helper functions for card actions to call
 
@@ -111,6 +122,76 @@ public class GameEngine {
     // all cross package communication is authenticated with a token
     // so that players (which may need to have access to the gameengine object) cannot call any destructive or privacy invading
     // public functions
+
+    ActionData playerPhaseThree(PlayerGameView gv, PlayerState playerState) {
+        ActionData da = null;
+        playerInput.printPlayerGameView(gv);
+        RomaAction action = getAction(gv,playerState);
+        if(action != null) {
+            if(action instanceof ActivateCardAction) {
+
+            } else if(action instanceof LayCardAction) {
+
+            } else if(action instanceof TakeCardAction) {
+
+            } else if(action instanceof  TakeMoneyAction) {
+
+            } else if(action instanceof EndTurnAction) {
+        }
+        }else {
+            return null;
+        }
+
+         return da;
+    }
+
+    RomaAction getAction
+            (PlayerGameView gv, PlayerState playerState) {
+        ActionData dat = new ActionData();
+        RomaAction x = null;
+
+        while(x == null) {
+        RAction choice = playerInput.choice();
+        int cardNo=0, diceNo=0, discNo=0;
+        boolean valid=false;
+            switch(choice.mode) {
+            case 0: // no additional data
+                valid=true;
+                break;
+            case 1: // hand card, dice disc
+                cardNo = playerInput.readNumber("Enter number of card in hand", 0, playerState.hand.numCards());
+                discNo = playerInput.readNumber("Enter which disc to put it on", 1, ruleSet.diceDiscs+1)-1;
+                valid=true;
+                break;
+            case 2:
+                diceNo = playerInput.readNumber("Enter number of action die to play", 0, ruleSet.nDice);
+                discNo = playerState.dice.getNth(diceNo);
+                if(playerState.dice.isNthUsed(diceNo)) {
+                    playerInput.out.println("DICE ALREADY USED TRY AGAIN");
+                } else {
+                    valid=true;
+                }
+                break;
+            }
+
+        if(valid) {
+        if(choice.equals(RAction.ACTIVATECARD)) {
+            x = new ActivateCardAction(diceNo, discNo);
+        } else if(choice.equals(RAction.LAYCARD)) {
+            x = new LayCardAction(cardNo, discNo);
+        } else if(choice.equals(RAction.TAKECARD)) {
+            x = new TakeCardAction(diceNo);
+        } else if(choice.equals(RAction.TAKEMONEY)) {
+            x = new TakeMoneyAction(diceNo);
+        } else if(choice.equals(RAction.ENDTURN)) {
+            x = new EndTurnAction();
+        }
+
+        }
+
+    }
+    return x;
+    }
 
     public <S> S authenticatedReturn(AuthToken tk, S s) {
         return (authenticateToken(tk))?s : null;

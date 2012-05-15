@@ -28,4 +28,12 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
    public ViewableDiceCup(int n) {
         super(n);
     }
+        public
+    boolean isNthUsed(int diceNo) {
+        return dice.get(diceNo).isUsed();
+    }
+    public int getNth(int diceNo) {
+
+        return dice.get(diceNo).getScore();
+    }
 }

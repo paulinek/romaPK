@@ -1,6 +1,7 @@
 package net.panda2.roma.game;
 
 import net.panda2.CollectionHelper;
+import net.panda2.roma.action.RAction;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.game.exception.RomaInputException;
 
@@ -37,19 +38,18 @@ public class PlayerInteractor {
     }
 
     static    String defaultPrompt = "What would you like to do?";
-    static String[] actionChoices = {"LAYCARD", "TAKEMONEY", "TAKECARD", "ACTIVATECARD", "BRIBEACTIVATE", "END"};
+    static RAction[] actionChoices = {RAction.TAKECARD, RAction.TAKEMONEY,RAction.LAYCARD, RAction.ACTIVATECARD, RAction.ENDTURN};
     static String[] noYes = {"NO", "YES"};
 
     public int number (int fromRange, int toRange) throws RomaInputException {
         return readNumber(defaultPrompt, fromRange, toRange);
     }
-    public int readNumber(String prompt, int min, int max) throws RomaInputException {
+    public int readNumber(String prompt, int min, int max) {
 
-        out.print(prompt);
-        int num = s.nextInt();
-        if (num < min || num > max) {
-            throw new RomaInputException("Out of bounds input");
-
+        int num = min-1;
+        while (num < min || num > max) {
+            out.print(prompt);
+            num = s.nextInt();
         }
         return num;
     }
@@ -62,10 +62,14 @@ public class PlayerInteractor {
         return (choice(prompt, noYes) > 0);
     }
 
-    public int choice() {
-        return choice(defaultPrompt, actionChoices);
+    public RAction choice() {
+        return (RAction) choice(defaultPrompt, actionChoices);
     }
 
+    public Object choice(String prompt, Object[] choices) {
+        return choice(prompt, CollectionHelper.arrayToarrayList(choices));
+
+    }
     public int choice(String prompt, String[] choices) {
         return choice(prompt, CollectionHelper.arrayToarrayList(choices));
 
@@ -119,7 +123,7 @@ public class PlayerInteractor {
         out.println();
 
     }
-    private void printPlayerGameView(PlayerGameView gv) {
+    public void printPlayerGameView(PlayerGameView gv) {
         out.println("Roma (" + gv.getStashVPs() + " left)");
         out.println("You have " + gv.getMyVPs() + " VPs");
         printCardviewList("Your opponent", gv.opponent);
@@ -135,4 +139,5 @@ public class PlayerInteractor {
     }
         out.println();
     }
+
 }

@@ -25,15 +25,26 @@ public class RingInteger {
         this.max = max;
         i=min;
     }
-
+public
     int inc() {
+        i = next();
+    return i;
+}
+    public
+    int next() {
+       int i = this.i;
         i++;
         if(i > max) {
             i=min;
         }
         return i;
     }
-    int dec() {
+    public int dec() {
+        i = prev();
+        return i;
+    }
+    public int prev() {
+        int i=this.i;
         i--;
         if(i < min) {
 
@@ -41,13 +52,13 @@ public class RingInteger {
         }
         return i;
     }
-    int set(int i) {
+    public int set(int i) {
         checkPositionIndex(i, max);
         checkArgument(i>=min);
         this.i=i;
         return this.i;
     }
-    int get() {
+    public int get() {
         return i;
     }
 }
