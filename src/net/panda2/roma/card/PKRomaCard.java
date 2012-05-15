@@ -7,7 +7,7 @@ package net.panda2.roma.card;
  * Time: 5:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public  class RomaCard extends ActiveCard {
+public  class PKRomaCard extends ActiveCard {
 
 
     String title;
