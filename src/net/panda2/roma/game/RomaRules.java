@@ -10,25 +10,24 @@ package net.panda2.roma.game;
 public class RomaRules {
     // initialisation
     // Number of Players
-    public final int numPlayers = 2;
+    public  int numPlayers = 2;
     //VP
-    public final int playerInitVP = 10;
-    public final int tableInitVP = 16;
+    public  int playerInitVP = 10;
+    public  int tableInitVP = 16;
 
-    public final int gameTotalVP = 36;
+    public  int gameTotalVP = 36;
 
-    // cards
-    public final int LegatCount = 2;
-    public final int  LegatDefense = 5;
-    public final int LegatCost = 2;
-    // phases
+     // phases
 
     // victory conditions / endgame
-    public final int minVP = 0;
+    public  int minVP = 0;
 
     // how many card slots / dice discs there are
     // these two should always be the same!
-    public final int diceSize = 6;
-    public final int diceDiscs = 6;
-    public final int nDice = 3;
+    public  int diceSize = 6;
+    public  int diceDiscs = 6;
+    public  int nDice = 3;
+    public  int playerInitSest = 10;
+    public int playerInitCards=4;
+    public  int playerInitTrade=2;
 }

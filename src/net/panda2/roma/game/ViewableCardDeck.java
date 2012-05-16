@@ -6,8 +6,11 @@ import net.panda2.roma.card.NullCardView;
 import net.panda2.roma.card.PJRomaCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+
+import static com.google.common.base.Preconditions.checkElementIndex;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +19,7 @@ import java.util.Vector;
  * Time: 1:25 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ViewableCardDeck extends CardDeck<PJRomaCard> {
+public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCardCollection {
     public ViewableCardDeck(AuthToken tk) {
         super(tk);
     }
@@ -69,5 +72,23 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> {
 
     public int numCards() {
         return cards.size();
+    }
+
+
+    public void giveTo(ViewableCardDeck toHand, List<Integer> cardChoice) {
+        Collections.sort(cardChoice, Collections.reverseOrder());
+        for(Integer i:cardChoice) {
+               giveTo(toHand, i.intValue());
+
+        }
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public void giveTo(ViewableCardDeck toHand, int i) {
+        checkElementIndex(i, numCards());
+        PJRomaCard c = cards.get(i);
+        cards.remove(i);
+        toHand.addCard(c);
+
     }
 }

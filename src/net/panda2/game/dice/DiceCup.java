@@ -10,7 +10,7 @@ import static com.google.common.base.Preconditions.checkElementIndex;
  * Time: 11:47 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DiceCup<D> {
+public class DiceCup<D extends  Dice> {
     protected ArrayList<D> dice;
     protected int ndice;
     public DiceCup(int n) {
@@ -21,7 +21,7 @@ public class DiceCup<D> {
     public void roll() {
         for(D d: dice) {
 
-            ((Dice)d).roll();
+            d.roll();
         }
     }
 

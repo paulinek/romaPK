@@ -42,6 +42,6 @@ public class CardView {
     }
 
     public String getPrintable() {
-    return name + "(" + price + ","+defense;
+    return name + "(" + price + ","+defense + ")";
     }
 }

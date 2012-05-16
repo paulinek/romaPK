@@ -21,7 +21,10 @@ public class StashFactory <S extends Stash>{
     ArrayList<S> stashes;
     int maximum;
     int allocatedAmt;
-    public StashFactory(int maximum) {
+    S proto;
+
+    public StashFactory(int maximum, S prototype) {
+        proto = prototype;
         stashes = new ArrayList<S>();
         this.maximum = maximum;
         allocatedAmt =0;
@@ -32,7 +35,8 @@ public class StashFactory <S extends Stash>{
     public S make(int initialAmt, int minAmt) {
 
         S s;
-        s = (S) S.createStash(initialAmt, minAmt);
+        Object x = proto.duplicate(initialAmt, minAmt);
+        s = (S) x;
         allocatedAmt += initialAmt;
         stashes.add(s);
         return s;

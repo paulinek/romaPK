@@ -1,10 +1,13 @@
 package net.panda2.roma.game;
 
+import net.panda2.RingInteger;
 import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.ViewableTableau;
 import net.panda2.roma.game.exception.RomaException;
 import net.panda2.roma.game.exception.RomaUnAuthException;
+
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkElementIndex;
 
@@ -65,6 +68,7 @@ public class GameEngine {
     }
 
     public void RunGame() {
+        initialPhase();
  try{
      while(!gs.gameOver) {
          phaseOne();
@@ -77,11 +81,42 @@ public class GameEngine {
     }
     }
 
+    void dealTo(PlayerState p) {
+        p.hand.addCard(gs.maindeck.dealCard());
+    }
+
 
     // phases
     // phase one has no user input
     // phase two asks the user if they want to reroll under certain circumstances
     // phase 3 lets the user do actions
+
+    void initialPhase() {
+        gs.maindeck.shuffleDeck();
+        initialDeal();
+        initialTrade();
+
+    }
+    void initialDeal() {
+        for(int i = 0; i < ruleSet.playerInitCards; i++) {
+            for(int p = 0; i < ruleSet.numPlayers; i++) {
+                dealTo(gs.player[p]);
+            }
+        }
+    }
+    void initialTrade() {
+        List<Integer> []cardChoices = new List[ruleSet.numPlayers];
+        for(int p=0; p < ruleSet.numPlayers; p++) {
+
+            cardChoices[p] = playerInput.selectNCards("Player "+  p + ": Which cards would you like to trade", gs.player[p].hand, ruleSet.playerInitTrade);
+
+        }
+        RingInteger rp = new RingInteger(ruleSet.numPlayers);
+        for(int p = 0; p < ruleSet.numPlayers; p++) {
+            gs.player[p].hand.giveTo(gs.player[rp.set(p).next()].hand, cardChoices[p]);
+        }
+    }
+
     void phaseOne() throws RomaGameEndException {
         PlayerState p = gs.currentPlayer();
         // numEmpty returns how many of the diceDisc card slots are empty
@@ -96,6 +131,7 @@ public class GameEngine {
         while(!playerHappy) {
                 p.dice.roll();
             if(p.dice.allSame()) {
+                playerInput.printDiceList("Are you happy with these dice?", p.dice.getDiceView());
                 playerHappy=playerInput.yesOrNo("Are you happy with these dice?");
             } else {
                // you will roll your dice, comrade, and LIKE THEM!

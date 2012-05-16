@@ -5,7 +5,7 @@ import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
 import net.panda2.roma.game.exception.RomaException;
 
-public abstract class PJRomaCard extends ActiveCard{
+public abstract class PJRomaCard extends ActiveCard implements Cloneable{
 	
 	 String name;
 	 int price;

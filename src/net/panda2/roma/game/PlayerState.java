@@ -13,17 +13,20 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class PlayerState {
-    Stash vp;
+    VPStash vp;
     GameEngine ge;
     ViewableCardDeck hand;
-    int money;
+    MoneyStash money;
     ViewableDiceCup dice;
     ViewableTableau diceDiscCards;
 
-    public PlayerState(RomaRules rules, GameEngine ge) {
-        vp = Stash.createStash(rules.playerInitVP, rules.minVP);
+    public PlayerState(RomaRules rules, GameEngine ge, StashFactory<VPStash> VPrepository, StashFactory<MoneyStash> MoneyRepository) {
         this.ge = ge;
-        dice = new ViewableDiceCup(rules.nDice);
+        vp = VPrepository.make(rules.playerInitVP, rules.minVP);
+        money = MoneyRepository.make(rules.playerInitSest);
+        dice = new ViewableDiceCup(rules.nDice, rules.diceSize);
+        diceDiscCards = new ViewableTableau(rules.diceDiscs);
+        hand = new ViewableCardDeck();
     }
 
 

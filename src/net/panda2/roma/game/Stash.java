@@ -7,18 +7,29 @@ package net.panda2.roma.game;
  * Time: 4:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Stash {
+public  class Stash implements Cloneable{
     int amount;
     int minAmt;
 
-    private Stash(int initial, int minAmt){
+
+    Stash(int initial, int minAmt){
+    setup(initial,minAmt);
+    }
+    void setup(int initial, int minAmt) {
         amount=initial;
         this.minAmt =minAmt;
 
     }
 
-    static Stash createStash(int initial, int minAmt) {
-        return new Stash(initial, minAmt);
+    public Stash duplicate(int initial, int minAmt) {
+        Stash s = null;
+        try {
+            s = (Stash) this.clone();
+            s.setup(initial, minAmt);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    return s;
     }
 
     public int getAmount(){
@@ -50,9 +61,12 @@ public boolean transferAway(Stash to, int amt, AuthToken tk) throws RomaGameEndE
 }
 
 
-
-
-
-
+    public void giveAway(Stash to) {
+        try {
+            transferAway(to, amount);
+        } catch (RomaGameEndException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 }
 

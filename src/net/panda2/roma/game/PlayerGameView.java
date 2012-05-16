@@ -57,10 +57,13 @@ public
     PlayerGameView(GameState gs) {
         PlayerState p
                = gs.currentPlayer();
-
-        setup(gs.tabletopVPStockpile.getAmount(),
-                p.vp.getAmount(), gs.getNextPlayer().getDiscView(), p.getDiscView(), p.dice.getDiceView(),p.hand.getCardView());
+        List<CardView> opponentHand = gs.getNextPlayer().getDiscView();
+        List<CardView> myTab = p.getDiscView();
+        List<DiceView> myDice = p.dice.getDiceView();
+        List<CardView> myHand = p.hand.getCardView();
+        setup(gs.tabletopVPStockpile.getAmount(), p.vp.getAmount(), opponentHand, myTab, myDice, myHand);
     }
+
     int stashVPs;
      int myVPs;
      List<CardView> opponent;

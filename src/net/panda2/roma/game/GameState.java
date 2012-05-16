@@ -19,8 +19,9 @@ public class GameState {
     int numPlayers;
     PlayerState player[];
     RingInteger playerNo;
-    StashFactory vpStash;
-    Stash tabletopVPStockpile;
+    StashFactory<VPStash> vpStash;
+    StashFactory<MoneyStash> moneyStash;
+    VPStash tabletopVPStockpile;
     ViewableCardDeck maindeck, discard;
     GameEngine ge;
     RomaRules ruleset;
@@ -28,6 +29,7 @@ public class GameState {
 
     Tableau<PJRomaCard> diceDiscs;
     DiceCollection battleDice;
+    MoneyStash moneyPile;
 
     public PJRomaCard dealRandomCard(AuthToken tk) {
         if(ge.authenticateToken(tk)) {
@@ -73,9 +75,11 @@ public class GameState {
         // create a new net.panda2.roma.game.PlayerState object for each of numPlayers
         int i;
 
-
+        // create stashes (so that piles can be created later
+        vpStash = new StashFactory<VPStash>(ruleSet.gameTotalVP, VPStash.createStash(0,0));
+        moneyStash = new StashFactory<MoneyStash>(Integer.MAX_VALUE, MoneyStash.createStash(0,0));
         for (i=0; i<numPlayers; i++){
-            player[i]=new PlayerState(ruleSet, ge);
+            player[i]=new PlayerState(ruleSet, ge,vpStash,moneyStash);
         }
         // seed stockpile with init VP
         tabletopVPStockpile=vpStash.make(ruleSet.tableInitVP, ruleSet.minVP);

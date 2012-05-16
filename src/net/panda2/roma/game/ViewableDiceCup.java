@@ -25,8 +25,11 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
     ActionDice d = dice.get(diceNo);
    return d.fiddle(amt);
    }
-   public ViewableDiceCup(int n) {
+   public ViewableDiceCup(int n, int nsides) {
         super(n);
+       for(int i = 0; i < n; i++) {
+           dice.add(new ActionDice(nsides));
+       }
     }
         public
     boolean isNthUsed(int diceNo) {

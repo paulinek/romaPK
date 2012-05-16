@@ -1,6 +1,7 @@
 package net.panda2.roma.card;
 
 import net.panda2.game.card.Tableau;
+import net.panda2.roma.game.ViewableCardCollection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * Time: 1:20 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ViewableTableau extends Tableau<PJRomaCard>{
+public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCardCollection{
     public ViewableTableau(int slots) {
         super(slots);
     }

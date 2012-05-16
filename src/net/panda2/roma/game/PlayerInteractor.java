@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -65,7 +67,6 @@ public class PlayerInteractor {
     public RAction choice() {
         return (RAction) choice(defaultPrompt, actionChoices);
     }
-
     public Object choice(String prompt, Object[] choices) {
         return choice(prompt, CollectionHelper.arrayToarrayList(choices));
 
@@ -83,7 +84,6 @@ public class PlayerInteractor {
         }
         out.println();
     }
-
     public int choice(String prompt, List<String> choices) {
         ArrayList<String> lc = new ArrayList<String>(choices.size());
         for(String s:choices) {
@@ -100,7 +100,6 @@ public class PlayerInteractor {
             }
         }
     }
-
     public Object choice(String prompt, List<Object> choices) {
         ArrayList<String> choiceStrings = new ArrayList<String>(choices.size());
         for(Object o: choices) {
@@ -110,13 +109,14 @@ public class PlayerInteractor {
     }
 
     private void printCardviewList(List<CardView> cv) {
-        for(CardView c : cv) {
+        for(int i=0; i < cv.size(); i++) {
+            CardView c = cv.get(i);
+            out.print("C" + i + " :");
             out.print(c.getPrintable());
             out.print(" | ");
         }
 
     }
-
     private void printCardviewList(String header, List<CardView> cv) {
         out.print(header);
         printCardviewList(cv);
@@ -132,7 +132,7 @@ public class PlayerInteractor {
         printDiceList("Your dice", gv.getMydice());
     }
 
-    private void printDiceList(String s, List<DiceView> mydice) {
+    public void printDiceList(String s, List<DiceView> mydice) {
     out.print(s);
     for(DiceView dv: mydice) {
         out.print(dv.getPrintable());
@@ -140,4 +140,22 @@ public class PlayerInteractor {
         out.println();
     }
 
+    public List<Integer> selectNCards(String s, ViewableCardCollection hand, int howMany) {
+    List<Integer> ret = new ArrayList<Integer>() {};
+    int left=howMany;
+    List<CardView> handView = hand.getCardView();
+        while(left > 0) {
+            out.println(s);
+            out.println(left + " cards left to choose");
+            printCardviewList(handView);
+            Integer choice = new Integer(readNumber("", 0, handView.size()-1));
+            if(!ret.contains(choice))
+            {
+            ret.add(choice);
+            left--;
+            }
+        }
+        checkArgument(howMany == ret.size());
+    return ret;
+    }
 }

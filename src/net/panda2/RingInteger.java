@@ -52,11 +52,11 @@ public
         }
         return i;
     }
-    public int set(int i) {
+    public RingInteger set(int i) {
         checkPositionIndex(i, max);
         checkArgument(i>=min);
         this.i=i;
-        return this.i;
+        return this;
     }
     public int get() {
         return i;

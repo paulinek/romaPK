@@ -17,7 +17,9 @@ public class Tableau<E extends Card> {
     protected int size;
     public Tableau(int slots) {
         cards = new ArrayList<E>(slots);
-
+        for(int i = 0; i < slots; i++) {
+            cards.add(null);
+        }
     }
 
    public int numEmpty() {
