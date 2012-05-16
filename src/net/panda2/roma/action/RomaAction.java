@@ -11,12 +11,15 @@ public abstract class RomaAction {
     int diceNo;
     int cardNo;
     int discNo;
+int cost;
 
     protected RomaAction(int diceNo) {
+        cost=0;
         this.diceNo = diceNo;
     }
 
     protected RomaAction(int cardNo, int discNo) {
+        cost=0;
         this.cardNo = cardNo;
         this.discNo = discNo;
     }
@@ -36,4 +39,5 @@ public abstract class RomaAction {
     public int getDiscNo() {
         return discNo;
     }
+
 }

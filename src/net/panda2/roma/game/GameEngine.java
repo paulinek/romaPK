@@ -3,10 +3,10 @@ package net.panda2.roma.game;
 import net.panda2.RingInteger;
 import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
-import net.panda2.roma.card.ViewableTableau;
 import net.panda2.roma.game.exception.RomaException;
 import net.panda2.roma.game.exception.RomaUnAuthException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkElementIndex;
@@ -95,11 +95,52 @@ public class GameEngine {
         gs.maindeck.shuffleDeck();
         initialDeal();
         initialTrade();
+        initialLay();
 
     }
+
+    private void initialLay() {
+        //To change body of created methods use File | Settings | File Templates.
+        List<LayCardAction> cards[ ] = new List[ruleSet.numPlayers];
+
+        for(int p = 0; p < ruleSet.numPlayers; p++) {
+            playerInput.say("Player " + p + "'s turn");
+            cards[p] = new ArrayList<LayCardAction>();
+            for(int i = 0; i < ruleSet.playerInitCards; i++) {
+                cards[p].add(playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].diceDiscCards, true));
+            }
+
+        }
+        for(int p = 0; p < ruleSet.numPlayers; p++) {
+            for(LayCardAction l : cards[p]) {
+                try {
+                    doAction(p, l);
+                } catch (RomaGameEndException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+        }
+
+    }
+
+    private void doAction(int player, RomaAction action) throws RomaGameEndException {
+        if(action instanceof LayCardAction) {
+            int cost;
+            if(((LayCardAction) action).isFree()) {
+                cost = 0;
+            } else {
+                cost = gs.player[player].hand.getCard(action.getCardNo()).getPrice();
+            }
+            gs.player[player].layCard(action.getCardNo(), action.getDiscNo());
+            gs.player[player].money.transferAway(gs.moneyPile, cost);
+        }
+
+    }
+
+
     void initialDeal() {
         for(int i = 0; i < ruleSet.playerInitCards; i++) {
-            for(int p = 0; i < ruleSet.numPlayers; i++) {
+            for(int p = 0; p < ruleSet.numPlayers; p++) {
                 dealTo(gs.player[p]);
             }
         }
@@ -111,7 +152,7 @@ public class GameEngine {
             cardChoices[p] = playerInput.selectNCards("Player "+  p + ": Which cards would you like to trade", gs.player[p].hand, ruleSet.playerInitTrade);
 
         }
-        RingInteger rp = new RingInteger(ruleSet.numPlayers);
+        RingInteger rp = new RingInteger(ruleSet.numPlayers-1);
         for(int p = 0; p < ruleSet.numPlayers; p++) {
             gs.player[p].hand.giveTo(gs.player[rp.set(p).next()].hand, cardChoices[p]);
         }

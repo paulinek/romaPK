@@ -83,6 +83,7 @@ public class GameState {
         }
         // seed stockpile with init VP
         tabletopVPStockpile=vpStash.make(ruleSet.tableInitVP, ruleSet.minVP);
+        moneyPile = moneyStash.make(Integer.MAX_VALUE-65536);
 
         if (sanityCheckInitVPTotal(ruleSet)!=true){
             throw new RomaException("Sanity Check Failed: VP init doesn't add up");

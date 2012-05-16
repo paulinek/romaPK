@@ -8,8 +8,20 @@ package net.panda2.roma.action;
  * To change this template use File | Settings | File Templates.
  */
 public class LayCardAction extends RomaAction {
+    boolean free;
+
+
+    public LayCardAction(int handCardNo, int discNo, boolean free) {
+        super(handCardNo, discNo);
+        this.free = free;
+    }
 
     public LayCardAction(int handCardNo, int discNo) {
         super(handCardNo, discNo);
+        this.free = false;
     }
+    public boolean isFree() {
+        return free;
+    }
+
 }

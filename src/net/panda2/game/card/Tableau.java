@@ -14,7 +14,6 @@ public class Tableau<E extends Card> {
     // This class is essentially a specialised array
 
     protected ArrayList<E> cards;
-    protected int size;
     public Tableau(int slots) {
         cards = new ArrayList<E>(slots);
         for(int i = 0; i < slots; i++) {
@@ -31,15 +30,15 @@ public class Tableau<E extends Card> {
         return n;
     }
     public E get(int n) {
- checkElementIndex(n, size);
+ checkElementIndex(n, cards.size());
 
             return(cards.get(n));
 
          }
     public void set(int n, E e) {
-        if(n >= 0 && n < size) {
-            cards.set(n,e);
-        }
+ checkElementIndex(n, cards.size());
+        cards.set(n,e);
+
 
         // fail silently
     }

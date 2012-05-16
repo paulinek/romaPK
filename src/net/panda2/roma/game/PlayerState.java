@@ -51,4 +51,12 @@ public class PlayerState {
     if(ge.authenticateToken(tk))
         hand.addCard(c);
     }
+
+    public void layCard(int cardNo, int discNo) {
+
+        if(diceDiscCards.get(discNo) != null) {
+            diceDiscCards.discard(discNo, ge.gs.discard);
+        }
+   hand.layCard(cardNo, diceDiscCards, discNo);
+    }
 }

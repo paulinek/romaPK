@@ -57,4 +57,9 @@ public abstract class PJRomaCard extends ActiveCard implements Cloneable{
             return null;
         }
     }
+
+    // TODO - work out how to make this not public
+    public void addDefenseOffset(int i) {
+        defenseOffset+=i;
+    }
 }

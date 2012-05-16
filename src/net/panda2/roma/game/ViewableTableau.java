@@ -1,10 +1,14 @@
-package net.panda2.roma.card;
+package net.panda2.roma.game;
 
 import net.panda2.game.card.Tableau;
-import net.panda2.roma.game.ViewableCardCollection;
+import net.panda2.roma.card.CardView;
+import net.panda2.roma.card.NullCardView;
+import net.panda2.roma.card.PJRomaCard;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,8 +38,13 @@ public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCard
     public void reduceDefense(int amt) {
         for(PJRomaCard c: cards) {
                 if(c != null) {
-                     c.defenseOffset -= 2;
+                     c.addDefenseOffset(-2);
                 }
         }
+    }
+    void setCard(int disc, PJRomaCard c) {
+        checkArgument(cards.get(disc) == null);
+        set(disc, c);
+
     }
 }

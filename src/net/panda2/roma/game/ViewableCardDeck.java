@@ -74,6 +74,9 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         return cards.size();
     }
 
+    public PJRomaCard getCard(int i) {
+        return cards.get(i);
+    }
 
     public void giveTo(ViewableCardDeck toHand, List<Integer> cardChoice) {
         Collections.sort(cardChoice, Collections.reverseOrder());
@@ -89,6 +92,14 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         PJRomaCard c = cards.get(i);
         cards.remove(i);
         toHand.addCard(c);
+
+    }
+
+    public void layCard(int cardNo, ViewableTableau tb, int toCardNo) {
+        checkElementIndex(cardNo, numCards());
+        PJRomaCard c = cards.get(cardNo);
+        cards.remove(cardNo);
+        tb.setCard(toCardNo, c);
 
     }
 }

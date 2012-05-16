@@ -1,6 +1,7 @@
 package net.panda2.roma.game;
 
 import net.panda2.CollectionHelper;
+import net.panda2.roma.action.LayCardAction;
 import net.panda2.roma.action.RAction;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.game.exception.RomaInputException;
@@ -146,8 +147,8 @@ public class PlayerInteractor {
     List<CardView> handView = hand.getCardView();
         while(left > 0) {
             out.println(s);
-            out.println(left + " cards left to choose");
             printCardviewList(handView);
+            out.println(left + " cards left to choose");
             Integer choice = new Integer(readNumber("", 0, handView.size()-1));
             if(!ret.contains(choice))
             {
@@ -158,4 +159,21 @@ public class PlayerInteractor {
         checkArgument(howMany == ret.size());
     return ret;
     }
+
+    public LayCardAction getLayCardAction(String s, ViewableCardCollection hand, ViewableCardCollection tab, boolean free) {
+        List<CardView> handView = hand.getCardView();
+        List<CardView> tabView = tab.getCardView();
+
+        out.println(s);
+        printCardviewList(handView);
+       Integer choice = new Integer(readNumber("", 0, handView.size()-1));
+       out.println("Dice disc?");
+        printCardviewList(tabView);
+        Integer choice2 = new Integer(readNumber("", 1, tabView.size())-1);
+
+    return new LayCardAction(choice.intValue(), choice2.intValue(), free);
+    }
+
+    public void say(String s) {
+    out.println(s);}
 }
