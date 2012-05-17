@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Roma_PK_Refactor:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Roma_PK_Refactor_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="PJ_Roma:jar">
+    <output-path>$USER_HOME$/Dropbox/2911/acceptance/testee</output-path>
     <root id="archive" name="Roma_PK_Refactor.jar">
       <element id="module-output" name="PJ_Roma" />
     </root>
