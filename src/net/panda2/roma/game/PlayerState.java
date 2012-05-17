@@ -19,9 +19,15 @@ public class PlayerState {
     MoneyStash money;
     ViewableDiceCup dice;
     ViewableTableau diceDiscCards;
+    String playerName;
 
-    public PlayerState(RomaRules rules, GameEngine ge, StashFactory<VPStash> VPrepository, StashFactory<MoneyStash> MoneyRepository) {
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public PlayerState(RomaRules rules, GameEngine ge, String playerName, StashFactory<VPStash> VPrepository, StashFactory<MoneyStash> MoneyRepository) {
         this.ge = ge;
+        this.playerName = playerName;
         vp = VPrepository.make(rules.playerInitVP, rules.minVP);
         money = MoneyRepository.make(rules.playerInitSest);
         dice = new ViewableDiceCup(rules.nDice, rules.diceSize);

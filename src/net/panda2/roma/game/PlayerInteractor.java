@@ -66,8 +66,14 @@ public class PlayerInteractor {
     }
 
     public RAction choice() {
-        return (RAction) choice(defaultPrompt, actionChoices);
+        return (RAction) choice(defaultPrompt);
     }
+
+    public RAction choice(String prompt) {
+        return (RAction) choice(prompt, actionChoices);
+    }
+
+
     public Object choice(String prompt, Object[] choices) {
         return choice(prompt, CollectionHelper.arrayToarrayList(choices));
 
@@ -109,27 +115,29 @@ public class PlayerInteractor {
         return choices.get(choice(prompt, choiceStrings));
     }
 
-    private void printCardviewList(List<CardView> cv) {
+    private void printCardviewList(List<CardView> cv, int offset, String d) {
+
         for(int i=0; i < cv.size(); i++) {
             CardView c = cv.get(i);
-            out.print("C" + i + " :");
+            out.print(d + (i + offset)+ " :");
             out.print(c.getPrintable());
             out.print(" | ");
         }
 
     }
-    private void printCardviewList(String header, List<CardView> cv) {
+    private void printCardviewList(String header, List<CardView> cv, int offset, String d) {
         out.print(header);
-        printCardviewList(cv);
+        printCardviewList(cv, offset,d);
         out.println();
 
     }
+
     public void printPlayerGameView(PlayerGameView gv) {
         out.println("Roma (" + gv.getStashVPs() + " left)");
         out.println("You have " + gv.getMyVPs() + " VPs");
-        printCardviewList("Your opponent", gv.opponent);
-        printCardviewList("You", gv.getMydiscs());
-        printCardviewList("Your hand", gv.getMyhand());
+        printCardviewList("Your opponent", gv.opponent, 1, "D");
+        printCardviewList("You", gv.getMydiscs(), 1, "D");
+        printCardviewList("Your hand", gv.getMyhand(), 1, "C");
         printDiceList("Your dice", gv.getMydice());
     }
 
@@ -147,7 +155,7 @@ public class PlayerInteractor {
     List<CardView> handView = hand.getCardView();
         while(left > 0) {
             out.println(s);
-            printCardviewList(handView);
+            printCardviewList(handView, 1, "C");
             out.println(left + " cards left to choose");
             Integer choice = new Integer(readNumber("", 0, handView.size()-1));
             if(!ret.contains(choice))
@@ -165,10 +173,10 @@ public class PlayerInteractor {
         List<CardView> tabView = tab.getCardView();
 
         out.println(s);
-        printCardviewList(handView);
-       Integer choice = new Integer(readNumber("", 0, handView.size()-1));
+        printCardviewList(handView, 1, "C");
+       Integer choice = new Integer(readNumber("", 1, handView.size())-1);
        out.println("Dice disc?");
-        printCardviewList(tabView);
+        printCardviewList(tabView, 1, "D");
         Integer choice2 = new Integer(readNumber("", 1, tabView.size())-1);
 
     return new LayCardAction(choice.intValue(), choice2.intValue(), free);

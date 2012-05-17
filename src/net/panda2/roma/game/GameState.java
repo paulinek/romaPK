@@ -79,7 +79,7 @@ public class GameState {
         vpStash = new StashFactory<VPStash>(ruleSet.gameTotalVP, VPStash.createStash(0,0));
         moneyStash = new StashFactory<MoneyStash>(Integer.MAX_VALUE, MoneyStash.createStash(0,0));
         for (i=0; i<numPlayers; i++){
-            player[i]=new PlayerState(ruleSet, ge,vpStash,moneyStash);
+            player[i]=new PlayerState(ruleSet, ge,"Player"+i, vpStash,moneyStash);
         }
         // seed stockpile with init VP
         tabletopVPStockpile=vpStash.make(ruleSet.tableInitVP, ruleSet.minVP);
@@ -90,7 +90,7 @@ public class GameState {
         }
         maindeck = new ViewableCardDeck();
         discard = new ViewableCardDeck();
-        CardFactory.createInitialCards(maindeck);
+        FredCardFactory.createInitialCards(maindeck);
         diceDiscs = new Tableau<PJRomaCard>(ruleSet.diceDiscs);
         battleDice = new DiceCollection();  // TODO - parameterise this
         //

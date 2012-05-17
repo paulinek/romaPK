@@ -1,0 +1,44 @@
+Roma design:
+
+RomaGame:
+- instantiates a GameEngine with the default interactive console and starts it
+
+GameEngine / GameState / PlayerState
+These two implement the game as a whole.  The only methods in GameState are getter/setters and verifiers;
+any "active" methods go into GameEngine.  per player state goes into PlayerState.
+
+Most methods are package-private.  Public functions which can potentially be used to cheat are protected with an
+AuthenticationToken;  the game engine hands these out to classes (usually cards) outside the package which need to
+things that are potentially cheating.  right now the authentication tokens are static but they could be dynamically changing and use-once-only.
+
+PlayerInteractor:
+This handles most of the sending messages to the player agents and reading of commands.  Right now it's pretty
+tightly bound to a console (there is an inputstream and outputstream;  these default to System.in and System.out) so
+it could be played over the network but a further improvement could be an established AI protocol.
+
+also this is where the MoveMaker acceptance test ties in.
+
+
+Cards:
+All cards inherit from PJRomaCard through either CharacterCard or BuildingCard.  The primary thing that cards have to
+implement are:
+- constructor:  super(string name, int cost, int defense)
+- activate:  is handed a GameEngine object, an ActionData object, and an authenticationToken.  the cards do their own
+actions although there are a lot of helper functions.
+
+
+ActionData:
+- whichDiceDisc - says which dice disc the card is currently on
+- stack - a stack of integers which are the card's inputs.  almost all cards can have their data set up before they
+execute.  the exception is Centurion which is interactive (roll, then possibly add stuff).
+
+
+Initial Phase (set up the board) - working
+Phase 1 (penalise for open discs) - Working
+Phase 2 (roll die and offer rerolls) - Working
+Phase 3
+- still needs to be tested
+- the gamestate is encapsulated into a PlayerGameView object
+- commands are parsed and come back as RomaAction objects
+
+

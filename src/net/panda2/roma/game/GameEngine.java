@@ -77,9 +77,27 @@ public class GameEngine {
          gs.playerNo.inc();
      }
  }  catch (RomaGameEndException e) {
-     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
+    // the game is over!
+
+        endOfGame();
     }
     }
+
+    private void endOfGame() {
+        PlayerState winnerSoFar = null;
+        for(PlayerState p:gs.player) {
+            if(winnerSoFar == null) {
+                winnerSoFar = p;
+            } else if(winnerSoFar.vp.amount < p.vp.amount) {
+                winnerSoFar = p;
+            }
+        }
+        if(winnerSoFar != null) {
+            playerInput.say(winnerSoFar.playerName + " WINS THE GAME");
+        }
+    }
+
 
     void dealTo(PlayerState p) {
         p.hand.addCard(gs.maindeck.dealCard());
@@ -107,33 +125,40 @@ public class GameEngine {
             playerInput.say("Player " + p + "'s turn");
             cards[p] = new ArrayList<LayCardAction>();
             for(int i = 0; i < ruleSet.playerInitCards; i++) {
-                cards[p].add(playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].diceDiscCards, true));
-            }
-
-        }
-        for(int p = 0; p < ruleSet.numPlayers; p++) {
-            for(LayCardAction l : cards[p]) {
                 try {
-                    doAction(p, l);
-                } catch (RomaGameEndException e) {
+                    doAction(gs.player[p],playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].diceDiscCards, true));
+                } catch (RomaException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
             }
-        }
 
+        }
     }
 
-    private void doAction(int player, RomaAction action) throws RomaGameEndException {
-        if(action instanceof LayCardAction) {
-            int cost;
-            if(((LayCardAction) action).isFree()) {
-                cost = 0;
-            } else {
-                cost = gs.player[player].hand.getCard(action.getCardNo()).getPrice();
-            }
-            gs.player[player].layCard(action.getCardNo(), action.getDiscNo());
-            gs.player[player].money.transferAway(gs.moneyPile, cost);
+    private void doAction(PlayerState playerState, RomaAction action) throws RomaException {
+
+        if(action instanceof ActivateCardAction) {
+            PJRomaCard c = playerState.diceDiscCards.get(action.getDiceNo());
+
+            c.activate(this, masterToken, action.getActionData());
+
+    } else if(action instanceof LayCardAction) {
+        int cost;
+        if(((LayCardAction) action).isFree()) {
+            cost = 0;
+        } else {
+            cost = playerState.hand.getCard(action.getCardNo()).getPrice();
         }
+        playerState.layCard(action.getCardNo(), action.getDiscNo());
+        playerState.money.transferAway(gs.moneyPile, cost);
+
+    } else if(action instanceof TakeCardAction) {
+
+    } else if(action instanceof  TakeMoneyAction) {
+
+    } else if(action instanceof EndTurnAction) {
+    }
+
 
     }
 
@@ -181,13 +206,22 @@ public class GameEngine {
         }
     }
 
-    void phaseThree() {
+    void phaseThree() throws RomaGameEndException {
         boolean ended = false;
         while(!ended) {
 
 
         PlayerGameView gv = new PlayerGameView(gs);
-        ActionData d = playerPhaseThree(gv, gs.currentPlayer());
+            try {
+                 ended = playerPhaseThree(gv, gs.currentPlayer());
+            }
+            catch
+             (RomaException e) {
+                if(e instanceof RomaGameEndException) {
+                    throw (RomaGameEndException) e;
+                }
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
         }
     }
 
@@ -200,26 +234,20 @@ public class GameEngine {
     // so that players (which may need to have access to the gameengine object) cannot call any destructive or privacy invading
     // public functions
 
-    ActionData playerPhaseThree(PlayerGameView gv, PlayerState playerState) {
+    boolean playerPhaseThree(PlayerGameView gv, PlayerState playerState) throws RomaException {
         ActionData da = null;
         playerInput.printPlayerGameView(gv);
         RomaAction action = getAction(gv,playerState);
         if(action != null) {
-            if(action instanceof ActivateCardAction) {
+            if(action instanceof
+         EndTurnAction) {
+                return true;
+        } else {
+                doAction(playerState, action);
+            }
 
-            } else if(action instanceof LayCardAction) {
-
-            } else if(action instanceof TakeCardAction) {
-
-            } else if(action instanceof  TakeMoneyAction) {
-
-            } else if(action instanceof EndTurnAction) {
         }
-        }else {
-            return null;
-        }
-
-         return da;
+        return false;
     }
 
     RomaAction getAction
@@ -228,7 +256,7 @@ public class GameEngine {
         RomaAction x = null;
 
         while(x == null) {
-        RAction choice = playerInput.choice();
+        RAction choice = playerInput.choice("What would "+playerState.playerName+" like to do");
         int cardNo=0, diceNo=0, discNo=0;
         boolean valid=false;
             switch(choice.mode) {
@@ -241,7 +269,7 @@ public class GameEngine {
                 valid=true;
                 break;
             case 2:
-                diceNo = playerInput.readNumber("Enter number of action die to play", 0, ruleSet.nDice);
+                diceNo = playerInput.readNumber("Enter number of action die to play", 0, ruleSet.nDice-1);
                 discNo = playerState.dice.getNth(diceNo);
                 if(playerState.dice.isNthUsed(diceNo)) {
                     playerInput.out.println("DICE ALREADY USED TRY AGAIN");
@@ -254,6 +282,12 @@ public class GameEngine {
         if(valid) {
         if(choice.equals(RAction.ACTIVATECARD)) {
             x = new ActivateCardAction(diceNo, discNo);
+            PJRomaCard c = playerState.diceDiscCards.get(discNo);
+            switch(c.dataMode) {
+                case 0:
+                    break;
+            }
+            x.setActionData(dat);
         } else if(choice.equals(RAction.LAYCARD)) {
             x = new LayCardAction(cardNo, discNo);
         } else if(choice.equals(RAction.TAKECARD)) {
@@ -337,5 +371,9 @@ public class GameEngine {
             p.hand.addCard(c);
             p.diceDiscCards.set(opponentCardNo, null);
         }
+    }
+
+    public PlayerState getNextPlayer(AuthToken tk) {
+        return authenticatedReturn(tk, gs.getNextPlayer());
     }
 }

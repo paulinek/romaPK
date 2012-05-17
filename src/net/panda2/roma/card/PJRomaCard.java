@@ -12,8 +12,9 @@ public abstract class PJRomaCard extends ActiveCard implements Cloneable{
 	 int defense;
 	 int defenseOffset;
     boolean isCharacter;
-	
-	//private DiceDisc disc;
+    public int dataMode;
+
+    //private DiceDisc disc;
 	
 	public PJRomaCard(String name, int price, int defense, boolean isCharacter) {
 		this.name = name;

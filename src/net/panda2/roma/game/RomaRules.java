@@ -20,7 +20,7 @@ public class RomaRules {
      // phases
 
     // victory conditions / endgame
-    public  int minVP = 0;
+    public  int minVP = 1;
 
     // how many card slots / dice discs there are
     // these two should always be the same!

@@ -41,7 +41,7 @@ public boolean transferAway(Stash to, int amt, AuthToken tk) throws RomaGameEndE
     return transferAway(to, amt);
 }
 
-    boolean transferAway(Stash to, int amt) throws RomaGameEndException {
+    public boolean transferAway(Stash to, int amt) throws RomaGameEndException {
 
 
     // add amt to the total at destination object

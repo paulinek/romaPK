@@ -5,7 +5,7 @@ import net.panda2.roma.card.cards.*;
 public class CardFactory {
 
 	public static void createInitialCards(ViewableCardDeck d) {
-         d.addNcards(2, new Legat( 5, 2));
+        d.addNcards(2, new Legat( 5, 2));
         d.addNcards(1, new Sicarius(9,2));
         d.addNcards(2, new Architectus(3,4));
         d.addNcards(2, new Consiliarius(4,4));

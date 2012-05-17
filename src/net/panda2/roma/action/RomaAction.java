@@ -13,6 +13,16 @@ public abstract class RomaAction {
     int discNo;
 int cost;
 
+    public ActionData getActionData() {
+        return actionData;
+    }
+
+    public void setActionData(ActionData actionData) {
+        this.actionData = actionData;
+    }
+
+    ActionData actionData;
+
     protected RomaAction(int diceNo) {
         cost=0;
         this.diceNo = diceNo;
