@@ -51,7 +51,7 @@ public class PlayerInteractor {
 
         int num = min-1;
         while (num < min || num > max) {
-            out.print(prompt);
+            speak(prompt);
             num = s.nextInt();
         }
         return num;
@@ -83,13 +83,13 @@ public class PlayerInteractor {
 
     }
     void printChoices(String prompt, List<String> choices) {
-        out.println(prompt);
-        out.print("Valid choices are: ");
+        say(prompt);
+        speak("Valid choices are: ");
         for(String s: choices) {
-            out.print(s);
-            out.print(" ");
+            speak(s);
+            speak(" ");
         }
-        out.println();
+        sayNL();
     }
     public int choice(String prompt, List<String> choices) {
         ArrayList<String> lc = new ArrayList<String>(choices.size());
@@ -119,34 +119,36 @@ public class PlayerInteractor {
 
         for(int i=0; i < cv.size(); i++) {
             CardView c = cv.get(i);
-            out.print(d + (i + offset)+ " :");
-            out.print(c.getPrintable());
-            out.print(" | ");
+            speak(d + (i + offset)+ " :");
+            speak(c.getPrintable());
+            speak(" | ");
         }
 
     }
     private void printCardviewList(String header, List<CardView> cv, int offset, String d) {
-        out.print(header);
+        speak(header);
         printCardviewList(cv, offset,d);
-        out.println();
+        sayNL();
 
     }
+
 
     public void printPlayerGameView(PlayerGameView gv) {
-        out.println("Roma (" + gv.getStashVPs() + " left)");
-        out.println("You have " + gv.getMyVPs() + " VPs");
-        printCardviewList("Your opponent", gv.opponent, 1, "D");
-        printCardviewList("You", gv.getMydiscs(), 1, "D");
+        say("Roma (" + gv.getStashVPs() + " left)");
+        say("You have " + gv.getMyVPs() + " VPs");
+        say("You have "+ gv.getMyMoney()+ " sestertii");
+        printCardviewList("Your opponent ", gv.opponent, 1, "D");
+        printCardviewList("You ", gv.getMydiscs(), 1, "D");
         printCardviewList("Your hand", gv.getMyhand(), 1, "C");
-        printDiceList("Your dice", gv.getMydice());
+        printDiceList("Your dice", gv.getMydice(),1);
     }
 
-    public void printDiceList(String s, List<DiceView> mydice) {
-    out.print(s);
-    for(DiceView dv: mydice) {
-        out.print(dv.getPrintable());
+    public void printDiceList(String prompt, List<DiceView> dv, int offset) {
+    speak(prompt+": ");
+    for(int i = 0; i < dv.size(); i++)  {
+        speak("Dice"+(i+offset)+":"+dv.get(i).getPrintable()+" | ");
     }
-        out.println();
+        sayNL();
     }
 
     public List<Integer> selectNCards(String s, ViewableCardCollection hand, int howMany) {
@@ -154,10 +156,10 @@ public class PlayerInteractor {
     int left=howMany;
     List<CardView> handView = hand.getCardView();
         while(left > 0) {
-            out.println(s);
+            say(s);
             printCardviewList(handView, 1, "C");
-            out.println(left + " cards left to choose");
-            Integer choice = new Integer(readNumber("", 0, handView.size()-1));
+            say(left + " cards left to choose");
+            Integer choice = new Integer(readNumber("", 1, handView.size())-1);
             if(!ret.contains(choice))
             {
             ret.add(choice);
@@ -172,10 +174,10 @@ public class PlayerInteractor {
         List<CardView> handView = hand.getCardView();
         List<CardView> tabView = tab.getCardView();
 
-        out.println(s);
+        say(s);
         printCardviewList(handView, 1, "C");
        Integer choice = new Integer(readNumber("", 1, handView.size())-1);
-       out.println("Dice disc?");
+       say("Dice disc?");
         printCardviewList(tabView, 1, "D");
         Integer choice2 = new Integer(readNumber("", 1, tabView.size())-1);
 
@@ -183,5 +185,19 @@ public class PlayerInteractor {
     }
 
     public void say(String s) {
-    out.println(s);}
+        out.println(s);
+    }
+
+    private void sayNL() {
+        out.println();
+    }
+
+    private void speak(String s) {
+        out.print(s);
+    }
+
+    public void printDiceList(String s, List<DiceView> diceView) {
+
+        printDiceList(s,diceView,1);
+    }
 }
