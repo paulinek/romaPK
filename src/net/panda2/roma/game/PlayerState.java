@@ -65,4 +65,8 @@ public class PlayerState {
         }
    hand.layCard(cardNo, diceDiscCards, discNo);
     }
+
+    public void useupDice(int diceNo) {
+            dice.useup(diceNo);
+    }
 }

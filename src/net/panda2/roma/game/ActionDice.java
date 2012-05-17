@@ -41,4 +41,8 @@ public class ActionDice extends Dice {
         score+=amt;
         return score;
     }
+
+    public void setUsed() {
+        unused = false;
+    }
 }

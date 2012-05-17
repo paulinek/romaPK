@@ -175,9 +175,9 @@ public class PKGameStateTest implements GameState {
     @Override
     public void setPlayerSestertii(int playerNum, int amount) {
 
-    pN(playerNum).money.giveAway(ge.gs.moneyPile);
+    pN(playerNum).money.giveAway(ge.gs.treasury);
         try {
-            ge.gs.moneyPile.transferAway(pN(playerNum).money, amount);
+            ge.gs.treasury.transferAway(pN(playerNum).money, amount);
         } catch (RomaGameEndException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

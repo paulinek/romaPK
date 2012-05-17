@@ -26,6 +26,6 @@ public class DiceView {
 
     public String getPrintable() {
 
-    return "("+score+")"+(active?"*":"");
+    return "("+score+")"+(active?"":"used");
     }
 }

@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$USER_HOME$/Dropbox/2911/acceptance/Acceptance.iml" filepath="$USER_HOME$/Dropbox/2911/acceptance/Acceptance.iml" />
       <module fileurl="file://$PROJECT_DIR$/PJ_Roma.iml" filepath="$PROJECT_DIR$/PJ_Roma.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/Project/Project.iml" filepath="$USER_HOME$/Downloads/Project/Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PJ_Roma.iml" filepath="$PROJECT_DIR$/PJ_Roma.iml" />
     </modules>
   </component>
 </project>

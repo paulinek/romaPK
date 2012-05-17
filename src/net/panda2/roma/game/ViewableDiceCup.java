@@ -39,4 +39,8 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
 
         return dice.get(diceNo).getScore();
     }
+
+    public void useup(int diceNo) {
+        dice.get(diceNo).setUsed();
+    }
 }

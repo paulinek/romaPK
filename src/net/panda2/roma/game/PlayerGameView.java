@@ -19,6 +19,10 @@ public class PlayerGameView {
         return myVPs;
     }
 
+    public int getMyMoney() {
+        return myMoney;
+    }
+
     public List<CardView> getOpponent() {
         return opponent;
     }
@@ -43,12 +47,13 @@ public
 
     PlayerGameView(int stashVPs, int myVPs, List<CardView> opponent,
                    List<CardView> mydiscs, List<DiceView> mydice, List<CardView> myhand) {
-    setup(stashVPs,myVPs,opponent,mydiscs,mydice,myhand);
+    setup(stashVPs,myVPs,myMoney,opponent,mydiscs,mydice,myhand);
     }
-    void setup(int stashVPs, int myVPs, List<CardView> opponent, List<CardView> mydiscs, List<DiceView> mydice, List<CardView> myhand) {
+    void setup(int stashVPs, int myVPs, int myMoney, List<CardView> opponent, List<CardView> mydiscs, List<DiceView> mydice, List<CardView> myhand) {
 
         this.stashVPs = stashVPs;
         this.myVPs = myVPs;
+        this.myMoney=myMoney;
         this.opponent = opponent;
         this.mydiscs = mydiscs;
         this.mydice = mydice;
@@ -61,11 +66,12 @@ public
         List<CardView> myTab = p.getDiscView();
         List<DiceView> myDice = p.dice.getDiceView();
         List<CardView> myHand = p.hand.getCardView();
-        setup(gs.tabletopVPStockpile.getAmount(), p.vp.getAmount(), opponentHand, myTab, myDice, myHand);
+        setup(gs.tabletopVPStockpile.getAmount(), p.vp.getAmount(),p.money.getAmount(), opponentHand, myTab, myDice, myHand);
     }
 
     int stashVPs;
      int myVPs;
+     int myMoney;
      List<CardView> opponent;
      List<CardView> mydiscs;
      List<DiceView> mydice;

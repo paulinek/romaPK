@@ -47,10 +47,6 @@ public class GameEngine {
     }
 
 
-
-
-
-
     public void newGame() {
         ruleSet = new RomaRules();
         try {
@@ -135,33 +131,6 @@ public class GameEngine {
         }
     }
 
-    private void doAction(PlayerState playerState, RomaAction action) throws RomaException {
-
-        if(action instanceof ActivateCardAction) {
-            PJRomaCard c = playerState.diceDiscCards.get(action.getDiceNo());
-
-            c.activate(this, masterToken, action.getActionData());
-
-    } else if(action instanceof LayCardAction) {
-        int cost;
-        if(((LayCardAction) action).isFree()) {
-            cost = 0;
-        } else {
-            cost = playerState.hand.getCard(action.getCardNo()).getPrice();
-        }
-        playerState.layCard(action.getCardNo(), action.getDiscNo());
-        playerState.money.transferAway(gs.moneyPile, cost);
-
-    } else if(action instanceof TakeCardAction) {
-
-    } else if(action instanceof  TakeMoneyAction) {
-
-    } else if(action instanceof EndTurnAction) {
-    }
-
-
-    }
-
 
     void initialDeal() {
         for(int i = 0; i < ruleSet.playerInitCards; i++) {
@@ -182,6 +151,7 @@ public class GameEngine {
             gs.player[p].hand.giveTo(gs.player[rp.set(p).next()].hand, cardChoices[p]);
         }
     }
+
 
     void phaseOne() throws RomaGameEndException {
         PlayerState p = gs.currentPlayer();
@@ -209,8 +179,6 @@ public class GameEngine {
     void phaseThree() throws RomaGameEndException {
         boolean ended = false;
         while(!ended) {
-
-
         PlayerGameView gv = new PlayerGameView(gs);
             try {
                  ended = playerPhaseThree(gv, gs.currentPlayer());
@@ -225,14 +193,6 @@ public class GameEngine {
         }
     }
 
-    // helper functions for card actions to call
-
-    // some authenticated getters
-    // because the cards are in a different package, they only have access to the public functions in
-    // this package
-    // all cross package communication is authenticated with a token
-    // so that players (which may need to have access to the gameengine object) cannot call any destructive or privacy invading
-    // public functions
 
     boolean playerPhaseThree(PlayerGameView gv, PlayerState playerState) throws RomaException {
         ActionData da = null;
@@ -250,8 +210,7 @@ public class GameEngine {
         return false;
     }
 
-    RomaAction getAction
-            (PlayerGameView gv, PlayerState playerState) {
+    RomaAction getAction            (PlayerGameView gv, PlayerState playerState) {
         ActionData dat = new ActionData();
         RomaAction x = null;
 
@@ -269,10 +228,10 @@ public class GameEngine {
                 valid=true;
                 break;
             case 2:
-                diceNo = playerInput.readNumber("Enter number of action die to play", 0, ruleSet.nDice-1);
+                diceNo = playerInput.readNumber("Enter number of action die to play", 1, ruleSet.nDice)-1;
                 discNo = playerState.dice.getNth(diceNo);
                 if(playerState.dice.isNthUsed(diceNo)) {
-                    playerInput.out.println("DICE ALREADY USED TRY AGAIN");
+                    playerInput.say("DICE ALREADY USED TRY AGAIN");
                 } else {
                     valid=true;
                 }
@@ -303,6 +262,59 @@ public class GameEngine {
     }
     return x;
     }
+
+
+    private void doAction(PlayerState playerState, RomaAction action) throws RomaException {
+
+        if(action instanceof ActivateCardAction) {
+            playerState.useupDice(action.getDiceNo());
+            PJRomaCard c = playerState.diceDiscCards.get(action.getDiceNo());
+
+            c.activate(this, masterToken, action.getActionData());
+
+        } else if(action instanceof LayCardAction) {
+            int cost;
+            if(((LayCardAction) action).isFree()) {
+                cost = 0;
+            } else {
+                cost = playerState.hand.getCard(action.getCardNo()).getPrice();
+            }
+            playerState.layCard(action.getCardNo(), action.getDiscNo());
+            playerState.money.transferAway(gs.treasury, cost);
+
+        } else if(action instanceof TakeCardAction) {
+            playerState.useupDice(action.getDiceNo());
+
+            int nCards = playerState.dice.getNth(action.getDiceNo());
+
+            for(int i = 0; i <nCards; i++) {
+                PJRomaCard c = gs.maindeck.dealCard();
+                playerState.hand.addCard(c);
+            }
+            playerState.useupDice(action.getDiceNo());
+
+        } else if(action instanceof  TakeMoneyAction) {
+            playerState.useupDice(action.getDiceNo());
+            int amount = playerState.dice.getNth(action.getDiceNo());
+            gs.treasury.transferAway(playerState.money,amount   );
+
+        } else if(action instanceof EndTurnAction) {
+            // should never get here!
+         }
+
+
+
+    }
+
+
+    // helper functions for card actions to call
+
+    // some authenticated getters
+    // because the cards are in a different package, they only have access to the public functions in
+    // this package
+    // all cross package communication is authenticated with a token
+    // so that players (which may need to have access to the gameengine object) cannot call any destructive or privacy invading
+    // public functions
 
     public <S> S authenticatedReturn(AuthToken tk, S s) {
         return (authenticateToken(tk))?s : null;
