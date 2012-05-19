@@ -37,8 +37,9 @@ public class ActionDice extends Dice {
 
     }
 
-    int fiddle(int amt) {
+    int fiddle(int amt, boolean unused) {
         score+=amt;
+        this.unused = unused;
         return score;
     }
 

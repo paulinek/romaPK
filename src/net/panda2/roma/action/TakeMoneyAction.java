@@ -12,4 +12,9 @@ public class TakeMoneyAction extends RomaAction {
     public TakeMoneyAction(int diceNo) {
         super(diceNo);
     }
+
+    public TakeMoneyAction(boolean test, int diceval) {
+
+        //To change body of created methods use File | Settings | File Templates.
+    }
 }

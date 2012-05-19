@@ -12,4 +12,7 @@ public class ActivateCardAction extends RomaAction {
         super(diceNo);
         this.discNo = discNo;
     }
+    public ActivateCardAction(int discNo) {
+        this.discNo = discNo;
+    }
 }

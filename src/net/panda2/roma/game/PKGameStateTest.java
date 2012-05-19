@@ -3,12 +3,11 @@ package net.panda2.roma.game;
 import framework.cards.Card;
 import framework.interfaces.GameState;
 import net.panda2.roma.card.PJRomaCard;
-import net.panda2.roma.game.exception.RomaException;
+import net.panda2.roma.card.cards.*;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,18 +19,30 @@ import java.util.Vector;
 public class PKGameStateTest implements GameState {
     AuthToken tk;
     GameEngine ge;
-    net.panda2.roma.game.GameState gs;
+    RomaGameState gs;
+
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
+    }
+
+     boolean gameEnded;
+
     public PKGameStateTest() {
         tk = new AuthToken();
         ge = GameEngine.createGameEngine(tk);
-    }
+    ge.createGame();
+        }
     /**
      * Get the current turn's player number
      * <p/>
      * <p>
      * This method will return an integer between 0 and
      * ({@link framework.Rules#NUM_PLAYERS NUM_PLAYERS} - 1), as
-     * specified in the GameState interface.
+     * specified in the RomaGameState interface.
      * </p>
      *
      * @return the number of the current player
@@ -59,15 +70,15 @@ public class PKGameStateTest implements GameState {
     }
 
     /**
-     * Gets the GameState's current deck.
+     * Gets the RomaGameState's current deck.
      * <p/>
      * <p>
-     * The current deck of the GameState is to be returned as a List of
+     * The current deck of the RomaGameState is to be returned as a List of
      * Cards. The first item in the list is the next card that would be
      * drawn from the deck, and so on.
      * </p>
      *
-     * @return the current GameState deck
+     * @return the current RomaGameState deck
      */
      Card getCardFromName(String name) {
         for(Card c: Card.values()) {
@@ -78,12 +89,11 @@ public class PKGameStateTest implements GameState {
         return null;
     }
     List<Card> deck2card(ViewableCardDeck cardDeck) {
-
-        Vector<net.panda2.game.card.Card> deck = new Vector<net.panda2.game.card.Card >(cardDeck.getCards());
+        Vector<PJRomaCard> deck = new Vector<PJRomaCard>(cardDeck.getCards());
         Collections.reverse(deck);
         List<Card> list = new Vector<Card>();
-        for(net.panda2.game.card.Card c:deck) {
-            list.add(getCardFromName(((PJRomaCard) c).getName())) ;
+        for(PJRomaCard c:deck) {
+            list.add(getCardFromName(c.getName())) ;
 
         }
         return list;
@@ -94,15 +104,15 @@ public class PKGameStateTest implements GameState {
     }
 
     /**
-     * Sets the GameState's current deck.
+     * Sets the RomaGameState's current deck.
      * <p/>
      * <p>
-     * The new deck of the GameState is to be given as a List of Cards.
+     * The new deck of the RomaGameState is to be given as a List of Cards.
      * The first item in the list is the next card that would be
      * drawn from the deck, and so on.
      * </p>
      *
-     * @param deck the new deck of the GameState
+     * @param deck the new deck of the RomaGameState
      */
     @Override
     public void setDeck(List<Card> deck) {
@@ -111,15 +121,15 @@ public class PKGameStateTest implements GameState {
      }
 
     /**
-     * Gets the GameState's current discard pile.
+     * Gets the RomaGameState's current discard pile.
      * <p/>
      * <p>
-     * The current discard pile of the GameState is to be returned as a
+     * The current discard pile of the RomaGameState is to be returned as a
      * List of Cards. The first item in the list is the most recently
      * discarded card, and so on.
      * </p>
      *
-     * @return the current GameState discard pile
+     * @return the current RomaGameState discard pile
      */
     @Override
     public List<Card> getDiscard() {
@@ -127,15 +137,15 @@ public class PKGameStateTest implements GameState {
     }
 
     /**
-     * Sets the GameState's current discard pile.
+     * Sets the RomaGameState's current discard pile.
      * <p/>
      * <p>
-     * The current discard pile of the GameState is to be given as a
+     * The current discard pile of the RomaGameState is to be given as a
      * List of Cards. The first item in the list is the most recently
      * discarded card, and so on.
      * </p>
      *
-     * @param discard the new discard pile of the GameState
+     * @param discard the new discard pile of the RomaGameState
      */
     @Override
     public void setDiscard(List<Card> discard) {
@@ -148,7 +158,7 @@ public class PKGameStateTest implements GameState {
      * <p>
      * The current Sestertii (money) of the specified player is returned
      * as an integer. Correct player indexing is discussed in the
-     * GameState interface header.
+     * RomaGameState interface header.
      * </p>
      *
      * @param playerNum which player's Sestertii to return
@@ -166,7 +176,7 @@ public class PKGameStateTest implements GameState {
      * <p>
      * The new Sestertii (money) of the specified player is given
      * as an integer. Correct player indexing is discussed in the
-     * GameState interface header.
+     * RomaGameState interface header.
      * </p>
      *
      * @param playerNum which player's Sestertii to set
@@ -174,10 +184,11 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public void setPlayerSestertii(int playerNum, int amount) {
+    PlayerState p = pN(playerNum);
 
-    pN(playerNum).money.giveAway(ge.gs.treasury);
+    p.money.giveAway(ge.gs.treasury);
         try {
-            ge.gs.treasury.transferAway(pN(playerNum).money, amount);
+            ge.gs.treasury.transferAway(p.money, amount);
         } catch (RomaGameEndException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -192,7 +203,7 @@ public class PKGameStateTest implements GameState {
      * <p>
      * The current Victory Points of the specified player are returned as
      * an integer. Correct player indexing is discussed in the
-     * GameState interface header.
+     * RomaGameState interface header.
      * </p>
      *
      * @param playerNum which player's Victory Points to get
@@ -207,7 +218,7 @@ public class PKGameStateTest implements GameState {
      * <p/>
      * <p>
      * The new Victory Points of the specified player are given as an
-     * integer. Correct player indexing is discussed in the GameState
+     * integer. Correct player indexing is discussed in the RomaGameState
      * interface header.
      * </p>
      * <p>
@@ -222,11 +233,12 @@ public class PKGameStateTest implements GameState {
     @Override
     public void setPlayerVictoryPoints(int playerNum, int points) {
         int current = getPlayerVictoryPoints(playerNum);
-       try {
-        pN(playerNum).vp.transferAway(ge.gs.tabletopVPStockpile, current, tk);
-        ge.gs.tabletopVPStockpile.transferAway(pN(playerNum).vp, points, tk);
-       } catch (RomaException romaException) {
-
+        PlayerState p = pN(playerNum);
+        try {
+            p.vp.transferAway(ge.gs.tabletopVPStockpile, current-1, tk);
+            ge.gs.tabletopVPStockpile.transferAway(p.vp, points-1, tk);
+        } catch (RomaGameEndException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -237,7 +249,7 @@ public class PKGameStateTest implements GameState {
      * <p>
      * The contents of the hand of the specified player is returned as an
      * unordered collection of Cards. Correct player indexing is
-     * discussed in the GameState interface header.
+     * discussed in the RomaGameState interface header.
      * </p>
      *
      * @param playerNum which player's hand cards to get
@@ -247,21 +259,110 @@ public class PKGameStateTest implements GameState {
     public Collection<Card> getPlayerHand(int playerNum) {
         return deck2card(pN(playerNum).hand); }
 
-    /**
-     * Sets the contents of a player's current Hand.
-     * <p/>
-     * <p>
-     * The contents of the hand of the specified player is given as an
-     * unordered collection of Cards. Correct player indexing is
-     * discussed in the GameState interface header.
-     * </p>
-     *
-     * @param playerNum which player's hand cards to set
-     * @param hand      the contents of the the player's hand
-     */
+    PJRomaCard makeRomaCard(Card c) {
+        checkNotNull(c);
+        if(c.name().equalsIgnoreCase("Sicarius")) {
+            return new Sicarius(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Architectus")) {
+            return new Architectus(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Consiliarius")) {
+            return new Consiliarius(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Legat")) {
+            return new Legat(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Gladiator")) {
+            return new Gladiator(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Mercator")) {
+            return new Mercator(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Consul")) {
+            return new Consul(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Legionarius")) {
+            return new Legionarius(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Nero")) {
+            return new Nero(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Praetorianus")) {
+            return new Praetorianus(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Scaenicus")) {
+            return new Scaenicus(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Haruspex")) {
+            return new Haruspex(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Senator")) {
+            return new Senator(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Velites")) {
+            return new Velites(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Essedum")) {
+            return new Essedum(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("TribunusPlebis")) {
+            return new TribunusPlebis(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Centurio")) {
+            return new Centurio(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Aesculapinum")) {
+            return new Aesculapinum(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Basilica")) {
+            return new Basilica(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Machina")) {
+            return new Machina(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Forum")) {
+            return new Forum(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Mercatus")) {
+            return new Mercatus(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Onager")) {
+            return new Onager(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Templum")) {
+            return new Templum(1,1);
+        }
+        else if(c.name().equalsIgnoreCase("Turris")) {
+            return new Turris(1,1);
+        }
+        else return null;
+    }
+        /**
+        * Sets the contents of a player's current Hand.
+        * <p/>
+        * <p>
+        * The contents of the hand of the specified player is given as an
+        * unordered collection of Cards. Correct player indexing is
+        * discussed in the RomaGameState interface header.
+        * </p>
+        *
+        * @param playerNum which player's hand cards to set
+        * @param hand      the contents of the the player's hand
+        */
     @Override
     public void setPlayerHand(int playerNum, Collection<Card> hand) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        ArrayList<PJRomaCard> cards = new ArrayList<PJRomaCard>();
+        for(Card c:hand) {
+            if(c != null) {
+            PJRomaCard cx = makeRomaCard(c);
+            checkNotNull(cx);
+            cards.add(cx);
+            }
+        }
+        pN(playerNum).hand.setDeck(cards);
+  //      checkArgument(pN(playerNum).hand.getCards().size() == hand.size());
+
     }
 
     /**
@@ -273,7 +374,7 @@ public class PKGameStateTest implements GameState {
      * NUM_DICE_DISCS}. The 0th index in the array represents the dice
      * disc of value 1. Dice discs with no card are returned with
      * Card.NOT_A_CARD as their value. Correct player indexing is
-     * discussed in the GameState interface header.
+     * discussed in the RomaGameState interface header.
      * </p>
      *
      * @param playerNum which player's dice disc contents to get
@@ -293,7 +394,7 @@ public class PKGameStateTest implements GameState {
      * NUM_DICE_DISCS}. The 0th index in the array represents the dice
      * disc of value 1. Dice discs with no card are returned with
      * Card.NOT_A_CARD as their value. Correct player indexing is
-     * discussed in the GameState interface header.
+     * discussed in the RomaGameState interface header.
      * </p>
      *
      * @param playerNum which player's cards to set
@@ -333,6 +434,7 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public void setActionDice(int[] dice) {
+        ge.getCurrentPlayer(tk).dice.setDice(dice);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

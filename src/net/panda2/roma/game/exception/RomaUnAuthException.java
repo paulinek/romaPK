@@ -1,7 +1,5 @@
 package net.panda2.roma.game.exception;
 
-import net.panda2.roma.game.exception.RomaException;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi

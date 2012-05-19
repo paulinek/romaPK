@@ -19,7 +19,7 @@ import static com.google.common.base.Preconditions.checkElementIndex;
  * To change this template use File | Settings | File Templates.
  */
 public class GameEngine {
-    GameState gs;
+    RomaGameState gs;
     RomaRules ruleSet;
     AuthToken masterToken;
     PlayerInteractor playerInput;
@@ -47,15 +47,19 @@ public class GameEngine {
     }
 
 
-    public void newGame() {
+    public void createGame() {
         ruleSet = new RomaRules();
         try {
-        gs = GameState.createGameState(ruleSet, this);
+            gs = RomaGameState.createGameState(ruleSet, this);
         } catch(RomaException e) {
 
-        }
-        // set up the initial deck
 
+        }
+    }
+    public void newGame() {
+
+        // set up the initial deck
+        createGame();
         RunGame();
     }
 
@@ -70,7 +74,7 @@ public class GameEngine {
          phaseOne();
          phaseTwo();
          phaseThree();
-         gs.playerNo.inc();
+         gs.nextPlayerTurn();
      }
  }  catch (RomaGameEndException e) {
 
@@ -264,7 +268,7 @@ public class GameEngine {
     }
 
 
-    private void doAction(PlayerState playerState, RomaAction action) throws RomaException {
+     void doAction(PlayerState playerState, RomaAction action) throws RomaException {
 
         if(action instanceof ActivateCardAction) {
             playerState.useupDice(action.getDiceNo());
@@ -320,7 +324,7 @@ public class GameEngine {
         return (authenticateToken(tk))?s : null;
     }
 
-    public GameState getGameState(AuthToken tk) {
+    public RomaGameState getGameState(AuthToken tk) {
         return authenticatedReturn(tk, gs);
     }
 

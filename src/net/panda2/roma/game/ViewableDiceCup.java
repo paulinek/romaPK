@@ -5,6 +5,8 @@ import net.panda2.game.dice.DiceCup;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -23,7 +25,7 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
 
    int fiddle(int diceNo, int amt) {
     ActionDice d = dice.get(diceNo);
-   return d.fiddle(amt);
+   return d.fiddle(amt, true);
    }
    public ViewableDiceCup(int n, int nsides) {
         super(n);
@@ -42,5 +44,12 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
 
     public void useup(int diceNo) {
         dice.get(diceNo).setUsed();
+    }
+
+    public void setDice(int[] dice) {
+    checkArgument(dice.length == this.dice.size());
+    for(int i = 0; i < dice.length; i++) {
+        this.dice.get(i).fiddle(dice[i],true);
+    }
     }
 }

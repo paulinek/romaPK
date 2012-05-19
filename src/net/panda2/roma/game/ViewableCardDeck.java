@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkElementIndex;
 
 /**
@@ -101,5 +102,12 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         cards.remove(cardNo);
         tb.setCard(toCardNo, c);
 
+    }
+    void setDeck(List<PJRomaCard> deck) {
+        cards.removeAllElements();
+        for(PJRomaCard c:deck) {
+            cards.add(c);
+        }
+        checkArgument(cards.size() == deck.size());
     }
 }

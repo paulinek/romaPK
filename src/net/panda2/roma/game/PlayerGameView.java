@@ -59,7 +59,7 @@ public
         this.mydice = mydice;
         this.myhand = myhand;
     }
-    PlayerGameView(GameState gs) {
+    PlayerGameView(RomaGameState gs) {
         PlayerState p
                = gs.currentPlayer();
         List<CardView> opponentHand = gs.getNextPlayer().getDiscView();

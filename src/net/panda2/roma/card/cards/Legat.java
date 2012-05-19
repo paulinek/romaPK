@@ -5,7 +5,7 @@ import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
-import net.panda2.roma.game.GameState;
+import net.panda2.roma.game.RomaGameState;
 import net.panda2.roma.game.PlayerState;
 import net.panda2.roma.game.exception.RomaException;
 
@@ -19,7 +19,7 @@ public class Legat extends PJRomaCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        GameState gs = ge.getGameState(tk);
+        RomaGameState gs = ge.getGameState(tk);
         PlayerState opponent, me;
 
         opponent = gs.getNextPlayer(tk);

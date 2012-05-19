@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import framework.cards.Card;
-import framework.interfaces.GameState;
+import framework.interfaces.RomaGameState;
 
-import net.panda2.roma.AcceptanceTest.GameState;
+import net.panda2.roma.AcceptanceTest.RomaGameState;
 import net.panda2.roma.AcceptanceTest.NOT_A_CARD;
 import Cards.Card;
 import Cards.CardFactory;
@@ -16,7 +16,7 @@ import net.panda2.roma.game.jason.Constant;
 import net.panda2.roma.game.jason.Game;
 import net.panda2.roma.game.jason.Player;
 
-public class State implements GameState{
+public class State implements RomaGameState{
 
 	private Game g;
 
@@ -49,15 +49,15 @@ public class State implements GameState{
 	}
 
     /**
-     * Sets the GameState's current deck.
+     * Sets the RomaGameState's current deck.
      * <p/>
      * <p>
-     * The new deck of the GameState is to be given as a List of Cards.
+     * The new deck of the RomaGameState is to be given as a List of Cards.
      * The first item in the list is the next card that would be
      * drawn from the deck, and so on.
      * </p>
      *
-     * @param deck the new deck of the GameState
+     * @param deck the new deck of the RomaGameState
      */
 /*
     @Override

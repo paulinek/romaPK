@@ -15,7 +15,7 @@ import net.panda2.roma.game.exception.RomaException;
  * To change this template use File | Settings | File Templates.
  */
 
-public class GameState {
+public class RomaGameState {
     int numPlayers;
     PlayerState player[];
     RingInteger playerNo;
@@ -63,7 +63,7 @@ public class GameState {
 
     }
 
-    private GameState(RomaRules ruleSet, GameEngine ge) throws RomaException {
+    private RomaGameState(RomaRules ruleSet, GameEngine ge) throws RomaException {
         //ref rules for numPlayers
         numPlayers=ruleSet.numPlayers;
         this.ge = ge;
@@ -127,8 +127,8 @@ public class GameState {
         return saneQ;
     }
 
-    public static GameState createGameState(RomaRules rules, GameEngine gameEngine) throws RomaException {
-        return new GameState(rules, gameEngine);
+    public static RomaGameState createGameState(RomaRules rules, GameEngine gameEngine) throws RomaException {
+        return new RomaGameState(rules, gameEngine);
     }
 
     public void setPlayerNo(int player, AuthToken tk) {
@@ -138,4 +138,9 @@ public class GameState {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         playerNo.set(player);}
+
+     void nextPlayerTurn() {
+        playerNo.inc();
+
+    }
 }
