@@ -31,7 +31,7 @@ public class PlayerState {
         vp = VPrepository.make(rules.playerInitVP, rules.minVP);
         money = MoneyRepository.make(rules.playerInitSest);
         dice = new ViewableDiceCup(rules.nDice, rules.diceSize);
-        diceDiscCards = new ViewableTableau(rules.diceDiscs);
+        diceDiscCards = new ViewableTableau(rules.numDiceDiscs + rules.numBribeDiscs);
         hand = new ViewableCardDeck();
     }
 

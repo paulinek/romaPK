@@ -23,17 +23,19 @@ public class GameEngine {
     RomaRules ruleSet;
     AuthToken masterToken;
     PlayerInteractor playerInput;
+
+    public GameEngine(AuthToken tk, PlayerInteractor input) {
+        this.masterToken = tk;
+        this.playerInput = input;
+
+    }
+
     public static GameEngine createGameEngine() {
 
-        return new GameEngine();
+        return new GameEngine(null, new PlayerInteractorConsole());
     }
-    public static GameEngine createGameEngine(AuthToken tk) {
-        GameEngine ge = new GameEngine();
-        ge.masterToken = tk;
-        return ge;
-    }
-    private GameEngine() {
-        playerInput = new PlayerInteractor();
+    public static GameEngine createGameEngine(AuthToken tk, PlayerInteractor input) {
+         return new GameEngine(tk, input);
     }
 
     // makes sure that people aren't trying to fiddle by forging tokens
@@ -171,8 +173,7 @@ public class GameEngine {
         while(!playerHappy) {
                 p.dice.roll();
             if(p.dice.allSame()) {
-                playerInput.printDiceList("Are you happy with these dice?", p.dice.getDiceView());
-                playerHappy=playerInput.yesOrNo("Are you happy with these dice?");
+                playerHappy=playerInput.playerQuestionDiceHappy(p.dice);
             } else {
                // you will roll your dice, comrade, and LIKE THEM!
                 playerHappy = true;
@@ -201,7 +202,7 @@ public class GameEngine {
     boolean playerPhaseThree(PlayerGameView gv, PlayerState playerState) throws RomaException {
         ActionData da = null;
         playerInput.printPlayerGameView(gv);
-        RomaAction action = getAction(gv,playerState);
+        RomaAction action = playerInput.getAction(gv,playerState);
         if(action != null) {
             if(action instanceof
          EndTurnAction) {
@@ -213,60 +214,6 @@ public class GameEngine {
         }
         return false;
     }
-
-    RomaAction getAction            (PlayerGameView gv, PlayerState playerState) {
-        ActionData dat = new ActionData();
-        RomaAction x = null;
-
-        while(x == null) {
-        RAction choice = playerInput.choice("What would "+playerState.playerName+" like to do");
-        int cardNo=0, diceNo=0, discNo=0;
-        boolean valid=false;
-            switch(choice.mode) {
-            case 0: // no additional data
-                valid=true;
-                break;
-            case 1: // hand card, dice disc
-                cardNo = playerInput.readNumber("Enter number of card in hand", 0, playerState.hand.numCards());
-                discNo = playerInput.readNumber("Enter which disc to put it on", 1, ruleSet.diceDiscs+1)-1;
-                valid=true;
-                break;
-            case 2:
-                diceNo = playerInput.readNumber("Enter number of action die to play", 1, ruleSet.nDice)-1;
-                discNo = playerState.dice.getNth(diceNo);
-                if(playerState.dice.isNthUsed(diceNo)) {
-                    playerInput.say("DICE ALREADY USED TRY AGAIN");
-                } else {
-                    valid=true;
-                }
-                break;
-            }
-
-        if(valid) {
-        if(choice.equals(RAction.ACTIVATECARD)) {
-            x = new ActivateCardAction(diceNo, discNo);
-            PJRomaCard c = playerState.diceDiscCards.get(discNo);
-            switch(c.dataMode) {
-                case 0:
-                    break;
-            }
-            x.setActionData(dat);
-        } else if(choice.equals(RAction.LAYCARD)) {
-            x = new LayCardAction(cardNo, discNo);
-        } else if(choice.equals(RAction.TAKECARD)) {
-            x = new TakeCardAction(diceNo);
-        } else if(choice.equals(RAction.TAKEMONEY)) {
-            x = new TakeMoneyAction(diceNo);
-        } else if(choice.equals(RAction.ENDTURN)) {
-            x = new EndTurnAction();
-        }
-
-        }
-
-    }
-    return x;
-    }
-
 
      void doAction(PlayerState playerState, RomaAction action) throws RomaException {
 
@@ -290,12 +237,10 @@ public class GameEngine {
             playerState.useupDice(action.getDiceNo());
 
             int nCards = playerState.dice.getNth(action.getDiceNo());
-
-            for(int i = 0; i <nCards; i++) {
-                PJRomaCard c = gs.maindeck.dealCard();
-                playerState.hand.addCard(c);
-            }
-            playerState.useupDice(action.getDiceNo());
+            ViewableCardDeck deck = gs.maindeck.dealCard(nCards);
+            int choice = playerInput.chooseTakeCardCard(deck);
+            deck.giveTo(playerState.hand, choice);
+            deck.discardTo(gs.discard);
 
         } else if(action instanceof  TakeMoneyAction) {
             playerState.useupDice(action.getDiceNo());
@@ -377,7 +322,7 @@ public class GameEngine {
     }
 
     public void unlayCard(AuthToken tk, boolean me, int opponentCardNo) {
-        checkElementIndex(opponentCardNo,ruleSet.diceDiscs);
+        checkElementIndex(opponentCardNo,ruleSet.numDiceDiscs);
         if(!authenticateToken(tk))
             return;
         PlayerState p = me?gs.currentPlayer():gs.getNextPlayer();

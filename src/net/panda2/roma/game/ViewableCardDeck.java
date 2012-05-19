@@ -95,6 +95,11 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         toHand.addCard(c);
 
     }
+    public void discardTo(ViewableCardDeck toDeck) {
+        for(int i = numCards(); i > 0; i--) {
+            giveTo(toDeck, i-1);
+        }
+    }
 
     public void layCard(int cardNo, ViewableTableau tb, int toCardNo) {
         checkElementIndex(cardNo, numCards());
@@ -109,5 +114,20 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
             cards.add(c);
         }
         checkArgument(cards.size() == deck.size());
+    }
+
+    public ViewableCardDeck dealCard(int nCards) {
+        ViewableCardDeck c = new ViewableCardDeck();
+        checkArgument(cards.size()>= nCards);
+        int stop = cards.size() - nCards;
+        for(int i = cards.size(); i >stop; i--) {
+            giveTo(c, i-1);
+        }
+        return c;
+    }
+
+    public int size() {
+
+        return cards.size();
     }
 }

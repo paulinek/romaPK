@@ -20,6 +20,9 @@ public class LayCardAction extends RomaAction {
         super(handCardNo, discNo);
         this.free = false;
     }
+
+
+
     public boolean isFree() {
         return free;
     }

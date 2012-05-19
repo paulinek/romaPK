@@ -6,6 +6,7 @@ import framework.interfaces.MoveMaker;
 import framework.interfaces.activators.CardActivator;
 import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.action.TakeCardAction;
 import net.panda2.roma.game.exception.RomaException;
 
 /**
@@ -92,7 +93,21 @@ public class PJRomaMoveMaker implements MoveMaker {
      */
     @Override
     public void activateCardsDisc(int diceToUse, Card chosen) throws UnsupportedOperationException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        PlayerState p = gst.getCurrentPlayer();
+        RomaAction a = new TakeCardAction(findDice(p,diceToUse));
+        try {
+            gst.input.interactionData.push(chosen.name());
+            gst.ge.doAction(p, a);
+        } catch (RomaException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+
+    }
+
+    private int findDice(PlayerState p, int diceToUse) {
+        int diceNo =  p.dice.getDiceNoFromValue(diceToUse);
+        return diceNo;
     }
 
     /**

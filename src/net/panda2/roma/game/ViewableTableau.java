@@ -8,8 +8,6 @@ import net.panda2.roma.card.PJRomaCard;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -43,8 +41,12 @@ public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCard
         }
     }
     void setCard(int disc, PJRomaCard c) {
-        checkArgument(cards.get(disc) == null);
+//        checkArgument(cards.get(disc) == null);
         set(disc, c);
 
+    }
+
+    public int getSize() {
+        return cards.size();
     }
 }

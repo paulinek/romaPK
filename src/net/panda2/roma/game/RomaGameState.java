@@ -92,7 +92,6 @@ public class RomaGameState {
         maindeck = new ViewableCardDeck();
         discard = new ViewableCardDeck();
         FredCardFactory.createInitialCards(maindeck);
-        diceDiscs = new Tableau<PJRomaCard>(ruleSet.diceDiscs);
         battleDice = new DiceCollection();  // TODO - parameterise this
         //
         }

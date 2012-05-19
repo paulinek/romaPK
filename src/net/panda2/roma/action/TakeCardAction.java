@@ -11,4 +11,5 @@ public class TakeCardAction extends RomaAction {
     public TakeCardAction(int diceNo) {
         super(diceNo);
     }
+
 }

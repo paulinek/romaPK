@@ -25,9 +25,10 @@ public class RomaRules {
     // how many card slots / dice discs there are
     // these two should always be the same!
     public  int diceSize = 6;
-    public  int diceDiscs = 6;
+    public  int numDiceDiscs = 6;
     public  int nDice = 3;
     public  int playerInitSest = 10;
     public int playerInitCards=4;
     public  int playerInitTrade=2;
+    public int numBribeDiscs=1;
 }

@@ -16,7 +16,7 @@ public class PJRomaAcceptanceTester implements AcceptanceInterface {
      * Return a {@link framework.interfaces.MoveMaker} that will modify the given RomaGameState.
      * <p/>
      * <p>
-     * This MoveMaker will be used by the net.tests to modify the RomaGameState
+     * This MoveMaker will be used by the tests to modify the RomaGameState
      * that was given by getInitialState. The affected RomaGameState is
      * included as a parameter so you can ensure that the MoveMaker will
      * operate on the correct RomaGameState.

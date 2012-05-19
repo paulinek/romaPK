@@ -2,11 +2,14 @@ package net.panda2.roma.game;
 
 import framework.cards.Card;
 import framework.interfaces.GameState;
+import net.panda2.roma.card.CardView;
+import net.panda2.roma.card.NullCardView;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.*;
 
 import java.util.*;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -19,8 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PKGameStateTest implements GameState {
     AuthToken tk;
     GameEngine ge;
-    RomaGameState gs;
-
+PlayerInteractorAcceptance input;
     public boolean isGameEnded() {
         return gameEnded;
     }
@@ -33,7 +35,8 @@ public class PKGameStateTest implements GameState {
 
     public PKGameStateTest() {
         tk = new AuthToken();
-        ge = GameEngine.createGameEngine(tk);
+        input = new PlayerInteractorAcceptance();
+        ge = GameEngine.createGameEngine(tk, input);
     ge.createGame();
         }
     /**
@@ -116,8 +119,8 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public void setDeck(List<Card> deck) {
-        //To change body of implemented methods use File | Settings | File Templates.
-        // TODO:  translate the Card to our private card type
+        Collections.reverse(deck);
+        setDeck(ge.gs.maindeck, deck);
      }
 
     /**
@@ -145,11 +148,23 @@ public class PKGameStateTest implements GameState {
      * discarded card, and so on.
      * </p>
      *
-     * @param discard the new discard pile of the RomaGameState
      */
-    @Override
+
+    void setDeck(ViewableCardDeck cd, List<Card> cards) {
+        cd.setDeck(ListTransformer(cards));
+    }
     public void setDiscard(List<Card> discard) {
+        setDeck(ge.gs.discard, discard);
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    private List<PJRomaCard> ListTransformer(List<Card> foocard) {
+        List<PJRomaCard> cards = new ArrayList<PJRomaCard>();
+        for(Card c : foocard) {
+            cards.add(makeRomaCard(c));
+
+        }
+        return cards;
     }
 
     /**
@@ -382,7 +397,27 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public Card[] getPlayerCardsOnDiscs(int playerNum) {
-        return new Card[0];  //To change body of implemented methods use File | Settings | File Templates.
+        PlayerState p = pN(playerNum);
+        List<CardView> discCardsList = p.diceDiscCards.getCardView();
+        Card[] discCards = new Card[discCardsList.size()];
+        for(int i = 0; i < discCards.length; i++) {
+            Card c;
+            c = cardViewToCard(discCardsList.get(i));
+            if(c != null) {
+                discCards[i] = c;
+            }
+        }
+        return discCards;
+//        return new Card[0];  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    private Card cardViewToCard(CardView cardView) {
+        if(cardView instanceof NullCardView) {
+            return Card.NOT_A_CARD;
+
+        } else {
+            return getCardFromName(cardView.getName());
+        }
     }
 
     /**
@@ -402,6 +437,11 @@ public class PKGameStateTest implements GameState {
      */
     @Override
     public void setPlayerCardsOnDiscs(int playerNum, Card[] discCards) {
+        PlayerState p = pN(playerNum);
+        checkArgument(discCards.length == p.diceDiscCards.getSize());
+        for(int i=0; i < discCards.length; i++) {
+            p.diceDiscCards.setCard(i,makeRomaCard(discCards[i]));
+        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -465,5 +505,9 @@ public class PKGameStateTest implements GameState {
     public boolean isGameCompleted() {
 
 return ge.gs.gameOver;
+    }
+
+     PlayerState getCurrentPlayer() {
+        return ge.gs.currentPlayer();
     }
 }

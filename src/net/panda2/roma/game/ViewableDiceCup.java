@@ -15,6 +15,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * To change this template use File | Settings | File Templates.
  */
 public class ViewableDiceCup extends DiceCup<ActionDice> {
+
     public List<DiceView> getDiceView() {
         List<DiceView> dv = new ArrayList<DiceView>();
         for(ActionDice d: dice) {
@@ -51,5 +52,19 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
     for(int i = 0; i < dice.length; i++) {
         this.dice.get(i).fiddle(dice[i],true);
     }
+    }
+
+    public int getDiceNoFromValue(int diceToUse) {
+        for(int i = 0; i< dice.size(); i++)
+        {
+            if(dice.get(i).getScore()==diceToUse && dice.get(i).isUsed() == false) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int getNDice() {
+         return dice.size();
     }
 }
