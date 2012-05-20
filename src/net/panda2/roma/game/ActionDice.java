@@ -36,11 +36,15 @@ public class ActionDice extends Dice {
         return new DiceView(score, unused);
 
     }
-
-    int fiddle(int amt, boolean unused) {
-        score+=amt;
+    int update(int amt, boolean  unused) {
+        score=amt;
         this.unused = unused;
         return score;
+
+    }
+    int fiddle(int amt, boolean unused) {
+        return update(amt+score,unused);
+
     }
 
     public void setUsed() {

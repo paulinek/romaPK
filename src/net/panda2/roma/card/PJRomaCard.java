@@ -75,6 +75,6 @@ public abstract class PJRomaCard extends Card implements Cloneable{
     }
 
     public boolean isDead() {
-        return lives>0;
+        return lives<=0;
     }
 }

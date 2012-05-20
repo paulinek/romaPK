@@ -62,7 +62,8 @@ public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCard
     }
 
     public PJRomaCard get(RingInteger0 cardLocation) {
-        return super.get(cardLocation.asInt());
+        int location = cardLocation.asInt();
+        return super.get(location);
     }
 
     public void set(RingInteger0 opponentCardNo, PJRomaCard e) {

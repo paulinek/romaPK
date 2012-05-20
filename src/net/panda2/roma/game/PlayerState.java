@@ -77,7 +77,7 @@ public class PlayerState {
     }
 
     public RingInteger1 getDiceValue(RingInteger0 dice) {
-        return new RingInteger1(diceSize, this.dice.getNth(dice));
+        return new RingInteger1(this.dice.getNth(dice));
     }
 
     public boolean hasGrimReaper() {
@@ -92,5 +92,25 @@ public class PlayerState {
         // search for turris and return 1
         bonus += diceDiscCards.howManyOfThese("Turris");
     return bonus;
+    }
+
+     public RingInteger0 findDice(RingInteger1 diceToUse) {
+        return dice.getDiceNoFromValue(diceToUse.asInt());
+    }
+
+    public int hasAdjacentCard(RingInteger0 disc, String type) {
+        List<CardView> cv = diceDiscCards.getCardView();
+        int n = 0;
+        if(cv.get(disc.prev()).equals(type) ){
+            n++;
+        }
+        if(cv.get(disc.next()).equals(type)) {
+            n++;
+        }
+        return n;
+    }
+
+    public int getNdiscs() {
+        return diceDiscCards.getSize();
     }
 }

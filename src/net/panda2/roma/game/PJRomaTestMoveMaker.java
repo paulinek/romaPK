@@ -10,7 +10,8 @@ import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.LayCardAction;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.action.TakeCardAction;
-import net.panda2.roma.card.cards.AttackCardActivator;
+import net.panda2.roma.card.PJRomaCard;
+import net.panda2.roma.card.cards.*;
 import net.panda2.roma.game.exception.RomaException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -55,12 +56,19 @@ public class PJRomaTestMoveMaker implements MoveMaker {
     @Override
     public CardActivator chooseCardToActivate(int discNo) throws UnsupportedOperationException {
         RingInteger1 disc = new RingInteger1(discNo);
+        RingInteger0 disc0 = disc.toR0();
         GameEngine ge = gst.ge;
+        CardActivator activator = null;
+
         PlayerState player = ge.getCurrentPlayer(gst.tk);
-        RingInteger0 dice = findDice(player, disc);
-        RomaAction action = new ActivateCardAction(dice,disc.toR0());
-        AttackCardActivator activator = new AttackCardActivator(gst, player, action );
-        action.setActionData(activator.getData());
+        RingInteger0 diceRef = player.findDice(disc);
+        PJRomaCard c = player.diceDiscCards.get(disc0);
+        RomaAction action = new ActivateCardAction(diceRef,disc0);
+        if(c instanceof Forum) {
+             activator = new ForumCardActivator(gst, player, action);
+        } else if (c instanceof Legionarius || c instanceof Praetorianus) {
+             activator = new AttackCardActivator(gst, player, action );
+        }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;
     }
@@ -100,7 +108,7 @@ public class PJRomaTestMoveMaker implements MoveMaker {
     @Override
     public void activateCardsDisc(int diceToUse, Card chosen) throws UnsupportedOperationException {
         PlayerState p = gst.getCurrentPlayer();
-        RomaAction a = new TakeCardAction(findDice(p,new RingInteger1(diceToUse)));
+        RomaAction a = new TakeCardAction(p.findDice(new RingInteger1(diceToUse)));
         try {
             gst.input.interactionData.push(chosen.name());
             gst.ge.doAction(p, a);
@@ -114,9 +122,6 @@ public class PJRomaTestMoveMaker implements MoveMaker {
 
     }
 
-    private RingInteger0 findDice(PlayerState p, RingInteger1 diceToUse) {
-        return p.dice.getDiceNoFromValue(diceToUse.asInt());
-    }
 
     /**
      * Activate the Money Disc with the given action die.
@@ -206,7 +211,12 @@ public class PJRomaTestMoveMaker implements MoveMaker {
      */
     @Override
     public void endTurn() throws UnsupportedOperationException {
-        gst.ge.gs.nextPlayerTurn();//To change body of implemented methods use File | Settings | File Templates.
+        gst.ge.gs.nextPlayerTurn();
+        try {
+            gst.ge.phaseOne();//To change body of implemented methods use File | Settings | File Templates.
+        } catch (RomaGameEndException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     /**

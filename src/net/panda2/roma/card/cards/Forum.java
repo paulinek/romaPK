@@ -16,7 +16,14 @@ import net.panda2.roma.game.exception.RomaException;
 public class Forum extends BuildingCard {
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        int numVPs = dat.stack.pop().asInt();
+        int nbasilicas;
+        dat.whichDiceDisc.setMax(ge.getCurrentPlayer(tk).getNdiscs());
+       nbasilicas = ge.getCurrentPlayer(tk).hasAdjacentCard(dat.whichDiceDisc,"Basilica");
+
+            numVPs+=2*nbasilicas;
+
+        ge.takeVPs(tk,ge.getCurrentPlayer(tk), numVPs);
     }
 
     public Forum( int price, int defense) {

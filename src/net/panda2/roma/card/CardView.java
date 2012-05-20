@@ -44,7 +44,14 @@ public class CardView {
     public String getPrintable() {
     return name + "(" + price + ","+defense + ")";
     }
-    public boolean equals(String s) {
-        return s.equalsIgnoreCase(name);
+    public boolean equals(Object s) {
+        if(s instanceof String) {
+            return ((String) s).equalsIgnoreCase(name);
+        }
+        else if(s instanceof CardView) {
+            return ((CardView) s).getName().equalsIgnoreCase(name);
+        }
+    return false
+         ;
     }
 }

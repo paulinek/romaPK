@@ -54,7 +54,7 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
     public void setDice(int[] dice) {
     checkArgument(dice.length == this.dice.size());
     for(int i = 0; i < dice.length; i++) {
-        this.dice.get(i).fiddle(dice[i],true);
+        this.dice.get(i).update(dice[i],true);
     }
     }
 

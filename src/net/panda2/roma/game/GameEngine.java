@@ -394,4 +394,12 @@ public class GameEngine {
             playerInput.say(s);
         }
     }
+
+    public boolean takeVPs(AuthToken tk, PlayerState currentPlayer, int numVPs) throws RomaGameEndException {
+        if(authenticateToken(tk)) {
+           gs.tabletopVPStockpile.transferAway(currentPlayer.vp,numVPs );
+           return true;
+        }
+        return false;
+    }
 }

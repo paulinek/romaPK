@@ -58,7 +58,8 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
     public List<CardView>
     getCardView() {
         List<CardView> cv = new ArrayList<CardView>();
-        for(PJRomaCard c:cards) {
+        for(int i = 0; i < cards.size(); i++) {
+            PJRomaCard c = cards.get(i);
             if(c == null) {
                 cv.add(new NullCardView());
             } else {
@@ -103,9 +104,10 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
     }
 
     public void layCard(RingInteger0 cardNo, ViewableTableau tb, RingInteger0 toCardNo) {
-        checkElementIndex(cardNo.asInt(), numCards());
-        PJRomaCard c = cards.get(cardNo.asInt());
-        cards.remove(cardNo);
+        int pos = cardNo.asInt();
+        checkElementIndex(pos, numCards());
+        PJRomaCard c = cards.get(pos);
+        cards.remove(pos);
         tb.setCard(toCardNo, c);
 
     }
@@ -147,9 +149,11 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
     }
 
     public RingInteger0 findCard(String name) {
-        int loc = cards.indexOf(name);
-        if(loc >= 0) {
-            return new RingInteger0(loc);
+        List<CardView> cards = getCardView();
+        for(int i = 0; i < cards.size(); i++) {
+            if(cards.get(i).equals(name)) {
+                return new RingInteger0(i);
+            }
         }
         return null;
     }

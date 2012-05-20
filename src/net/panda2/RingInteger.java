@@ -48,7 +48,7 @@ public
         i--;
         if(i < min) {
 
-          i = max;
+          i = max-1;
         }
         return i;
     }
@@ -83,5 +83,10 @@ public
 
         }
             return 0;
+    }
+
+    public void setMax(int n) {
+    max=n;
+    i %=max;
     }
 }

@@ -1,13 +1,10 @@
 package net.panda2.roma.card.cards;
 
-import framework.interfaces.activators.Attacker;
-import framework.interfaces.activators.CardActivator;
-import framework.interfaces.activators.LegionariusActivator;
-import framework.interfaces.activators.Targeted;
+import framework.interfaces.activators.*;
 import net.panda2.RingInteger0;
 import net.panda2.roma.action.ActionData;
-import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
 
@@ -18,17 +15,9 @@ import net.panda2.roma.game.PlayerState;
  * Time: 1:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AttackCardActivator implements LegionariusActivator, Attacker, CardActivator, Targeted {
-    RomaAction action;
-    ActionData data;
-    PlayerState player;
-PJRomaTestGameState gst;
+public class AttackCardActivator extends PJRomaActivator implements LegionariusActivator, PraetorianusActivator, Attacker, CardActivator, Targeted {
     public AttackCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        this.player = p;
-        this.action = a;
-        this.gst = gst;
-        data = new ActionData();
-
+        super(gst,p,a);
     }
 
 
@@ -46,7 +35,7 @@ PJRomaTestGameState gst;
     @Override
     public void giveAttackDieRoll(int roll) {
         //To change body of implemented methods use File | Settings | File Templates.
-        data.stack.push(new RingInteger0(roll));
+        getData().stack.push(new RingInteger0(roll));
     }
 
     /**
@@ -62,7 +51,7 @@ PJRomaTestGameState gst;
      */
     @Override
     public void complete() {
-        gst.ge.activateCard(player, (ActivateCardAction) action, data, gst.tk);
+        super.complete();
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -79,11 +68,11 @@ PJRomaTestGameState gst;
      */
     @Override
     public void chooseDiceDisc(int diceDisc) {
-        data.whichDiceDisc = new RingInteger0(diceDisc);
+        getData().whichDiceDisc = new RingInteger0(diceDisc);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public ActionData getData() {
-        return data;
+        return super.getData();
     }
 }

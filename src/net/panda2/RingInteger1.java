@@ -9,7 +9,7 @@ package net.panda2;
  */
 public class RingInteger1 extends RingInteger {
     public RingInteger1( int init, int max) {
-        super(max);
+        super(max-1);
         if(init == 0) {
              i = max-1;
 
