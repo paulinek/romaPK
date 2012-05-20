@@ -1,12 +1,12 @@
 package tests.verified;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import framework.Test;
 import framework.cards.Card;
 import framework.interfaces.GameState;
 import framework.interfaces.MoveMaker;
-
-import java.util.*;
-
 /**
  * Testing the basic mechanics of victory point addition and removal.
  * @author Damon (Stacey damon.stacey)
@@ -24,14 +24,14 @@ public class InitialisationDiscardBasicTest extends Test {
                                           UnsupportedOperationException,
                                           IllegalArgumentException {
 
-      List<Card> discard = new LinkedList();
+      List<Card> discard = new LinkedList<Card>();
       gameState.setDiscard(discard);
       discard = gameState.getDiscard();
       assert (discard.size() == 0);     
       
       List<Card> cards = getPopulatedCards();
       for (Card c : cards) {
-         discard = new LinkedList();
+         discard = new LinkedList<Card>();
          gameState.setDiscard(discard);
          if (!c.toString().equals("Not A Card")) {           
             for (int i = 0; i < 52; i++) {
@@ -45,7 +45,7 @@ public class InitialisationDiscardBasicTest extends Test {
             }
          }
       }
-      discard = new LinkedList();
+      discard = new LinkedList<Card>();
       gameState.setDiscard(discard);
       discard = gameState.getDiscard();
       assert (discard.size() == 0);     
@@ -62,7 +62,7 @@ public class InitialisationDiscardBasicTest extends Test {
    }
 
    private List<Card> getPopulatedCards() {
-      List<Card> cards = new LinkedList();
+      List<Card> cards = new LinkedList<Card>();
       cards.add(Card.AESCULAPINUM);
       cards.add(Card.ARCHITECTUS);
       cards.add(Card.BASILICA);

@@ -1,14 +1,14 @@
 package tests.unverified;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
-import framework.Test;
 import framework.Rules;
+import framework.Test;
 import framework.cards.Card;
 import framework.interfaces.GameState;
 import framework.interfaces.MoveMaker;
-import framework.interfaces.activators.*;
+import framework.interfaces.activators.CenturioActivator;
 /**
  *
  * Test the basic functionality of Kat
@@ -30,8 +30,8 @@ public class CardActivatorKatABasicTest extends Test {
       List<Card> deck = new LinkedList<Card>();
       gameState.setDiscard(deck);
 
-      Card[] discs = new Card[8];
-      for (int i = 0; i < 8; i++) {
+      Card[] discs = new Card[Rules.NUM_DICE_DISCS];
+      for (int i = 0; i < Rules.NUM_DICE_DISCS; i++) {
          discs[i] = Card.NOT_A_CARD;
       }
       for (int i = 0; i < Rules.NUM_PLAYERS; i++) {
@@ -118,7 +118,7 @@ public class CardActivatorKatABasicTest extends Test {
       assert(!gameState.getDiscard().contains(Card.KAT));
       assert(!gameState.getPlayerHand(1).contains(Card.KAT));
 
-      //only tests it has at least 3 lives.. :)
+      //only tests it has at least 3 lives.. :) 
       assert(!gameState.isGameCompleted());
       
     }

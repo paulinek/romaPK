@@ -9,10 +9,9 @@ package net.panda2.roma.action;
  */
 public class ActivateCardAction extends RomaAction {
     public ActivateCardAction(int diceNo, int discNo) {
+
         super(diceNo);
-        this.discNo = discNo;
-    }
-    public ActivateCardAction(int discNo) {
+
         this.discNo = discNo;
     }
 }

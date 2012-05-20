@@ -69,4 +69,8 @@ public class PlayerState {
     public void useupDice(int diceNo) {
             dice.useup(diceNo);
     }
+
+    public int getDiceValue(int dice) {
+        return this.dice.getNth(dice);
+    }
 }

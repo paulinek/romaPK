@@ -1,14 +1,13 @@
 package tests.verified;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import framework.Rules;
 import framework.Test;
 import framework.cards.Card;
 import framework.interfaces.GameState;
 import framework.interfaces.MoveMaker;
-
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Testing the basic mechanics of victory point addition and removal.
  * @author Damon (Stacey damon.stacey)
@@ -67,7 +66,7 @@ public class InitialisationCardDiscBasicTest extends Test {
    }
 
    private List<Card> getPopulatedCards() {
-      List<Card> cards = new LinkedList();
+      List<Card> cards = new LinkedList<Card>();
       cards.add(Card.AESCULAPINUM);
       cards.add(Card.ARCHITECTUS);
       cards.add(Card.BASILICA);

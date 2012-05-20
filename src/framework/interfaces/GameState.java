@@ -1,7 +1,6 @@
 package framework.interfaces;
 
 import framework.cards.Card;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -74,7 +73,7 @@ public interface GameState {
     *
     * @return the current GameState deck
     */
-   public List<Card> getDeck();
+   public List<Card> getDeck ();
 
    /**
     * Sets the GameState's current deck.

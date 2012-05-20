@@ -7,6 +7,7 @@ import framework.interfaces.activators.CardActivator;
 import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.action.TakeCardAction;
+import net.panda2.roma.card.cards.AttackCardActivator;
 import net.panda2.roma.game.exception.RomaException;
 
 /**
@@ -16,12 +17,12 @@ import net.panda2.roma.game.exception.RomaException;
  * Time: 12:01 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PJRomaMoveMaker implements MoveMaker {
-   PKGameStateTest gst;
-    public PJRomaMoveMaker(GameState state) {
-        if(state instanceof PKGameStateTest)
+public class PJRomaTestMoveMaker implements MoveMaker {
+   PJRomaTestGameState gst;
+    public PJRomaTestMoveMaker(GameState state) {
+        if(state instanceof PJRomaTestGameState)
         {
-            gst =( PKGameStateTest) state;
+            gst =(PJRomaTestGameState) state;
         }
     }
 
@@ -48,15 +49,14 @@ public class PJRomaMoveMaker implements MoveMaker {
      */
     @Override
     public CardActivator chooseCardToActivate(int disc) throws UnsupportedOperationException {
-        RomaAction a = new ActivateCardAction(disc);
-        try {
-            gst.ge.doAction(gst.ge.gs.currentPlayer(), a);
-        } catch (RomaException e) {
-            if(e instanceof RomaGameEndException) {
-                gst.gameEnded = true;
-            }
-        }
-        return null;
+        GameEngine ge = gst.ge;
+        PlayerState player = ge.getCurrentPlayer(gst.tk);
+        RomaAction action = new ActivateCardAction(findDice(player, disc),disc);
+
+        AttackCardActivator activator = new AttackCardActivator(gst, player, action );
+        action.setActionData(activator.getData());
+        action.getActionData().whichDiceDisc = disc;
+        return activator;
     }
 
     /**
@@ -99,6 +99,9 @@ public class PJRomaMoveMaker implements MoveMaker {
             gst.input.interactionData.push(chosen.name());
             gst.ge.doAction(p, a);
         } catch (RomaException e) {
+            if(e instanceof RomaGameEndException) {
+                // todo - pass game end signal up
+            }
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 

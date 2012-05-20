@@ -19,9 +19,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Time: 4:48 AM
  * To change this template use File | Settings | File Templates.
  */
-public class PKGameStateTest implements GameState {
-    AuthToken tk;
-    GameEngine ge;
+public class PJRomaTestGameState implements GameState {
+    public AuthToken tk;
+    public GameEngine ge;
 PlayerInteractorAcceptance input;
     public boolean isGameEnded() {
         return gameEnded;
@@ -33,7 +33,7 @@ PlayerInteractorAcceptance input;
 
      boolean gameEnded;
 
-    public PKGameStateTest() {
+    public PJRomaTestGameState() {
         tk = new AuthToken();
         input = new PlayerInteractorAcceptance();
         ge = GameEngine.createGameEngine(tk, input);
@@ -458,6 +458,7 @@ PlayerInteractorAcceptance input;
      */
     @Override
     public int[] getActionDice() {
+
         return new int[0];  //To change body of implemented methods use File | Settings | File Templates.
     }
 

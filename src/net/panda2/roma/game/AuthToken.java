@@ -1,5 +1,7 @@
 package net.panda2.roma.game;
 
+import java.util.Random;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -8,4 +10,15 @@ package net.panda2.roma.game;
  * To change this template use File | Settings | File Templates.
  */
 public class AuthToken {
+    int token;
+    static Random randomizer = new Random();
+
+    public AuthToken() {
+        token = randomizer.nextInt();
+    }
+
+    boolean equals(AuthToken tk) {
+        if(tk == null) return false;
+        return (tk.token == token);
+    }
 }

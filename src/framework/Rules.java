@@ -27,7 +27,7 @@ public class Rules {
      * players' hands.
      * </p>
      */
-    public static final int NUM_CARDS = 52;
+    public static final int NUM_CARDS = 56;
 
     /**
      * The total number of Victory Points present in the game.

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkElementIndex;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +23,7 @@ public class GameEngine {
     RomaGameState gs;
     RomaRules ruleSet;
     AuthToken masterToken;
+    AuthToken currentToken;
     PlayerInteractor playerInput;
 
     public GameEngine(AuthToken tk, PlayerInteractor input) {
@@ -40,7 +42,7 @@ public class GameEngine {
 
     // makes sure that people aren't trying to fiddle by forging tokens
     public boolean authenticateToken(AuthToken tk) {
-        return true;
+    return(tk.equals(masterToken) || tk.equals(currentToken)) ;
     }
     public void authenticateOrDie(AuthToken tk) throws RomaException{
         if(!authenticateToken(tk)) {
@@ -215,13 +217,16 @@ public class GameEngine {
         return false;
     }
 
+    void doActivateAction(PlayerState player, int diceRef, ActivateCardAction action) throws RomaException {
+        int diceVal = player.getDiceValue(diceRef);
+        PJRomaCard c = player.diceDiscCards.get(diceVal);
+        c.activate(this, masterToken, action.getActionData());
+    }
+
      void doAction(PlayerState playerState, RomaAction action) throws RomaException {
 
         if(action instanceof ActivateCardAction) {
             playerState.useupDice(action.getDiceNo());
-            PJRomaCard c = playerState.diceDiscCards.get(action.getDiceNo());
-
-            c.activate(this, masterToken, action.getActionData());
 
         } else if(action instanceof LayCardAction) {
             int cost;
@@ -336,5 +341,20 @@ public class GameEngine {
 
     public PlayerState getNextPlayer(AuthToken tk) {
         return authenticatedReturn(tk, gs.getNextPlayer());
+    }
+
+    public void activateCard(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
+        if(!authenticateToken(tk)) {
+            return;
+        }
+        checkNotNull(action);
+
+        try {
+            int diceNo = action.getDiceNo();
+            doActivateAction(player,action.getDiceNo(),  action);
+        } catch (RomaException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
     }
 }

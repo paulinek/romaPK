@@ -27,7 +27,7 @@ public class PJRomaAcceptanceTester implements AcceptanceInterface {
      */
     @Override
     public MoveMaker getMover(GameState state) {
-        return new PJRomaMoveMaker(state);
+        return new PJRomaTestMoveMaker(state);
     }
 
     /**
@@ -48,7 +48,7 @@ public class PJRomaAcceptanceTester implements AcceptanceInterface {
     @Override
     public GameState getInitialState() {
         // this creates an authtoken and gameengine for us
-        PKGameStateTest gst = new PKGameStateTest();
+        PJRomaTestGameState gst = new PJRomaTestGameState();
         return gst;
 
     }

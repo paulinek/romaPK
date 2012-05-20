@@ -1,5 +1,6 @@
 package framework.interfaces.activators;
 
+
 /**
  * Provides a way of passing data to a card that is being activated.
  *

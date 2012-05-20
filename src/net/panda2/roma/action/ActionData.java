@@ -13,4 +13,13 @@ public class ActionData {
     RAction action;
     public int whichDiceDisc;
     public Stack<Integer> stack;
+
+    public ActionData(RAction action) {
+        this.action = action;
+        stack = new Stack<Integer>();
+    }
+
+    public ActionData() {
+        this(null);
+    }
 }

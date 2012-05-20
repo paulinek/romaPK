@@ -1,14 +1,14 @@
 package tests.unverified;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
-import framework.Test;
 import framework.Rules;
+import framework.Test;
 import framework.cards.Card;
 import framework.interfaces.GameState;
 import framework.interfaces.MoveMaker;
-import framework.interfaces.activators.*;
+import framework.interfaces.activators.TelephoneBoxActivator;
 
 /**
  *
@@ -31,8 +31,8 @@ public class CardActivatorTelephoneboxABasicTest extends Test {
       List<Card> deck = new LinkedList<Card>();
       gameState.setDiscard(deck);
 
-      Card[] discs = new Card[8];
-      for (int i = 0; i < 8; i++) {
+      Card[] discs = new Card[Rules.NUM_DICE_DISCS];
+      for (int i = 0; i < Rules.NUM_DICE_DISCS; i++) {
          discs[i] = Card.NOT_A_CARD;
       }
       for (int i = 0; i < Rules.NUM_PLAYERS; i++) {
@@ -103,7 +103,7 @@ public class CardActivatorTelephoneboxABasicTest extends Test {
       assert(field[1] == Card.TELEPHONEBOX);
       assert(field[2] == Card.NOT_A_CARD);
       
-      assert(gameState.getActionDice().length == 2);
+      assert(gameState.getActionDice().length == 1);
       assert(!gameState.isGameCompleted());
 
       move.endTurn();

@@ -1,10 +1,11 @@
 package framework;
 
+import java.io.PrintStream;
+
 import framework.cards.Card;
 import framework.interfaces.GameState;
 import framework.interfaces.MoveMaker;
 import framework.interfaces.activators.CardActivator;
-import java.io.PrintStream;
 
 /**
  * Wrapper for a testee's MoveMaker, to ensure no invalid moves are
