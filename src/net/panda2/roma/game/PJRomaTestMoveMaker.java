@@ -68,6 +68,10 @@ public class PJRomaTestMoveMaker implements MoveMaker {
              activator = new ForumCardActivator(gst, player, action);
         } else if (c instanceof Legionarius || c instanceof Praetorianus) {
              activator = new AttackCardActivator(gst, player, action );
+        } else if(c instanceof Centurio) {
+            activator = new CenturioCardActivator(gst,player,action);
+        } else if(c instanceof Essedum) {
+            activator = new BasicActivator(gst,player,action);
         }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;

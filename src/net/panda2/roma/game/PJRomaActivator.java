@@ -73,9 +73,9 @@ public abstract class PJRomaActivator implements CardActivator {
      */
     @Override
      public void complete() {
-        getGE().activateCard(getPlayer(), (ActivateCardAction) getAction(), getData(), getTK());
+        gst.ge.activateCard(player, (ActivateCardAction) action, data, gst.tk);
 
-    };
+    }
 
     protected GameEngine getGE() {
         return gst.ge;

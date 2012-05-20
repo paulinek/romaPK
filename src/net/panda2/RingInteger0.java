@@ -9,12 +9,12 @@ package net.panda2;
  */
 public class RingInteger0 extends RingInteger {
     public RingInteger0(int val, int max) {
-        super(max-1);
+        super(max,0);
         this.i=val;
         i%=max;
     }
     public RingInteger0(RingInteger1 r) {
-        super(r.max);
+        super(r.max,0);
         i=r.i;
     }
 

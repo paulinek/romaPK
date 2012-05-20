@@ -1,7 +1,4 @@
 package net.panda2;
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkPositionIndex;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -13,53 +10,50 @@ public abstract class RingInteger implements Comparable<RingInteger>{
     int min;
     int max;
     int i;
-    public RingInteger(int max){
-        setup(0,max);
+    int returnOffset;
+    public RingInteger(int max,int returnOffset){
+        this.max=max;
+        this.returnOffset=returnOffset;
     }
 
-    public RingInteger(int min, int max) {
-        setup(min,max);
-    }
-    void setup(int min,int max) {
-        this.min = min;
-        this.max = max;
-        i=min;
-    }
-public
-    int inc() {
-        i = next();
-    return i;
+
+public int inc() {
+    i++;
+    i%=max;
+    return i+returnOffset;
 }
     public
     int next() {
-       int i = this.i;
-        i++;
-        if(i > max) {
-            i=min;
+        return (i+1)%max + returnOffset;
+
+
+    }
+    int calcPrev() {
+        int i=this.i;
+        i--;
+        if(i < 0) {
+
+            i = max-1;
         }
         return i;
     }
     public int dec() {
-        i = prev();
-        return i;
+        i = calcPrev();
+        return i+returnOffset;
     }
     public int prev() {
-        int i=this.i;
-        i--;
-        if(i < min) {
-
-          i = max-1;
-        }
-        return i;
+        return calcPrev()+returnOffset;
     }
     public RingInteger set(int i) {
-        checkPositionIndex(i, max);
-        checkArgument(i>=min);
-        this.i=i;
+        i-=returnOffset;
+        if(i<0) {
+            i+= max;
+        }
+        this.i=i%max;
         return this;
     }
     public int get() {
-        return i;
+        return i+returnOffset;
     }
     public int asInt() {
         return get();

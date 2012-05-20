@@ -37,7 +37,7 @@ public abstract class PJRomaCard extends Card implements Cloneable{
 	}
 	
 	public int getDefense () {
-		return this.defense;
+		return this.defense + this.defenseOffset;
 	}
 	
 	public boolean isCharacter () {
