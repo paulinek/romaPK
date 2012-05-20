@@ -5,13 +5,13 @@ import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
+import net.panda2.roma.card.cards.Turris;
 import net.panda2.roma.game.exception.RomaException;
 import net.panda2.roma.game.exception.RomaUnAuthException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkElementIndex;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -307,6 +307,11 @@ public class GameEngine {
             PJRomaCard opponentCard = opponent.diceDiscCards.get(cardLocation);
             checkNotNull(opponentCard);
             int totalDefense = opponentCard.getDefense() + opponent.defenseBonus();
+            if(opponentCard instanceof Turris) {
+                // hack
+                // we counted the turris before
+                totalDefense--;
+            }
         if(attackRoll >= totalDefense) {
             destroyCard(opponent, opponent.diceDiscCards, cardLocation);
         }
@@ -358,7 +363,7 @@ public class GameEngine {
 
 
     public void unlayCard(AuthToken tk, boolean me, RingInteger0 opponentCardNo) {
-        checkElementIndex(opponentCardNo.asInt(),ruleSet.numDiceDiscs);
+;
         if(!authenticateToken(tk))
             return;
         PlayerState p = me?gs.currentPlayer():gs.getNextPlayer();

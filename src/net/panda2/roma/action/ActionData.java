@@ -1,6 +1,7 @@
 package net.panda2.roma.action;
 
 import net.panda2.RingInteger0;
+import net.panda2.roma.card.cards.CardLocation;
 
 import java.util.Stack;
 
@@ -31,5 +32,9 @@ public class ActionData {
 
     public void stackpush(Object o) {
         stack.push(o);
+    }
+
+    public CardLocation popCardLocation() {
+        return (CardLocation) stack.pop();
     }
 }

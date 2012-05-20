@@ -17,7 +17,7 @@ import net.panda2.roma.game.PlayerState;
  */
 public class AttackCardActivator extends PJRomaActivator implements
         LegionariusActivator, PraetorianusActivator, SicariusActivator,
-        TribunusPlebisActivator, GladiatorActivator,
+        TribunusPlebisActivator, GladiatorActivator, NeroActivator,
         Attacker, CardActivator, Targeted {
     public AttackCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(gst,p,a);

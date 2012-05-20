@@ -4,6 +4,7 @@ import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.PJRomaCard;
+import net.panda2.roma.card.cards.CardLocation;
 import net.panda2.roma.game.exception.RomaException;
 
 import java.util.ArrayList;
@@ -136,19 +137,28 @@ public class PlayerState {
         return diceDiscCards.howManyOfThese("Forum");
     }
 
-    public void takeVPs(AuthToken tk, PlayerState p, int numVPs) {
+    public void takeVPs(AuthToken tk, PlayerState p, int numVPs) throws RomaGameEndException {
         if(ge.authenticateToken(tk)) {
-            try {
                 vp.transferAway(p.vp, numVPs);
-            } catch (RomaGameEndException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }}
-
+        }
     }
 
     public void useupDiceByVal(int diceValue) {
 
         RingInteger0 diceRef = findDice(new RingInteger1(diceValue));
         useupDice(diceRef);
+    }
+
+    public void takeMoney(AuthToken tk, PlayerState p, int amt) throws RomaGameEndException {
+            money.transferAway(p.money, amt);
+    }
+
+    public PJRomaCard getDiscCard(RingInteger0 i) {
+        return diceDiscCards.get(i);
+    }
+
+    public void layCardByName(CardLocation cl) {
+        RingInteger0 cardNo = hand.findCard(cl.name);
+        layCard(cardNo, cl.location.toR0());
     }
 }

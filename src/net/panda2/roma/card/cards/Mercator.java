@@ -46,5 +46,8 @@ public class Mercator extends CharacterCard {
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
         RingInteger0 nVictoryPoints = dat.popR0();
         PlayerState me = ge.getCurrentPlayer(tk);
+        PlayerState opponent = ge.getNextPlayer(tk);
+        opponent.takeVPs(tk, me, nVictoryPoints.asInt());
+        me.takeMoney(tk, me, nVictoryPoints.asInt()*2);
     }
 }

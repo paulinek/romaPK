@@ -88,6 +88,10 @@ public class PJRomaTestMoveMaker implements MoveMaker {
                 c instanceof Machina ||
                 c instanceof Architectus) {
             activator = new MultiCardActivator(gst,player,action);
+        } else if(c instanceof Mercator) {
+            activator= new MercatorCardActivator(gst,player,action);
+        } else if(c instanceof Scaenicus) {
+            activator=new ScaenicusCardActivator(gst,player,action);
         }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;
