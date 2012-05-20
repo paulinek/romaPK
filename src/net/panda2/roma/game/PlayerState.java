@@ -139,10 +139,16 @@ public class PlayerState {
     public void takeVPs(AuthToken tk, PlayerState p, int numVPs) {
         if(ge.authenticateToken(tk)) {
             try {
-                p.vp.transferAway(p.vp, numVPs);
+                vp.transferAway(p.vp, numVPs);
             } catch (RomaGameEndException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }}
 
+    }
+
+    public void useupDiceByVal(int diceValue) {
+
+        RingInteger0 diceRef = findDice(new RingInteger1(diceValue));
+        useupDice(diceRef);
     }
 }

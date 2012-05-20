@@ -77,6 +77,12 @@ public class PJRomaTestMoveMaker implements MoveMaker {
                   c instanceof Legat) {
 
                 activator = new BasicActivator(gst,player,action);
+        } else if(c instanceof Consul) {
+            activator = new ConsulCardActivator(gst,player,action);
+        } else if(c instanceof Consiliarius ||
+                c instanceof Senator ||
+                c instanceof Machina) {
+            activator = new MultiCardActivator(gst,player,action);
         }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;

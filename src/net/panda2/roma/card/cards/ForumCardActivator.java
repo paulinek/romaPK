@@ -53,6 +53,7 @@ templumActive = true;
     @Override
     public void chooseActivateTemplum(int diceValue) {
         templumDiceVal=diceValue;
+        getPlayer().useupDiceByVal(diceValue);
     }
 
     /**

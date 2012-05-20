@@ -1,6 +1,8 @@
 package net.panda2.roma.card.cards;
 
 import framework.cards.Card;
+import framework.interfaces.activators.ConsiliariusActivator;
+import framework.interfaces.activators.MachinaActivator;
 import framework.interfaces.activators.SenatorActivator;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.game.PJRomaActivator;
@@ -14,8 +16,8 @@ import net.panda2.roma.game.PlayerState;
  * Time: 12:59 AM
  * To change this template use File | Settings | File Templates.
  */
-public class SenatorCardActivator extends PJRomaActivator implements SenatorActivator {
-    public SenatorCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+public class MultiCardActivator extends PJRomaActivator implements SenatorActivator,ConsiliariusActivator,MachinaActivator {
+    public MultiCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(gst, p, a);
     }
 
@@ -37,6 +39,24 @@ public class SenatorCardActivator extends PJRomaActivator implements SenatorActi
      */
     @Override
     public void complete() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    /**
+     * Place a floating card on to a dice disc.
+     * <p/>
+     * <p>
+     * When cards that allow rearrangement are activated, all the cards
+     * affected enter a floating state. Cards are then given new
+     * locations with this method. The pending activation cannot be
+     * completed while there are floating cards.
+     * </p>
+     *
+     * @param card     the card to place
+     * @param diceDisc the location for the card to be placed
+     */
+    @Override
+    public void placeCard(Card card, int diceDisc) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

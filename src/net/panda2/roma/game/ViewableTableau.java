@@ -8,7 +8,7 @@ import net.panda2.roma.card.NullCardView;
 import net.panda2.roma.card.PJRomaCard;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -75,7 +75,17 @@ public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCard
     public int howManyOfThese(String name) {
 
         List<CardView> cards = getCardView();
-        return Collections.frequency(cards, name);
+        return countN(cards,name);
 
+    }
+    int
+    countN(Collection c, Object x) {
+        int n=0;
+        for(Object o:c) {
+            if (o.equals(x)) {
+                n++;
+            }
+        }
+        return n;
     }
 }
