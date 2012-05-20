@@ -16,7 +16,7 @@ public class Nero extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        RingInteger0 which = dat.stack.pop();
+        RingInteger0 which = dat.popR0();
         // TODO - check it's a building card
         ge.destroyCard(which,tk);
         ge.destroyCard(dat.whichDiceDisc, true, tk);

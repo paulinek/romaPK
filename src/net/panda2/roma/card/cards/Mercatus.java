@@ -4,6 +4,7 @@ import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.BuildingCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
+import net.panda2.roma.game.PlayerState;
 import net.panda2.roma.game.exception.RomaException;
 
 /**
@@ -16,7 +17,10 @@ import net.panda2.roma.game.exception.RomaException;
 public class Mercatus extends BuildingCard {
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        //To change body of implemented methods use File | Settings | File Templates.
+      PlayerState p = ge.getCurrentPlayer(tk);
+      PlayerState opponent = ge.getNextPlayer(tk);
+      int numVPs=opponent.countForums();
+      opponent.takeVPs(tk,p,numVPs);
     }
 
     public Mercatus( int price, int defense) {

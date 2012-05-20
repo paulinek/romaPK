@@ -2,7 +2,7 @@ package net.panda2.roma.card.cards;
 
 import framework.interfaces.activators.*;
 import net.panda2.RingInteger0;
-import net.panda2.roma.action.ActionData;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
@@ -15,7 +15,7 @@ import net.panda2.roma.game.PlayerState;
  * Time: 1:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AttackCardActivator extends PJRomaActivator implements LegionariusActivator, PraetorianusActivator, Attacker, CardActivator, Targeted {
+public class AttackCardActivator extends PJRomaActivator implements LegionariusActivator, PraetorianusActivator, SicariusActivator, Attacker, CardActivator, Targeted {
     public AttackCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(gst,p,a);
     }
@@ -35,7 +35,7 @@ public class AttackCardActivator extends PJRomaActivator implements LegionariusA
     @Override
     public void giveAttackDieRoll(int roll) {
         //To change body of implemented methods use File | Settings | File Templates.
-        getData().stack.push(new RingInteger0(roll));
+        getData().stackpush(new RingInteger0(roll));
     }
 
     /**
@@ -68,11 +68,9 @@ public class AttackCardActivator extends PJRomaActivator implements LegionariusA
      */
     @Override
     public void chooseDiceDisc(int diceDisc) {
-        getData().whichDiceDisc = new RingInteger0(diceDisc);
+        getData().stackpush( new RingInteger1(diceDisc).toR0());
+
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public ActionData getData() {
-        return super.getData();
-    }
 }

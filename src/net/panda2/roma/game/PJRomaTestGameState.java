@@ -459,9 +459,9 @@ PlayerInteractorAcceptance input;
      */
     @Override
     public int[] getActionDice() {
+        PlayerState p = ge.getCurrentPlayer(tk);
+        return p.getDiceArray();}
 
-        return new int[0];  //To change body of implemented methods use File | Settings | File Templates.
-    }
 
     /**
      * Sets the current player's action dice values.

@@ -17,7 +17,7 @@ public class Sicarius extends CharacterCard {
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
         RingInteger0
-                which = dat.stack.pop();
+                which = dat.popR0();
         // TODO - check it's a characterCard
         ge.destroyCard(which,tk);
         ge.destroyCard(dat.whichDiceDisc, true, tk);

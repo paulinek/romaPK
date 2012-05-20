@@ -16,12 +16,10 @@ public class Consul extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        int dice = dat.stack.pop().asInt();
-        int amt = dat.stack.pop().asInt();
-        if(amt < 0)
-            amt=-1;
-        else
-            amt=1;
+         int amt = dat.popR0().asInt()-1;
+        int dice = dat.popR0().asInt();
+
+
         ge.fiddleDice(dice,amt,tk);
                 //To change body of implemented methods use File | Settings | File Templates.
     }

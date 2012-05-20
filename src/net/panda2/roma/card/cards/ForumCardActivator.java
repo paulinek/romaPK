@@ -92,7 +92,7 @@ templumActive = true;
      */
     @Override
     public void complete() {
-        getData().stack.push(new RingInteger0(forumDiceVal + templumDiceVal));
+        getData().stackpush(new RingInteger0(forumDiceVal + templumDiceVal));
         super.complete();
         //To change body of implemented methods use File | Settings | File Templates.
     }

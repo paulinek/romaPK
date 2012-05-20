@@ -14,7 +14,7 @@ public class Gladiator extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        RingInteger0 opponentCardNo = dat.stack.pop();
+        RingInteger0 opponentCardNo = dat.popR0();
         ge.unlayCard(tk,false,opponentCardNo);
     }
 

@@ -66,12 +66,17 @@ public class PJRomaTestMoveMaker implements MoveMaker {
         RomaAction action = new ActivateCardAction(diceRef,disc0);
         if(c instanceof Forum) {
              activator = new ForumCardActivator(gst, player, action);
-        } else if (c instanceof Legionarius || c instanceof Praetorianus) {
+        } else if (c instanceof Legionarius ||
+                   c instanceof Praetorianus ||
+                   c instanceof Sicarius) {
              activator = new AttackCardActivator(gst, player, action );
         } else if(c instanceof Centurio) {
             activator = new CenturioCardActivator(gst,player,action);
-        } else if(c instanceof Essedum) {
-            activator = new BasicActivator(gst,player,action);
+        } else if(c instanceof Essedum ||
+                  c instanceof Mercatus ||
+                  c instanceof Legat) {
+
+                activator = new BasicActivator(gst,player,action);
         }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;

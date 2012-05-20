@@ -15,7 +15,7 @@ public class Velites extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        RingInteger0 which = dat.stack.pop();
+        RingInteger0 which = dat.popR0();
         int attackRoll = ge.rollBattle();
 
         ge.battleCard(attackRoll,which, tk);

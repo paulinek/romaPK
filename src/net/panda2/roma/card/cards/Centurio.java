@@ -17,7 +17,7 @@ public class Centurio extends BattleCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        int attackRoll = dat.stack.pop().asInt();
+        int attackRoll = dat.popR0().asInt();
 
         // TODO - ask about unused action die
 

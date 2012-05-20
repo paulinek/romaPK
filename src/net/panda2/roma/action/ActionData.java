@@ -14,7 +14,7 @@ import java.util.Stack;
 public class ActionData {
     RAction action;
     public RingInteger0 whichDiceDisc;
-    public Stack<RingInteger0> stack;
+     Stack stack;
 
     public ActionData(RAction action) {
         this.action = action;
@@ -23,5 +23,13 @@ public class ActionData {
 
     public ActionData() {
         this(null);
+    }
+
+    public RingInteger0 popR0() {
+        return (RingInteger0) stack.pop();
+    }
+
+    public void stackpush(Object o) {
+        stack.push(o);
     }
 }

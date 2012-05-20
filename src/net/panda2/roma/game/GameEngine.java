@@ -229,14 +229,14 @@ public class GameEngine {
     void doActivateAction(PlayerState player, RingInteger0 diceRef, ActivateCardAction action) throws RomaException {
         RingInteger1 diceVal = player.getDiceValue(diceRef);
         PJRomaCard c = player.diceDiscCards.get(diceVal.toR0());
+        player.useupDice(action.getDiceNo());
         c.activate(this, masterToken, action.getActionData());
     }
 
      void doAction(PlayerState playerState, RomaAction action) throws RomaException {
 
         if(action instanceof ActivateCardAction) {
-            playerState.useupDice(action.getDiceNo());
-
+            doActivateAction(playerState, action.getDiceNo(), (ActivateCardAction) action);
         } else if(action instanceof LayCardAction) {
             int cost;
             if(((LayCardAction) action).isFree()) {

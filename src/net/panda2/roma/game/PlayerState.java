@@ -6,6 +6,7 @@ import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.exception.RomaException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,5 +113,36 @@ public class PlayerState {
 
     public int getNdiscs() {
         return diceDiscCards.getSize();
+    }
+
+    public int[] getDiceArray() {
+        int ndice=this.dice.getNDice();
+        ArrayList<Integer> newDice = new ArrayList<Integer>();
+        RingInteger0 I = new RingInteger0(0);
+        for(int i=0; i<ndice;i++) {
+            I.set(i);
+            if(!this.dice.isNthUsed(I)) {
+                newDice.add(new Integer(this.dice.getNth(I)));
+            }
+        }
+        int []dice = new int[newDice.size()];
+        for(int i=0;i<newDice.size();i++){
+            dice[i] = newDice.get(i).intValue();
+        }
+        return dice;
+    }
+
+    public int countForums() {
+        return diceDiscCards.howManyOfThese("Forum");
+    }
+
+    public void takeVPs(AuthToken tk, PlayerState p, int numVPs) {
+        if(ge.authenticateToken(tk)) {
+            try {
+                p.vp.transferAway(p.vp, numVPs);
+            } catch (RomaGameEndException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }}
+
     }
 }

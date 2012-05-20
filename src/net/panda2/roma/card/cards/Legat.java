@@ -27,7 +27,7 @@ public class Legat extends PJRomaCard {
 
         Tableau<PJRomaCard> discs = opponent.getTableau(tk);
 
-        opponent.getVP(tk).transferAway(me.getVP(tk), discs.numEmpty(), tk);
+        ge.takeVPs(tk, me, discs.numEmpty());
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
