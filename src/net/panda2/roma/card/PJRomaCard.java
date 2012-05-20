@@ -12,6 +12,7 @@ public abstract class PJRomaCard extends Card implements Cloneable{
 	 int price;
 	 int defense;
 	 int defenseOffset;
+    protected int lives;
     boolean isCharacter;
     public int dataMode;
 
@@ -24,6 +25,7 @@ public abstract class PJRomaCard extends Card implements Cloneable{
 	//	this.disc = null;
 		this.isCharacter = isCharacter;
 	    defenseOffset=0;
+        lives=1;
     }
 	
 	public String getName () {
@@ -63,5 +65,16 @@ public abstract class PJRomaCard extends Card implements Cloneable{
     // TODO - work out how to make this not public
     public void addDefenseOffset(int i) {
         defenseOffset+=i;
+    }
+    public void reset() {
+        defenseOffset = 0;
+    }
+
+    public  void decreaseLives() {
+        lives--;
+    }
+
+    public boolean isDead() {
+        return lives>0;
     }
 }

@@ -1,6 +1,8 @@
 package net.panda2.roma.game;
 
 import net.panda2.CollectionHelper;
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.*;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.PJRomaCard;
@@ -91,7 +93,8 @@ public class PlayerInteractorConsole extends PlayerInteractor {
 
     public RomaAction getAction(PlayerGameView gv, PlayerState playerState) {
             ActionData dat = new ActionData();
-            int cardNo = 0, discNo = 0, diceNo = 0;
+            RingInteger1 diceNo = null, discNo=null;
+            RingInteger0 cardNo = null;
 
                 RomaAction x = null;
 
@@ -104,14 +107,15 @@ public class PlayerInteractorConsole extends PlayerInteractor {
                         valid=true;
                         break;
                     case 1: // hand card, dice disc
-                        cardNo = readNumber("Enter number of card in hand", 0, playerState.hand.numCards());
-                        discNo =  readNumber("Enter which disc to put it on", 1, playerState.diceDiscCards.getSize() +1)-1;
+                        cardNo = readNumber0("Enter number of card in hand", playerState.hand.numCards());
+                        discNo =  readNumber1("Enter which disc to put it on", playerState.diceDiscCards.getSize() +1);
                         valid=true;
                         break;
                     case 2:
-                        diceNo = readNumber("Enter number of action die to play", 1, playerState.dice.getNDice())-1;
-                        discNo = playerState.dice.getNth(diceNo);
-                        if(playerState.dice.isNthUsed(diceNo)) {
+                        diceNo = readNumber1("Enter number of action die to play", playerState.dice.getNDice());
+
+                        discNo = new RingInteger1(playerState.dice.getNth(diceNo.toR0()));
+                        if(playerState.dice.isNthUsed(diceNo.toR0())) {
                             say("DICE ALREADY USED TRY AGAIN");
                         } else {
                             valid=true;
@@ -121,7 +125,7 @@ public class PlayerInteractorConsole extends PlayerInteractor {
 
                 if(valid) {
                     if(choice.equals(RAction.ACTIVATECARD)) {
-                        x = new ActivateCardAction(diceNo, discNo);
+                        x = new ActivateCardAction(diceNo.toR0(), discNo.toR0());
                         PJRomaCard c = playerState.diceDiscCards.get(discNo);
                         switch(c.dataMode) {
                             case 0:
@@ -129,11 +133,11 @@ public class PlayerInteractorConsole extends PlayerInteractor {
                         }
                         x.setActionData(dat);
                     } else if(choice.equals(RAction.LAYCARD)) {
-                        x = new LayCardAction(cardNo, discNo);
+                        x = new LayCardAction(cardNo, discNo.toR0());
                     } else if(choice.equals(RAction.TAKECARD)) {
-                        x = new TakeCardAction(diceNo);
+                        x = new TakeCardAction(diceNo.toR0());
                     } else if(choice.equals(RAction.TAKEMONEY)) {
-                        x = new TakeMoneyAction(diceNo);
+                        x = new TakeMoneyAction(diceNo.toR0());
                     } else if(choice.equals(RAction.ENDTURN)) {
                         x = new EndTurnAction();
                     }
@@ -144,6 +148,16 @@ public class PlayerInteractorConsole extends PlayerInteractor {
             return x;
         }
 
+    // read a number from 1 to max
+    RingInteger1 readNumber1(String s, int max) {
+        return new RingInteger1(readNumber(s, 1, max));
+    }
+
+    // read a number from 0..max-1
+    RingInteger0 readNumber0(String s,int max) {
+        return new RingInteger0(readNumber(s,0,max-1));
+
+    }
     @Override
     public int chooseTakeCardCard(ViewableCardDeck deck) {
         printCardviewList(deck.getCardView(), 1, "C");

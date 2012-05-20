@@ -1,5 +1,7 @@
 package net.panda2.roma.action;
 
+import net.panda2.RingInteger0;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -16,9 +18,8 @@ public class LayCardAction extends RomaAction {
         this.free = free;
     }
 
-    public LayCardAction(int handCardNo, int discNo) {
-        super(handCardNo, discNo);
-        this.free = false;
+    public LayCardAction(RingInteger0 handCardNo, RingInteger0 discNo) {
+        this(handCardNo.asInt(), discNo.asInt(),false);
     }
 
 

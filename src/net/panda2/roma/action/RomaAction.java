@@ -1,5 +1,7 @@
 package net.panda2.roma.action;
 
+import net.panda2.RingInteger0;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -38,16 +40,16 @@ int cost;
     }
 
 
-    public int getDiceNo() {
-        return diceNo;
+    public RingInteger0 getDiceNo() {
+        return new RingInteger0(diceNo);
     }
 
-    public int getCardNo() {
-        return cardNo;
+    public RingInteger0 getCardNo() {
+        return new RingInteger0(cardNo);
     }
 
-    public int getDiscNo() {
-        return discNo;
+    public RingInteger0 getDiscNo() {
+        return new RingInteger0(discNo);
     }
 
 }

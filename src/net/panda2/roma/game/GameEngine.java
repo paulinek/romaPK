@@ -1,6 +1,8 @@
 package net.panda2.roma.game;
 
 import net.panda2.RingInteger;
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.exception.RomaException;
@@ -121,23 +123,30 @@ public class GameEngine {
 
     }
 
+    PlayerState player(int p) {
+        return gs.player[p];
+    }
+
     private void initialLay() {
         //To change body of created methods use File | Settings | File Templates.
         List<LayCardAction> cards[ ] = new List[ruleSet.numPlayers];
 
         for(int p = 0; p < ruleSet.numPlayers; p++) {
-            playerInput.say("Player " + p + "'s turn");
+            playerInput.say(player(p).getPlayerName() + "'s turn");
             cards[p] = new ArrayList<LayCardAction>();
-            for(int i = 0; i < ruleSet.playerInitCards; i++) {
                 try {
-                    doAction(gs.player[p],playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].diceDiscCards, true));
+                    while(cards[p].size()>0)         {
+                        LayCardAction action = (LayCardAction) playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].diceDiscCards, true);
+
+                        doAction(player(p),action);
+                    }
                 } catch (RomaException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
-            }
-
         }
+
     }
+
 
 
     void initialDeal() {
@@ -154,7 +163,7 @@ public class GameEngine {
             cardChoices[p] = playerInput.selectNCards("Player "+  p + ": Which cards would you like to trade", gs.player[p].hand, ruleSet.playerInitTrade);
 
         }
-        RingInteger rp = new RingInteger(ruleSet.numPlayers-1);
+        RingInteger rp = new RingInteger0(0,ruleSet.numPlayers);
         for(int p = 0; p < ruleSet.numPlayers; p++) {
             gs.player[p].hand.giveTo(gs.player[rp.set(p).next()].hand, cardChoices[p]);
         }
@@ -217,9 +226,9 @@ public class GameEngine {
         return false;
     }
 
-    void doActivateAction(PlayerState player, int diceRef, ActivateCardAction action) throws RomaException {
-        int diceVal = player.getDiceValue(diceRef);
-        PJRomaCard c = player.diceDiscCards.get(diceVal-1);
+    void doActivateAction(PlayerState player, RingInteger0 diceRef, ActivateCardAction action) throws RomaException {
+        RingInteger1 diceVal = player.getDiceValue(diceRef);
+        PJRomaCard c = player.diceDiscCards.get(diceVal.toR0());
         c.activate(this, masterToken, action.getActionData());
     }
 
@@ -292,32 +301,48 @@ public class GameEngine {
     // and destroys the card successful
     // attackRoll is passed in rather than rolled internally to allow for the
     // centurion card to modify the attack roll
-    public void battleCard( int attackRoll,int cardLocation, AuthToken tk) {
+    public void battleCard( int attackRoll,RingInteger0 cardLocation, AuthToken tk) {
         if(authenticateToken(tk)) {
             PlayerState opponent = gs.getNextPlayer();
-            PJRomaCard opponentCard = opponent.diceDiscCards.get(cardLocation-1);
+            PJRomaCard opponentCard = opponent.diceDiscCards.get(cardLocation);
             checkNotNull(opponentCard);
-        if(attackRoll >= opponentCard.getDefense()) {
-            destroyCard(opponent.diceDiscCards, cardLocation);
+            int totalDefense = opponentCard.getDefense() + opponent.defenseBonus();
+        if(attackRoll >= totalDefense) {
+            destroyCard(opponent, opponent.diceDiscCards, cardLocation);
         }
         }
     }
 
-    void destroyCard(ViewableTableau t, int which) {
-        t.discard(which, gs.discard);
+    // which is 0..5
+    void destroyCard(PlayerState player, ViewableTableau t, RingInteger0 which) {
+        PJRomaCard c = t.get(which.asInt());
 
+       c.decreaseLives();
+        if(c.isDead()) {
+        if(player.hasGrimReaper()) {
+            t.discard(which, player.hand);
+        } else {
+            t.discard(which, gs.discard);
+        }
+        }
     }
-    public void destroyCard(int which, AuthToken tk) {
+    public void destroyCard(RingInteger0 which, AuthToken tk) {
         destroyCard(which, false, tk);
     }
 
-    public void destroyCard(int whichDiceDisc, boolean b, AuthToken tk) {
-        PlayerState p = b?gs.currentPlayer():gs.getNextPlayer();
+    public void destroyCard(RingInteger0 whichDiceDisc, boolean me, AuthToken tk) {
+        PlayerState p;
+        if(me) {
+                p = gs.currentPlayer();
+        } else {
+            p = gs.getNextPlayer();
+        }
 
         if(authenticateToken(tk))
-            destroyCard(p.diceDiscCards, whichDiceDisc);
+            destroyCard(p, p.diceDiscCards, whichDiceDisc);
 
     }
+
 
     // lets you change a die's value
     public void fiddleDice(int diceNo, int amt, AuthToken tk) {
@@ -331,8 +356,9 @@ public class GameEngine {
         }
     }
 
-    public void unlayCard(AuthToken tk, boolean me, int opponentCardNo) {
-        checkElementIndex(opponentCardNo,ruleSet.numDiceDiscs);
+
+    public void unlayCard(AuthToken tk, boolean me, RingInteger0 opponentCardNo) {
+        checkElementIndex(opponentCardNo.asInt(),ruleSet.numDiceDiscs);
         if(!authenticateToken(tk))
             return;
         PlayerState p = me?gs.currentPlayer():gs.getNextPlayer();
@@ -355,11 +381,17 @@ public class GameEngine {
         checkNotNull(action);
 
         try {
-            int diceNo = action.getDiceNo();
-            doActivateAction(player,action.getDiceNo(),  action);
+            RingInteger0 diceNo = action.getDiceNo();
+            doActivateAction(player,diceNo,  action);
         } catch (RomaException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
+    }
+
+    public void sayToPlayer(AuthToken tk, String s) {
+        if(authenticateToken(tk)) {
+            playerInput.say(s);
+        }
     }
 }

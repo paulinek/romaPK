@@ -1,5 +1,6 @@
 package net.panda2.roma.game;
 
+import net.panda2.RingInteger0;
 import net.panda2.game.card.CardDeck;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.NullCardView;
@@ -75,8 +76,8 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         return cards.size();
     }
 
-    public PJRomaCard getCard(int i) {
-        return cards.get(i);
+    public PJRomaCard getCard(RingInteger0 i) {
+        return cards.get(i.asInt());
     }
 
     public void giveTo(ViewableCardDeck toHand, List<Integer> cardChoice) {
@@ -101,9 +102,9 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         }
     }
 
-    public void layCard(int cardNo, ViewableTableau tb, int toCardNo) {
-        checkElementIndex(cardNo, numCards());
-        PJRomaCard c = cards.get(cardNo);
+    public void layCard(RingInteger0 cardNo, ViewableTableau tb, RingInteger0 toCardNo) {
+        checkElementIndex(cardNo.asInt(), numCards());
+        PJRomaCard c = cards.get(cardNo.asInt());
         cards.remove(cardNo);
         tb.setCard(toCardNo, c);
 
@@ -129,5 +130,27 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
     public int size() {
 
         return cards.size();
+    }
+
+    @Override
+    public int howManyOfThese(String name) {
+        int n= 0;
+        List<CardView> cards = getCardView();
+        Collections.frequency(cards,name);
+        for(CardView c:getCardView()) {
+
+            if(c.getName().equalsIgnoreCase(name)) {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    public RingInteger0 findCard(String name) {
+        int loc = cards.indexOf(name);
+        if(loc >= 0) {
+            return new RingInteger0(loc);
+        }
+        return null;
     }
 }

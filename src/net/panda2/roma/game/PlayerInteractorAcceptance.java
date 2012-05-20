@@ -1,5 +1,7 @@
 package net.panda2.roma.game;
 
+import net.panda2.RingInteger0;
+import net.panda2.allDoneException;
 import net.panda2.roma.action.LayCardAction;
 import net.panda2.roma.action.RomaAction;
 
@@ -38,8 +40,8 @@ return (List<Integer>)  interactionData.pop();
 
     @Override
     public RomaAction getLayCardAction(String s, ViewableCardCollection hand, ViewableCardCollection diceDiscCards, boolean b) {
-ActionArgs x = (ActionArgs) interactionData.pop();
-        return new LayCardAction(x.cardNo, x.diceNo);
+        ActionArgs x = (ActionArgs) interactionData.pop();
+        return new LayCardAction(new RingInteger0(x.cardNo), new RingInteger0(x.diceNo));
     }
 
     @Override
@@ -55,12 +57,18 @@ ActionArgs x = (ActionArgs) interactionData.pop();
     @Override
     public int chooseTakeCardCard(ViewableCardDeck deck) {
         String chosen = (String) interactionData.pop();
-        for(int i = 0; i < deck.size(); i++) {
-            if(deck.getCard(i).getName().equalsIgnoreCase(chosen)) {
-                    return i;
-            }
-        }
+        RingInteger0 r = new RingInteger0(0, deck.size());
+        try {
+            while(true) {
+                if(deck.getCard(r).getName().equalsIgnoreCase(chosen)) {
+                    return r.asInt();
+                }
 
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+
+                r.iterate();
+            }
+        } catch (allDoneException e) {
+            return 0;
+        }
     }
 }

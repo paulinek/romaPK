@@ -1,24 +1,27 @@
 package net.panda2.roma.card.cards;
 
-import net.panda2.RingInteger0;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
 import net.panda2.roma.game.exception.RomaException;
 
-public class Velites extends CharacterCard {
-
-	public Velites(int price, int defense) {
-		super("Velites", price, defense);
-	}
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: pacchi
+ * Date: 20/05/12
+ * Time: 7:29 PM
+ * To change this template use File | Settings | File Templates.
+ */
+public class Kat extends CharacterCard {
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        RingInteger0 which = dat.stack.pop();
-        int attackRoll = ge.rollBattle();
+        ge.sayToPlayer(tk, "Miao");
 
-        ge.battleCard(attackRoll,which, tk);
+    }
 
+    public Kat(String name, int price, int defense) {
+        super("Kat", price, defense);
+        this.lives=9;
     }
 }

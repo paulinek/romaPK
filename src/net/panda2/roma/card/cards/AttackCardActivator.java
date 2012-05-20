@@ -4,6 +4,7 @@ import framework.interfaces.activators.Attacker;
 import framework.interfaces.activators.CardActivator;
 import framework.interfaces.activators.LegionariusActivator;
 import framework.interfaces.activators.Targeted;
+import net.panda2.RingInteger0;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.RomaAction;
@@ -45,7 +46,7 @@ PJRomaTestGameState gst;
     @Override
     public void giveAttackDieRoll(int roll) {
         //To change body of implemented methods use File | Settings | File Templates.
-        data.stack.push(new Integer(roll));
+        data.stack.push(new RingInteger0(roll));
     }
 
     /**
@@ -78,7 +79,7 @@ PJRomaTestGameState gst;
      */
     @Override
     public void chooseDiceDisc(int diceDisc) {
-        data.whichDiceDisc = diceDisc;
+        data.whichDiceDisc = new RingInteger0(diceDisc);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

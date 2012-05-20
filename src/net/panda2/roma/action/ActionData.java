@@ -1,5 +1,7 @@
 package net.panda2.roma.action;
 
+import net.panda2.RingInteger0;
+
 import java.util.Stack;
 
 /**
@@ -11,12 +13,12 @@ import java.util.Stack;
  */
 public class ActionData {
     RAction action;
-    public int whichDiceDisc;
-    public Stack<Integer> stack;
+    public RingInteger0 whichDiceDisc;
+    public Stack<RingInteger0> stack;
 
     public ActionData(RAction action) {
         this.action = action;
-        stack = new Stack<Integer>();
+        stack = new Stack<RingInteger0>();
     }
 
     public ActionData() {

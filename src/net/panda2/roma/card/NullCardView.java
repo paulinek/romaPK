@@ -10,6 +10,8 @@ package net.panda2.roma.card;
 public class
         NullCardView extends CardView {
     @Override
+    public String getName() {return("NOT_A_CARD"); }
+
     public String getPrintable() {
         return "(empty)";
     }

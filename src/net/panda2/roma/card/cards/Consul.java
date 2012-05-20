@@ -16,8 +16,8 @@ public class Consul extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        int dice = dat.stack.pop().intValue();
-        int amt = dat.stack.pop().intValue();
+        int dice = dat.stack.pop().asInt();
+        int amt = dat.stack.pop().asInt();
         if(amt < 0)
             amt=-1;
         else

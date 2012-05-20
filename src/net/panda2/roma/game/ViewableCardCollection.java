@@ -14,4 +14,5 @@ import java.util.List;
 public interface ViewableCardCollection {
     public List<CardView>   getCardView();
 
+    int howManyOfThese(String name);
 }

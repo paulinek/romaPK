@@ -1,5 +1,6 @@
 package net.panda2.roma.card.cards;
 
+import net.panda2.RingInteger0;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.game.AuthToken;
@@ -15,7 +16,7 @@ public class Nero extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        int which = dat.stack.pop();
+        RingInteger0 which = dat.stack.pop();
         // TODO - check it's a building card
         ge.destroyCard(which,tk);
         ge.destroyCard(dat.whichDiceDisc, true, tk);

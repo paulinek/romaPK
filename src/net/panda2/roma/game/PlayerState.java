@@ -1,6 +1,9 @@
 package net.panda2.roma.game;
 
-import net.panda2.roma.card.*;
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
+import net.panda2.roma.card.CardView;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.exception.RomaException;
 
 import java.util.List;
@@ -20,6 +23,8 @@ public class PlayerState {
     ViewableDiceCup dice;
     ViewableTableau diceDiscCards;
     String playerName;
+     boolean grimReaperActive;
+    int diceSize;
 
     public String getPlayerName() {
         return playerName;
@@ -30,7 +35,8 @@ public class PlayerState {
         this.playerName = playerName;
         vp = VPrepository.make(rules.playerInitVP, rules.minVP);
         money = MoneyRepository.make(rules.playerInitSest);
-        dice = new ViewableDiceCup(rules.nDice, rules.diceSize);
+        diceSize = rules.diceSize;
+        dice = new ViewableDiceCup(rules.nDice, diceSize);
         diceDiscCards = new ViewableTableau(rules.numDiceDiscs + rules.numBribeDiscs);
         hand = new ViewableCardDeck();
     }
@@ -58,7 +64,7 @@ public class PlayerState {
         hand.addCard(c);
     }
 
-    public void layCard(int cardNo, int discNo) {
+    public void layCard(RingInteger0 cardNo, RingInteger0 discNo) {
 
         if(diceDiscCards.get(discNo) != null) {
             diceDiscCards.discard(discNo, ge.gs.discard);
@@ -66,11 +72,25 @@ public class PlayerState {
    hand.layCard(cardNo, diceDiscCards, discNo);
     }
 
-    public void useupDice(int diceNo) {
+    public void useupDice(RingInteger0 diceNo) {
             dice.useup(diceNo);
     }
 
-    public int getDiceValue(int dice) {
-        return this.dice.getNth(dice);
+    public RingInteger1 getDiceValue(RingInteger0 dice) {
+        return new RingInteger1(diceSize, this.dice.getNth(dice));
+    }
+
+    public boolean hasGrimReaper() {
+
+
+        return diceDiscCards.howManyOfThese("GrimReaper") > 0;
+    }
+
+    public int defenseBonus() {
+        int bonus = 0;
+        // todo:
+        // search for turris and return 1
+        bonus += diceDiscCards.howManyOfThese("Turris");
+    return bonus;
     }
 }

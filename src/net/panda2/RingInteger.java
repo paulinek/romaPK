@@ -9,7 +9,7 @@ import static com.google.common.base.Preconditions.checkPositionIndex;
  * Time: 12:23 AM
  * To change this template use File | Settings | File Templates.
  */
-public class RingInteger {
+public abstract class RingInteger implements Comparable<RingInteger>{
     int min;
     int max;
     int i;
@@ -60,5 +60,28 @@ public
     }
     public int get() {
         return i;
+    }
+    public int asInt() {
+        return get();
+    }
+    public int iterate() throws allDoneException {
+        i++;
+        if(i==max) {
+            throw new allDoneException();
+        }
+        return i;
+
+    }
+
+    @Override
+    public int compareTo(RingInteger ringInteger) {
+        if(ringInteger.i < i) {
+            return -1;
+        }
+        if(ringInteger.i > i) {
+            return 1;
+
+        }
+            return 0;
     }
 }

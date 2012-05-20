@@ -1,5 +1,7 @@
 package net.panda2.roma.action;
 
+import net.panda2.RingInteger0;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
@@ -8,8 +10,8 @@ package net.panda2.roma.action;
  * To change this template use File | Settings | File Templates.
  */
 public class TakeCardAction extends RomaAction {
-    public TakeCardAction(int diceNo) {
-        super(diceNo);
+    public TakeCardAction(RingInteger0 diceNo) {
+        super(diceNo.asInt());
     }
 
 }

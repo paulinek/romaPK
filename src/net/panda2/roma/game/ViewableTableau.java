@@ -1,11 +1,14 @@
 package net.panda2.roma.game;
 
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.game.card.Tableau;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.NullCardView;
 import net.panda2.roma.card.PJRomaCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,13 +43,38 @@ public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCard
                 }
         }
     }
-    void setCard(int disc, PJRomaCard c) {
+    void setCard(RingInteger0 disc, PJRomaCard c) {
 //        checkArgument(cards.get(disc) == null);
-        set(disc, c);
+        set(disc.asInt(), c);
 
     }
 
     public int getSize() {
         return cards.size();
+    }
+
+    public PJRomaCard get(RingInteger1 r) {
+        return super.get(r.toR0().asInt());
+    }
+
+    public void discard(RingInteger0 which, ViewableCardDeck hand) {
+         super.discard(which.asInt(), hand);
+    }
+
+    public PJRomaCard get(RingInteger0 cardLocation) {
+        return super.get(cardLocation.asInt());
+    }
+
+    public void set(RingInteger0 opponentCardNo, PJRomaCard e) {
+        super.set(opponentCardNo.asInt(), e);
+
+    }
+
+    @Override
+    public int howManyOfThese(String name) {
+
+        List<CardView> cards = getCardView();
+        return Collections.frequency(cards, name);
+
     }
 }

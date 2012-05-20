@@ -2,6 +2,7 @@ package net.panda2.roma.game;
 
 import framework.cards.Card;
 import framework.interfaces.GameState;
+import net.panda2.RingInteger0;
 import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.NullCardView;
 import net.panda2.roma.card.PJRomaCard;
@@ -280,76 +281,76 @@ PlayerInteractorAcceptance input;
             return new Sicarius(9,2);
         }
         else if(c.name().equalsIgnoreCase("Architectus")) {
-            return new Architectus(1,1);
+            return new Architectus(3,4);
         }
         else if(c.name().equalsIgnoreCase("Consiliarius")) {
-            return new Consiliarius(1,1);
+            return new Consiliarius(4,4);
         }
         else if(c.name().equalsIgnoreCase("Legat")) {
-            return new Legat(1,1);
+            return new Legat(5,2);
         }
         else if(c.name().equalsIgnoreCase("Gladiator")) {
-            return new Gladiator(1,1);
+            return new Gladiator(6,5);
         }
         else if(c.name().equalsIgnoreCase("Mercator")) {
-            return new Mercator(1,1);
+            return new Mercator(7,2);
         }
         else if(c.name().equalsIgnoreCase("Consul")) {
-            return new Consul(1,1);
+            return new Consul(3,3);
         }
         else if(c.name().equalsIgnoreCase("Legionarius")) {
-            return new Legionarius(1,1);
+            return new Legionarius(4,5);
         }
         else if(c.name().equalsIgnoreCase("Nero")) {
-            return new Nero(1,1);
+            return new Nero(8,9);
         }
         else if(c.name().equalsIgnoreCase("Praetorianus")) {
             return new Praetorianus(4,4);
         }
         else if(c.name().equalsIgnoreCase("Scaenicus")) {
-            return new Scaenicus(1,1);
+            return new Scaenicus(8,3);
         }
         else if(c.name().equalsIgnoreCase("Haruspex")) {
-            return new Haruspex(1,1);
+            return new Haruspex(4,3);
         }
         else if(c.name().equalsIgnoreCase("Senator")) {
-            return new Senator(1,1);
+            return new Senator(3,3);
         }
         else if(c.name().equalsIgnoreCase("Velites")) {
-            return new Velites(1,1);
+            return new Velites(5,3);
         }
         else if(c.name().equalsIgnoreCase("Essedum")) {
-            return new Essedum(1,1);
+            return new Essedum(6,3);
         }
         else if(c.name().equalsIgnoreCase("TribunusPlebis")) {
-            return new TribunusPlebis(1,1);
+            return new TribunusPlebis(5,5);
         }
         else if(c.name().equalsIgnoreCase("Centurio")) {
-            return new Centurio(1,1);
+            return new Centurio(9,5);
         }
         else if(c.name().equalsIgnoreCase("Aesculapinum")) {
-            return new Aesculapinum(1,1);
+            return new Aesculapinum(5,2);
         }
         else if(c.name().equalsIgnoreCase("Basilica")) {
-            return new Basilica(1,1);
+            return new Basilica(6,5);
         }
         else if(c.name().equalsIgnoreCase("Machina")) {
-            return new Machina(1,1);
+            return new Machina(4,4);
         }
         else if(c.name().equalsIgnoreCase("Forum")) {
-            return new Forum(1,1);
+            return new Forum(5,5);
         }
         else if(c.name().equalsIgnoreCase("Mercatus")) {
-            return new Mercatus(1,1);
+            return new Mercatus(6,3);
         }
         else if(c.name().equalsIgnoreCase("Onager")) {
-            return new Onager(1,1);
+            return new Onager(5,4);
         }
         else if(c.name().equalsIgnoreCase("Templum")) {
-            return new Templum(1,1);
+            return new Templum(2,2);
         }
         else if(c.name().equalsIgnoreCase("Turris")) {
-            return new Turris(1,1);
+            return new Turris(6,6);
         }
         else return null;
     }
@@ -440,7 +441,7 @@ PlayerInteractorAcceptance input;
         PlayerState p = pN(playerNum);
         checkArgument(discCards.length == p.diceDiscCards.getSize());
         for(int i=0; i < discCards.length; i++) {
-            p.diceDiscCards.setCard(i,makeRomaCard(discCards[i]));
+            p.diceDiscCards.setCard(new RingInteger0(i),makeRomaCard(discCards[i]));
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }

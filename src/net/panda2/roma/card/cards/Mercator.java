@@ -1,5 +1,6 @@
 package net.panda2.roma.card.cards;
 
+import net.panda2.RingInteger0;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.game.AuthToken;
@@ -43,7 +44,7 @@ public class Mercator extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        int nVictoryPoints = dat.stack.pop();
+        RingInteger0 nVictoryPoints = dat.stack.pop();
         PlayerState me = ge.getCurrentPlayer(tk);
     }
 }

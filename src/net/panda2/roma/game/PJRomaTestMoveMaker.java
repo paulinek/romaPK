@@ -4,11 +4,16 @@ import framework.cards.Card;
 import framework.interfaces.GameState;
 import framework.interfaces.MoveMaker;
 import framework.interfaces.activators.CardActivator;
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.ActivateCardAction;
+import net.panda2.roma.action.LayCardAction;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.action.TakeCardAction;
 import net.panda2.roma.card.cards.AttackCardActivator;
 import net.panda2.roma.game.exception.RomaException;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,19 +48,20 @@ public class PJRomaTestMoveMaker implements MoveMaker {
      * </ul>
      * </p>
      *
-     * @param disc       the disc where the card to be activated is
+     * @param discNo       the disc where the card to be activated is
      * @throws UnsupportedOperationException if the move is not yet
      *                                       implemented
      */
     @Override
-    public CardActivator chooseCardToActivate(int disc) throws UnsupportedOperationException {
+    public CardActivator chooseCardToActivate(int discNo) throws UnsupportedOperationException {
+        RingInteger1 disc = new RingInteger1(discNo);
         GameEngine ge = gst.ge;
         PlayerState player = ge.getCurrentPlayer(gst.tk);
-        RomaAction action = new ActivateCardAction(findDice(player, disc),disc);
-
+        RingInteger0 dice = findDice(player, disc);
+        RomaAction action = new ActivateCardAction(dice,disc.toR0());
         AttackCardActivator activator = new AttackCardActivator(gst, player, action );
         action.setActionData(activator.getData());
-        action.getActionData().whichDiceDisc = disc;
+        action.getActionData().whichDiceDisc = disc.toR0();
         return activator;
     }
 
@@ -94,7 +100,7 @@ public class PJRomaTestMoveMaker implements MoveMaker {
     @Override
     public void activateCardsDisc(int diceToUse, Card chosen) throws UnsupportedOperationException {
         PlayerState p = gst.getCurrentPlayer();
-        RomaAction a = new TakeCardAction(findDice(p,diceToUse));
+        RomaAction a = new TakeCardAction(findDice(p,new RingInteger1(diceToUse)));
         try {
             gst.input.interactionData.push(chosen.name());
             gst.ge.doAction(p, a);
@@ -108,9 +114,8 @@ public class PJRomaTestMoveMaker implements MoveMaker {
 
     }
 
-    private int findDice(PlayerState p, int diceToUse) {
-        int diceNo =  p.dice.getDiceNoFromValue(diceToUse);
-        return diceNo;
+    private RingInteger0 findDice(PlayerState p, RingInteger1 diceToUse) {
+        return p.dice.getDiceNoFromValue(diceToUse.asInt());
     }
 
     /**
@@ -239,6 +244,19 @@ public class PJRomaTestMoveMaker implements MoveMaker {
      */
     @Override
     public void placeCard(Card toPlace, int discToPlaceOn) throws UnsupportedOperationException {
+        PlayerState player = gst.getCurrentPlayer();
+        RingInteger0 cardIndex = player.hand.findCard(toPlace.name());
+        RingInteger1 discIndex = new RingInteger1(discToPlaceOn);
+        checkNotNull(cardIndex);
+        checkNotNull(discIndex);
+        LayCardAction action = new LayCardAction(cardIndex, discIndex.toR0());
+        try {
+            gst.ge.doAction(player, action);
+        } catch (RomaException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+
 }

@@ -1,6 +1,7 @@
 package net.panda2.roma.game;
 
 import net.panda2.RingInteger;
+import net.panda2.RingInteger0;
 import net.panda2.game.card.Tableau;
 import net.panda2.game.dice.DiceCollection;
 import net.panda2.roma.card.PJRomaCard;
@@ -72,7 +73,7 @@ public class RomaGameState {
         player=new PlayerState[numPlayers];
 
         // RingInteger expects the maximum valid number, so 0..numPlayers-1
-        playerNo =new RingInteger(numPlayers-1);
+        playerNo =new RingInteger0(0,numPlayers);
         // create a new net.panda2.roma.game.PlayerState object for each of numPlayers
         int i;
 

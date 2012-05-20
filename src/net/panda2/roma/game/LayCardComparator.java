@@ -14,11 +14,7 @@ import java.util.Comparator;
 public class LayCardComparator implements Comparator<LayCardAction> {
     @Override
     public int compare(LayCardAction layCardAction, LayCardAction layCardAction1) {
-        if(layCardAction.getCardNo() > layCardAction1.getCardNo()) {
-            return -1;
-        } else {
-            return (layCardAction.getCardNo() == layCardAction1.getCardNo())?0:1;
-        }
+        return layCardAction.getCardNo().compareTo(layCardAction1.getCardNo());
 
     }
 }

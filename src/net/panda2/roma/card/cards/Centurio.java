@@ -21,6 +21,6 @@ public class Centurio extends BattleCard {
 
         // TODO - ask about unused action die
 
-        ge.battleCard(dat.whichDiceDisc, attackRoll, tk);
+        ge.battleCard(attackRoll, dat.whichDiceDisc, tk);
     }
 }
