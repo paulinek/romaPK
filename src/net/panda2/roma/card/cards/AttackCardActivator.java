@@ -15,7 +15,10 @@ import net.panda2.roma.game.PlayerState;
  * Time: 1:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AttackCardActivator extends PJRomaActivator implements LegionariusActivator, PraetorianusActivator, SicariusActivator, Attacker, CardActivator, Targeted {
+public class AttackCardActivator extends PJRomaActivator implements
+        LegionariusActivator, PraetorianusActivator, SicariusActivator,
+        TribunusPlebisActivator, GladiatorActivator,
+        Attacker, CardActivator, Targeted {
     public AttackCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(gst,p,a);
     }

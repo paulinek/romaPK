@@ -1,6 +1,7 @@
 package net.panda2.roma.card.cards;
 
 import framework.interfaces.activators.CenturioActivator;
+import net.panda2.RingInteger0;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -16,9 +17,11 @@ public class CenturioCardActivator extends AttackCardActivator implements Centur
     public CenturioCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(gst, p, a);
         chosen = true;
+        hasDie=false;
     }
     boolean chosen;
     int value;
+    boolean hasDie;
     /**
      * Choose whether to add an action dice to your current attack.
      *
@@ -29,6 +32,7 @@ public class CenturioCardActivator extends AttackCardActivator implements Centur
         if(attackAgain) {
             chosen=false;
         }
+        hasDie=true;
     }
 
     /**
@@ -54,5 +58,27 @@ public class CenturioCardActivator extends AttackCardActivator implements Centur
         value=actionDiceValue;
         chosen = true;
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    /**
+     * Mark the pending activation as complete.
+     * <p/>
+     * <p>
+     * This method must be called when an activation is complete.
+     * This method cannot be called until all required activation
+     * methods have been called. No other methods in the move maker can
+     * be called after a CardActivator has been received until after its
+     * complete method is called. This is really important.
+     * </p>
+     */
+    @Override
+    public void complete() {
+        if(hasDie){
+            getData().stackpush(new RingInteger0(value));
+            getData().stackpush(new RingInteger0(1));
+        } else {
+            getData().stackpush(new RingInteger0(0));
+        }
+        super.complete();    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

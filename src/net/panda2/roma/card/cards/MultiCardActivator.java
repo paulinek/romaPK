@@ -1,9 +1,12 @@
 package net.panda2.roma.card.cards;
 
 import framework.cards.Card;
+import framework.interfaces.activators.ArchitectusActivator;
 import framework.interfaces.activators.ConsiliariusActivator;
 import framework.interfaces.activators.MachinaActivator;
 import framework.interfaces.activators.SenatorActivator;
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
@@ -16,14 +19,17 @@ import net.panda2.roma.game.PlayerState;
  * Time: 12:59 AM
  * To change this template use File | Settings | File Templates.
  */
-public class MultiCardActivator extends PJRomaActivator implements SenatorActivator,ConsiliariusActivator,MachinaActivator {
+public class MultiCardActivator extends PJRomaActivator implements
+        SenatorActivator,ConsiliariusActivator,MachinaActivator,ArchitectusActivator {
     public MultiCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(gst, p, a);
+        ncards=0;
     }
-
+    int ncards;
     @Override
     public void layCard(Card myCard, int whichDiceDisc) {
-
+        getData().stackpush(new CardLocation(myCard.name(), new RingInteger1(whichDiceDisc)));
+        ncards++;
     }
 
     /**
@@ -39,7 +45,8 @@ public class MultiCardActivator extends PJRomaActivator implements SenatorActiva
      */
     @Override
     public void complete() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        getData().stackpush(new RingInteger0(ncards));
+        super.complete();
     }
 
     /**
@@ -57,6 +64,7 @@ public class MultiCardActivator extends PJRomaActivator implements SenatorActiva
      */
     @Override
     public void placeCard(Card card, int diceDisc) {
+        layCard(card,diceDisc);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

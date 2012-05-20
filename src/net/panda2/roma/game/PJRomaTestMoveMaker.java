@@ -68,20 +68,25 @@ public class PJRomaTestMoveMaker implements MoveMaker {
              activator = new ForumCardActivator(gst, player, action);
         } else if (c instanceof Legionarius ||
                    c instanceof Praetorianus ||
-                   c instanceof Sicarius) {
+                   c instanceof Sicarius||
+                   c instanceof Gladiator ||
+                    c instanceof Nero
+                ) {
              activator = new AttackCardActivator(gst, player, action );
         } else if(c instanceof Centurio) {
             activator = new CenturioCardActivator(gst,player,action);
         } else if(c instanceof Essedum ||
                   c instanceof Mercatus ||
-                  c instanceof Legat) {
+                  c instanceof Legat ||
+                c instanceof TribunusPlebis) {
 
                 activator = new BasicActivator(gst,player,action);
         } else if(c instanceof Consul) {
             activator = new ConsulCardActivator(gst,player,action);
         } else if(c instanceof Consiliarius ||
                 c instanceof Senator ||
-                c instanceof Machina) {
+                c instanceof Machina ||
+                c instanceof Architectus) {
             activator = new MultiCardActivator(gst,player,action);
         }
         action.getActionData().whichDiceDisc = disc.toR0();
@@ -230,8 +235,8 @@ public class PJRomaTestMoveMaker implements MoveMaker {
         try {
             gst.ge.phaseOne();//To change body of implemented methods use File | Settings | File Templates.
         } catch (RomaGameEndException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+            gst.ge.gs.gameOver=true;}
+
     }
 
     /**

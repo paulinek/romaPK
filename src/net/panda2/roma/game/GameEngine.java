@@ -380,11 +380,15 @@ public class GameEngine {
         }
         checkNotNull(action);
 
-        try {
             RingInteger0 diceNo = action.getDiceNo();
-            doActivateAction(player,diceNo,  action);
+        try {
+            doActivateAction(player, diceNo, action);
         } catch (RomaException e) {
+            if(e instanceof RomaGameEndException) {
+                gs.gameOver=true;
+            } else {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         }
 
     }

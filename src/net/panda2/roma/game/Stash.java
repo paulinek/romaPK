@@ -61,12 +61,9 @@ public boolean transferAway(Stash to, int amt, AuthToken tk) throws RomaGameEndE
 }
 
 
-    public void giveAway(Stash to) {
-        try {
+    public void giveAway(Stash to) throws RomaGameEndException {
             transferAway(to, amount);
-        } catch (RomaGameEndException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+
     }
 }
 

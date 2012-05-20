@@ -202,8 +202,9 @@ PlayerInteractorAcceptance input;
     public void setPlayerSestertii(int playerNum, int amount) {
     PlayerState p = pN(playerNum);
 
-    p.money.giveAway(ge.gs.treasury);
         try {
+            p.money.giveAway(ge.gs.treasury);
+
             ge.gs.treasury.transferAway(p.money, amount);
         } catch (RomaGameEndException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

@@ -78,6 +78,7 @@ templumActive = true;
     public void chooseActionDice(int actionDiceValue) {
         checkArgument(getPlayer().findDice(new RingInteger1(actionDiceValue))!= null);
         forumDiceVal = actionDiceValue;
+        getPlayer().useupDiceByVal(actionDiceValue);
         }
 
     /**
