@@ -1,11 +1,12 @@
 package net.panda2.roma.card;
 
+import net.panda2.game.card.Card;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
 import net.panda2.roma.game.exception.RomaException;
 
-public abstract class PJRomaCard extends ActiveCard implements Cloneable{
+public abstract class PJRomaCard extends Card implements Cloneable{
 	
 	 String name;
 	 int price;

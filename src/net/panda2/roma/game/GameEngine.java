@@ -219,7 +219,7 @@ public class GameEngine {
 
     void doActivateAction(PlayerState player, int diceRef, ActivateCardAction action) throws RomaException {
         int diceVal = player.getDiceValue(diceRef);
-        PJRomaCard c = player.diceDiscCards.get(diceVal);
+        PJRomaCard c = player.diceDiscCards.get(diceVal-1);
         c.activate(this, masterToken, action.getActionData());
     }
 
@@ -292,10 +292,15 @@ public class GameEngine {
     // and destroys the card successful
     // attackRoll is passed in rather than rolled internally to allow for the
     // centurion card to modify the attack roll
-    public void battleCard(int whichDiceDisc, int attackRoll, AuthToken tk) {
-        int cardLocation = whichDiceDisc;
-        if(attackRoll > gs.getNextPlayer().diceDiscCards.get(cardLocation).getDefense())
-            destroyCard(gs.getNextPlayer().diceDiscCards, cardLocation);
+    public void battleCard( int attackRoll,int cardLocation, AuthToken tk) {
+        if(authenticateToken(tk)) {
+            PlayerState opponent = gs.getNextPlayer();
+            PJRomaCard opponentCard = opponent.diceDiscCards.get(cardLocation-1);
+            checkNotNull(opponentCard);
+        if(attackRoll >= opponentCard.getDefense()) {
+            destroyCard(opponent.diceDiscCards, cardLocation);
+        }
+        }
     }
 
     void destroyCard(ViewableTableau t, int which) {

@@ -277,7 +277,7 @@ PlayerInteractorAcceptance input;
     PJRomaCard makeRomaCard(Card c) {
         checkNotNull(c);
         if(c.name().equalsIgnoreCase("Sicarius")) {
-            return new Sicarius(1,1);
+            return new Sicarius(9,2);
         }
         else if(c.name().equalsIgnoreCase("Architectus")) {
             return new Architectus(1,1);
@@ -304,7 +304,7 @@ PlayerInteractorAcceptance input;
             return new Nero(1,1);
         }
         else if(c.name().equalsIgnoreCase("Praetorianus")) {
-            return new Praetorianus(1,1);
+            return new Praetorianus(4,4);
         }
         else if(c.name().equalsIgnoreCase("Scaenicus")) {
             return new Scaenicus(1,1);
