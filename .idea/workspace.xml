@@ -5,33 +5,37 @@
   </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="PJ_Roma:jar" />
+      <artifact name="Acceptance:jar" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list id="401cfa01-bb5f-4e46-ba17-1b44a4c9f807" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list id="401cfa01-bb5f-4e46-ba17-1b44a4c9f807" name="Default" comment="" />
     <list id="8daa7840-aedd-4bf7-987c-d50a9d0d9489" name="Failed commit: Default" comment="use acceptance framework&#10;" />
     <list default="true" id="d2bd1326-53f8-4c98-8c89-5cbfcfa75a7c" name="Failed commit: Default (2)" comment="Renamed module to PJ_Roma">
-      <change type="NEW" beforePath="" afterPath="$USER_HOME$/Dropbox/2911/acceptance/src/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/artifacts/PJ_Roma_jar/PJ_Roma.jar" afterPath="$PROJECT_DIR$/output/artifacts/PJ_Roma_jar/PJ_Roma.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/artifacts/PJ_Roma_jar/PJ_Roma.jar" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/Acceptance_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/Acceptance_jar.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/PJ_RomaTest_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/PJ_RomaTest_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/PJ_Roma_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/PJ_Roma_jar.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PJ_Roma.iml" afterPath="$PROJECT_DIR$/PJ_Roma.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/ActionDice.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/ActionDice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/DiceView.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/DiceView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/action/ActivateCardAction.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/action/ActivateCardAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/action/RomaAction.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/action/RomaAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/action/TakeCardAction.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/action/TakeCardAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/action/TakeMoneyAction.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/action/TakeMoneyAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Consul.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Consul.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/card/cards/ConsulCardActivator.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/card/cards/ConsulCardActivator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Mercator.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Mercator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/GameEngine.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/GameEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/GameState.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/GameState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/PKGameStateTest.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/PKGameStateTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerGameView.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerGameView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaTestMoveMaker.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaTestMoveMaker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerInteractorConsole.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerInteractorConsole.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerState.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerState.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/net/panda2/roma/game/ViewableDiceCup.java" afterPath="$PROJECT_DIR$/src/net/panda2/roma/game/ViewableDiceCup.java" />
     </list>
+    <list id="bd7c3446-29cf-42bb-ab90-19ac3843cbb8" name="Failed commit: Failed commit: Default (2)" comment="Acceptance tests working" />
     <ignored path="Roma_PK_Refactor.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="d2bd1326-53f8-4c98-8c89-5cbfcfa75a7c" time="1337129434844" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +51,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$USER_HOME$/Dropbox/2911/acceptance/src/framework/TestRunner.java" line="119" class="framework.TestRunner" package="framework">
+      <breakpoint url="file://$PROJECT_DIR$/src/tests/verified/CardActivatorScaenicusBBasicTest.java" line="85" class="tests.verified.CardActivatorScaenicusBBasicTest" package="tests.verified">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -101,123 +105,100 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameEngine.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GameEngine.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/GameEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="341" column="24" selection-start="10888" selection-end="10900" vertical-scroll-proportion="0.6388262">
+            <state line="397" column="0" selection-start="12380" selection-end="12380" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#createGameEngine#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#createGameEngine#1;class#GameEngine#0" expanded="false" />
-                <element signature="method#GameEngine#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#authenticateToken#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#authenticateOrDie#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#newGame#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#allocateVPs#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#RunGame#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#endOfGame#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#dealTo#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#initialPhase#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#phaseOne#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#phaseTwo#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#phaseThree#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#playerPhaseThree#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#getAction#0;class#GameEngine#0" expanded="false" />
-                <element signature="method#doAction#0;class#GameEngine#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerInteractor.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PlayerInteractor.java">
+      <file leaf-file-name="Mercator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/Mercator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="188" column="5" selection-start="5769" selection-end="5769" vertical-scroll-proportion="-2.6181817">
+            <state line="55" column="0" selection-start="1701" selection-end="1701" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PJRomaTestGameState.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaTestGameState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="184" column="0" selection-start="5190" selection-end="5190" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RomaAction.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/action/RomaAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="0" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2645#2653#0" expanded="true" />
-                <element signature="e#3120#3128#0" expanded="true" />
-                <element signature="e#4605#4614#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Legionarius.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/Legionarius.java">
+      <file leaf-file-name="PJRomaActivator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaActivator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="34" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerGameView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PlayerGameView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="29" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiceView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/DiceView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="41" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/GameState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="11" selection-start="866" selection-end="866" vertical-scroll-proportion="0.0">
+            <state line="77" column="0" selection-start="1948" selection-end="1948" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="method#dealRandomCard#0;class#GameState#0" expanded="false" />
-                <element signature="method#reshuffleDeck#0;class#GameState#0" expanded="false" />
-                <element signature="method#currentPlayer#0;class#GameState#0" expanded="false" />
-                <element signature="method#currentPlayer#1;class#GameState#0" expanded="false" />
-                <element signature="method#getNextPlayer#0;class#GameState#0" expanded="false" />
-                <element signature="method#getNextPlayer#1;class#GameState#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="design" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/design">
+      <file leaf-file-name="CardActivatorMercatorBasicTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorMercatorBasicTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="46" selection-start="1899" selection-end="1907" vertical-scroll-proportion="0.0">
+            <state line="65" column="0" selection-start="1985" selection-end="1985" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FredHilmer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/FredHilmer.java">
+      <file leaf-file-name="TestRunner.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/framework/TestRunner.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="823" selection-end="823" vertical-scroll-proportion="0.0">
+            <state line="256" column="0" selection-start="11500" selection-end="11500" vertical-scroll-proportion="0.33254156">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FredCardFactory.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/FredCardFactory.java">
+      <file leaf-file-name="CardActivatorScaenicusBBasicTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorScaenicusBBasicTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="23" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0">
+            <state line="85" column="0" selection-start="1848" selection-end="1848" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RomaGame.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/RomaGame.java">
+      <file leaf-file-name="CardActivatorMercatorABasicTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorMercatorABasicTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="21" selection-start="355" selection-end="368" vertical-scroll-proportion="0.0">
+            <state line="98" column="0" selection-start="3243" selection-end="3243" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MercatorCardActivator.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/MercatorCardActivator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="0" selection-start="932" selection-end="932" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -235,22 +216,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/FinancialCrisis.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/action/ActionData.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Consiliarius.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Machina.java" />
         <option value="$PROJECT_DIR$/src/net/panda2/roma/action/RomaAction.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/PJRomaCard.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/FredHilmer.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/Stash.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/RomaRules.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/FredCardFactory.java" />
-        <option value="$PROJECT_DIR$/design" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerState.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/ViewableDiceCup.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/ActionDice.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/GameState.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/action/TakeCardAction.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/action/TakeMoneyAction.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/action/ActivateCardAction.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaTestMoveMaker.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerInteractorConsole.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Consul.java" />
         <option value="$PROJECT_DIR$/src/net/panda2/roma/game/GameEngine.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/DiceView.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerGameView.java" />
-        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerInteractor.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/PlayerState.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/ConsulCardActivator.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/game/ViewableDiceCup.java" />
+        <option value="$PROJECT_DIR$/src/tests/verified/CardActivatorConsulBasicTest.java" />
+        <option value="$PROJECT_DIR$/src/net/panda2/roma/card/cards/Mercator.java" />
       </list>
     </option>
   </component>
@@ -314,6 +295,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="verified" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -449,35 +470,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="output" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="artifacts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PJ_Roma" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acceptance" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PJ_Roma" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acceptance" />
+              <option name="myItemId" value="panda2" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="testee" />
+              <option name="myItemId" value="roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="action" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -487,26 +492,64 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="acceptance" />
+              <option name="myItemId" value="PJ_Roma" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Roma_PK_Refactor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Roma_PK_Refactor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interfaces" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interfaces" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activators" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -521,12 +564,26 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PJ_Roma" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Acceptance" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/net/panda2/roma/game" />
+    <property name="last_directory_selection" value="$USER_HOME$/Dropbox/2911/acceptance/src" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -548,24 +605,24 @@
       <recent name="net.panda2.roma.card.cards" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="net.panda2.roma.card.cards" />
+      <recent name="net.panda2" />
       <recent name="net.panda2.roma.game" />
       <recent name="net.panda2.roma.card" />
-      <recent name="net.panda2.roma.card.jason" />
-      <recent name="net.panda2.roma.action" />
       <recent name="" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="net" />
       <recent name="net.panda2.roma.game" />
+      <recent name="net.panda2.roma.acceptance" />
       <recent name="net.panda2.game.dice" />
-      <recent name="net.panda2.roma.game.jason" />
-      <recent name="net.panda2.roma.game.exception" />
-      <recent name="net.panda2.roma.card" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$USER_HOME$/Dropbox/2911/acceptance/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RomaGame">
+  <component name="RunManager" selected="Application.TestRunner">
     <configuration default="false" name="TestRunner" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="framework.TestRunner" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -576,7 +633,7 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="Acceptance" />
+      <module name="PJ_Roma" />
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="" />
@@ -764,6 +821,7 @@
       <changelist id="401cfa01-bb5f-4e46-ba17-1b44a4c9f807" name="Default" comment="" />
       <changelist id="8daa7840-aedd-4bf7-987c-d50a9d0d9489" name="Failed commit: Default" comment="use acceptance framework&#10;" />
       <changelist id="d2bd1326-53f8-4c98-8c89-5cbfcfa75a7c" name="Failed commit: Default (2)" comment="in compiles!" />
+      <changelist id="bd7c3446-29cf-42bb-ab90-19ac3843cbb8" name="Failed commit: Failed commit: Default (2)" comment="Acceptance tests working" />
       <created>1334643335961</created>
       <updated>1337062058542</updated>
     </task>
@@ -831,32 +889,108 @@
       <created>1337233925807</created>
       <updated>1337233925807</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="runs tests!  more cards!">
+      <created>1337411851621</created>
+      <updated>1337411851621</updated>
+    </task>
+    <task id="LOCAL-00018" summary="acceptance tester jar&#10;">
+      <created>1337412643349</created>
+      <updated>1337412643350</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Tests running">
+      <created>1337463083697</created>
+      <updated>1337463083698</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Run all verified tests">
+      <created>1337463129847</created>
+      <updated>1337463129848</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added acceptance testing files for debugging">
+      <created>1337463385886</created>
+      <updated>1337463385886</updated>
+    </task>
+    <task id="LOCAL-00022" summary="new activator tests">
+      <created>1337504606210</created>
+      <updated>1337504606210</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Renamed module to PJ_Roma">
+      <created>1337505681347</created>
+      <updated>1337505681347</updated>
+    </task>
+    <task id="LOCAL-00024" summary="implemented R0/R1 ring integers">
+      <created>1337513966326</created>
+      <updated>1337513966326</updated>
+    </task>
+    <task id="LOCAL-00025" summary="19% acceptance">
+      <created>1337521670377</created>
+      <updated>1337521670378</updated>
+    </task>
+    <task id="LOCAL-00026" summary="24% tests passed">
+      <created>1337523743991</created>
+      <updated>1337523743991</updated>
+    </task>
+    <task id="LOCAL-00027" summary="30% complete">
+      <created>1337527022770</created>
+      <updated>1337527022770</updated>
+    </task>
+    <task id="LOCAL-00028" summary="37%&#10;">
+      <created>1337528293356</created>
+      <updated>1337528293357</updated>
+    </task>
+    <task id="LOCAL-00029" summary="43%">
+      <created>1337530157396</created>
+      <updated>1337530157396</updated>
+    </task>
+    <task id="LOCAL-00030" summary="51%">
+      <created>1337531945333</created>
+      <updated>1337531945333</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.49425286" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.6706507" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32934928" sideWeight="0.49712643" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.49784482" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.49425286" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297414" sideWeight="0.6706507" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297414" sideWeight="0.6706507" order="0" side_tool="true" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32934928" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3297414" sideWeight="0.6706507" order="0" side_tool="true" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39707837" sideWeight="0.49712643" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -898,7 +1032,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="made a jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="51%" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -911,18 +1045,31 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="use acceptance framework&#10;" />
     <MESSAGE value="add ringintegers&#10;" />
     <MESSAGE value="sestertii go into their own moneybag" />
     <MESSAGE value="encapsulated how many cards and how expensive into &quot;cardFactory&quot; class" />
     <MESSAGE value="in compiles!" />
     <MESSAGE value="fleshing out phase3 with the new Action architecture" />
-    <MESSAGE value="Renamed module to PJ_Roma" />
     <MESSAGE value="RomaGame running!" />
     <MESSAGE value="Game is playable but crashes" />
     <MESSAGE value="design doc and fredhilmer card to test winning the game&#10;refactor the action mechanism to reduce repetition from phase3 code" />
     <MESSAGE value="it plays OMG OMG" />
     <MESSAGE value="made a jar" />
+    <MESSAGE value="runs tests!  more cards!" />
+    <MESSAGE value="acceptance tester jar&#10;" />
+    <MESSAGE value="Tests running" />
+    <MESSAGE value="Run all verified tests" />
+    <MESSAGE value="Acceptance tests working" />
+    <MESSAGE value="Added acceptance testing files for debugging" />
+    <MESSAGE value="new activator tests" />
+    <MESSAGE value="Renamed module to PJ_Roma" />
+    <MESSAGE value="implemented R0/R1 ring integers" />
+    <MESSAGE value="19% acceptance" />
+    <MESSAGE value="24% tests passed" />
+    <MESSAGE value="30% complete" />
+    <MESSAGE value="37%&#10;" />
+    <MESSAGE value="43%" />
+    <MESSAGE value="51%" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -932,148 +1079,129 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/PJRomaCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="24" selection-start="395" selection-end="395" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/Stash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="16" selection-start="1323" selection-end="1323" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/RomaRules.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="27" selection-start="635" selection-end="635" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/FredCardFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="23" selection-start="402" selection-end="402" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/FredHilmer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="823" selection-end="823" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/RomaGame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="21" selection-start="355" selection-end="368" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/design">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="46" selection-start="1899" selection-end="1907" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/ActionDice.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="25" selection-start="563" selection-end="563" vertical-scroll-proportion="0.44078946">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/ViewableDiceCup.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="0" selection-start="990" selection-end="990" vertical-scroll-proportion="0.70394737">
-          <folding>
-            <element signature="e#418#428#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PlayerState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="17" selection-start="1916" selection-end="1916" vertical-scroll-proportion="0.7629797">
+        <state line="29" column="0" selection-start="717" selection-end="717" vertical-scroll-proportion="-5.230769">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/GameState.java">
+    <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorConsulBasicTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="11" selection-start="866" selection-end="866" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="method#dealRandomCard#0;class#GameState#0" expanded="false" />
-            <element signature="method#reshuffleDeck#0;class#GameState#0" expanded="false" />
-            <element signature="method#currentPlayer#0;class#GameState#0" expanded="false" />
-            <element signature="method#currentPlayer#1;class#GameState#0" expanded="false" />
-            <element signature="method#getNextPlayer#0;class#GameState#0" expanded="false" />
-            <element signature="method#getNextPlayer#1;class#GameState#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/DiceView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="41" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0">
+        <state line="58" column="0" selection-start="1536" selection-end="1536" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PlayerGameView.java">
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaTestMoveMaker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="29" selection-start="431" selection-end="431" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PlayerInteractor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="5" selection-start="5769" selection-end="5769" vertical-scroll-proportion="-2.6181817">
+        <state line="95" column="0" selection-start="3653" selection-end="3653" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2645#2653#0" expanded="true" />
-            <element signature="e#3120#3128#0" expanded="true" />
-            <element signature="e#4605#4614#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/Legionarius.java">
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/Consul.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="34" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
+        <state line="25" column="0" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/ConsulCardActivator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="0" selection-start="2241" selection-end="2241" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorConsulABasicTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="0" selection-start="2594" selection-end="2594" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/MercatorCardActivator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="932" selection-end="932" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaTestGameState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="184" column="0" selection-start="5190" selection-end="5190" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorMercatorBasicTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="0" selection-start="1985" selection-end="1985" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/action/RomaAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/GameEngine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="341" column="24" selection-start="10888" selection-end="10900" vertical-scroll-proportion="0.6388262">
+        <state line="397" column="0" selection-start="12380" selection-end="12380" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#createGameEngine#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#createGameEngine#1;class#GameEngine#0" expanded="false" />
-            <element signature="method#GameEngine#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#authenticateToken#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#authenticateOrDie#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#newGame#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#allocateVPs#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#RunGame#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#endOfGame#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#dealTo#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#initialPhase#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#phaseOne#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#phaseTwo#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#phaseThree#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#playerPhaseThree#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#getAction#0;class#GameEngine#0" expanded="false" />
-            <element signature="method#doAction#0;class#GameEngine#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/game/PJRomaActivator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="0" selection-start="1948" selection-end="1948" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorMercatorABasicTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="98" column="0" selection-start="3243" selection-end="3243" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/panda2/roma/card/cards/Mercator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="0" selection-start="1701" selection-end="1701" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tests/verified/CardActivatorScaenicusBBasicTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="85" column="0" selection-start="1848" selection-end="1848" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/framework/TestRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="256" column="0" selection-start="11500" selection-end="11500" vertical-scroll-proportion="0.33254156">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1084,11 +1212,11 @@
         <settings>
           <artifact-editor>
             <show-content>
-              <type id="artifact" />
               <type id="library" />
+              <type id="artifact" />
             </show-content>
           </artifact-editor>
-          <last-edited>PJ_Roma:jar</last-edited>
+          <last-edited>Acceptance:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1141,7 +1269,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

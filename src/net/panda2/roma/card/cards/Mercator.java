@@ -6,6 +6,7 @@ import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
 import net.panda2.roma.game.PlayerState;
+import net.panda2.roma.game.RomaGameEndException;
 import net.panda2.roma.game.exception.RomaException;
 
 public class Mercator extends CharacterCard {
@@ -47,7 +48,13 @@ public class Mercator extends CharacterCard {
         RingInteger0 nVictoryPoints = dat.popR0();
         PlayerState me = ge.getCurrentPlayer(tk);
         PlayerState opponent = ge.getNextPlayer(tk);
+        try {
         opponent.takeVPs(tk, me, nVictoryPoints.asInt());
-        me.takeMoney(tk, me, nVictoryPoints.asInt()*2);
+            me.takeMoney(tk, opponent, nVictoryPoints.asInt()*2);
+        } catch( RomaGameEndException e) {
+
+        me.takeMoney(tk, opponent, nVictoryPoints.asInt()*2);
+            throw e;
+        }
     }
 }

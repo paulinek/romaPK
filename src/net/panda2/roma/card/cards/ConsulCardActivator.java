@@ -22,7 +22,7 @@ public class ConsulCardActivator extends PJRomaActivator implements ConsulActiva
         super(gst, p, a);
     }
 
-    RingInteger0 diceRef;
+int dice;
     /**
      * Choose the amount a dice disc value changes by.
      * <p/>
@@ -40,7 +40,7 @@ public class ConsulCardActivator extends PJRomaActivator implements ConsulActiva
 
     @Override
     public void chooseWhichDiceChanges(int originalRoll) {
-        diceRef = getPlayer().findDice(new RingInteger1(originalRoll));
+dice=originalRoll;
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -57,7 +57,7 @@ public class ConsulCardActivator extends PJRomaActivator implements ConsulActiva
      */
     @Override
     public void complete() {
-        getData().stackpush(diceRef);
+        getData().stackpush(new RingInteger1(dice).toR0());
         // this is a giant hack
         // basically, RingInteger0 can't be negative
         // so we push fiddleAmt+1

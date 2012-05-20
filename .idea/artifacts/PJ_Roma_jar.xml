@@ -1,17 +1,12 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="PJ_Roma:jar">
-    <output-path>$PROJECT_DIR$/output/artifacts/PJ_Roma_jar</output-path>
+    <output-path>$PROJECT_DIR$/output/PJ_Roma_jar</output-path>
     <root id="archive" name="PJ_Roma.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$USER_HOME$/Dropbox/2911/acceptance/src/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="PJ_Roma" />
-      <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/dom4j-1.6.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/guava-10.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/javassist.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/reflections-0.9.5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/slf4j-api-1.6.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/slf4j-nop-1.6.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

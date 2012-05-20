@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Acceptance:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Acceptance_jar</output-path>
+    <output-path>$PROJECT_DIR$/output/Acceptance_jar</output-path>
     <root id="archive" name="Acceptance.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$USER_HOME$/Dropbox/2911/acceptance/src/META-INF/MANIFEST.MF" />
@@ -12,6 +12,7 @@
       <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/reflections-0.9.5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/slf4j-api-1.6.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Dropbox/2911/acceptance/lib/slf4j-nop-1.6.1.jar" path-in-jar="/" />
+      <element id="module-output" name="PJ_Roma" />
     </root>
   </artifact>
 </component>

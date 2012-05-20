@@ -125,7 +125,7 @@ public class PlayerInteractorConsole extends PlayerInteractor {
 
                 if(valid) {
                     if(choice.equals(RAction.ACTIVATECARD)) {
-                        x = new ActivateCardAction(diceNo.toR0(), discNo.toR0());
+                        x = new ActivateCardAction(playerState.getDiceValue(diceNo.toR0()), discNo.toR0());
                         PJRomaCard c = playerState.diceDiscCards.get(discNo);
                         switch(c.dataMode) {
                             case 0:
@@ -135,9 +135,9 @@ public class PlayerInteractorConsole extends PlayerInteractor {
                     } else if(choice.equals(RAction.LAYCARD)) {
                         x = new LayCardAction(cardNo, discNo.toR0());
                     } else if(choice.equals(RAction.TAKECARD)) {
-                        x = new TakeCardAction(diceNo.toR0());
+                        x = new TakeCardAction(playerState.getDiceValue(diceNo.toR0()));
                     } else if(choice.equals(RAction.TAKEMONEY)) {
-                        x = new TakeMoneyAction(diceNo.toR0());
+                        x = new TakeMoneyAction(playerState.getDiceValue(diceNo.toR0()));
                     } else if(choice.equals(RAction.ENDTURN)) {
                         x = new EndTurnAction();
                     }

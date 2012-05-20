@@ -1,6 +1,6 @@
 package net.panda2.roma.action;
 
-import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,8 +11,8 @@ import net.panda2.RingInteger0;
  */
 public class TakeMoneyAction extends RomaAction {
 
-    public TakeMoneyAction(RingInteger0 diceNo) {
-        super(diceNo.asInt());
+    public TakeMoneyAction(RingInteger1 diceVal) {
+        super(diceVal.asInt());
     }
 
     public TakeMoneyAction(boolean test, int diceval) {

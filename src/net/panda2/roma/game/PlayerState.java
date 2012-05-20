@@ -97,7 +97,7 @@ public class PlayerState {
     }
 
      public RingInteger0 findDice(RingInteger1 diceToUse) {
-        return dice.getDiceNoFromValue(diceToUse.asInt());
+        return dice.getDiceNoFromValue(diceToUse);
     }
 
     public int hasAdjacentCard(RingInteger0 disc, String type) {
@@ -143,9 +143,9 @@ public class PlayerState {
         }
     }
 
-    public void useupDiceByVal(int diceValue) {
+    public void useupDiceByVal(RingInteger1 diceValue) {
 
-        RingInteger0 diceRef = findDice(new RingInteger1(diceValue));
+        RingInteger0 diceRef = findDice(diceValue);
         useupDice(diceRef);
     }
 
@@ -160,5 +160,9 @@ public class PlayerState {
     public void layCardByName(CardLocation cl) {
         RingInteger0 cardNo = hand.findCard(cl.name);
         layCard(cardNo, cl.location.toR0());
+    }
+
+    public void useupDiceByVal(int diceValue) {
+        useupDiceByVal(new RingInteger1(diceValue));
     }
 }

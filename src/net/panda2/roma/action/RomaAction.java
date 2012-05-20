@@ -1,6 +1,7 @@
 package net.panda2.roma.action;
 
 import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,10 +11,10 @@ import net.panda2.RingInteger0;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class RomaAction {
-    int diceNo;
     int cardNo;
     int discNo;
 int cost;
+    private int diceVal;
 
     public ActionData getActionData() {
         return actionData;
@@ -25,9 +26,9 @@ int cost;
 
     ActionData actionData;
 
-    protected RomaAction(int diceNo) {
+    protected RomaAction(int diceVal) {
         cost=0;
-        this.diceNo = diceNo;
+        this.diceVal = diceVal;
     }
 
     protected RomaAction(int cardNo, int discNo) {
@@ -40,9 +41,6 @@ int cost;
     }
 
 
-    public RingInteger0 getDiceNo() {
-        return new RingInteger0(diceNo);
-    }
 
     public RingInteger0 getCardNo() {
         return new RingInteger0(cardNo);
@@ -52,4 +50,7 @@ int cost;
         return new RingInteger0(discNo);
     }
 
+    public RingInteger1 getDiceVal() {
+        return new RingInteger1(diceVal);
+    }
 }

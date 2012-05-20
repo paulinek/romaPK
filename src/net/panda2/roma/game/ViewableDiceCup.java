@@ -1,6 +1,7 @@
 package net.panda2.roma.game;
 
 import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.game.dice.DiceCup;
 
 import java.util.ArrayList;
@@ -25,9 +26,13 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
         return dv;
     }
 
-   int fiddle(int diceNo, int amt) {
-    ActionDice d = dice.get(diceNo);
-   return d.fiddle(amt, true);
+   int fiddle(RingInteger0 diceNo, int amt) {
+    ActionDice d = dice.get(diceNo.asInt());
+   return d.fiddle(amt, !isNthUsed(diceNo));
+   }
+   int fiddle(RingInteger1 diceVal, int amt) {
+       RingInteger0 diceNo = getDiceNoFromValue(diceVal);
+       return this.fiddle(diceNo,amt);
    }
    public ViewableDiceCup(int n, int nsides) {
         super(n);
@@ -54,11 +59,12 @@ public class ViewableDiceCup extends DiceCup<ActionDice> {
     public void setDice(int[] dice) {
     checkArgument(dice.length == this.dice.size());
     for(int i = 0; i < dice.length; i++) {
-        this.dice.get(i).update(dice[i],true);
+        this.dice.get(i).update(dice[i], true);
     }
     }
 
-    public RingInteger0 getDiceNoFromValue(int diceToUse) {
+    public RingInteger0 getDiceNoFromValue(RingInteger1 diceVal) {
+        int diceToUse=diceVal.asInt();
         for(int i = 0; i< dice.size(); i++)
         {
             if(dice.get(i).getScore()==diceToUse && dice.get(i).isUsed() == false) {

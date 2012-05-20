@@ -61,9 +61,8 @@ public class PJRomaTestMoveMaker implements MoveMaker {
         CardActivator activator = null;
 
         PlayerState player = ge.getCurrentPlayer(gst.tk);
-        RingInteger0 diceRef = player.findDice(disc);
         PJRomaCard c = player.diceDiscCards.get(disc0);
-        RomaAction action = new ActivateCardAction(diceRef,disc0);
+        RomaAction action = new ActivateCardAction(disc,disc0);
         if(c instanceof Forum) {
              activator = new ForumCardActivator(gst, player, action);
         } else if (c instanceof Legionarius ||
@@ -132,7 +131,7 @@ public class PJRomaTestMoveMaker implements MoveMaker {
     @Override
     public void activateCardsDisc(int diceToUse, Card chosen) throws UnsupportedOperationException {
         PlayerState p = gst.getCurrentPlayer();
-        RomaAction a = new TakeCardAction(p.findDice(new RingInteger1(diceToUse)));
+        RomaAction a = new TakeCardAction(new RingInteger1(diceToUse));
         try {
             gst.input.interactionData.push(chosen.name());
             gst.ge.doAction(p, a);

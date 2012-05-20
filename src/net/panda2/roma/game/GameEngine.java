@@ -226,17 +226,16 @@ public class GameEngine {
         return false;
     }
 
-    void doActivateAction(PlayerState player, RingInteger0 diceRef, ActivateCardAction action) throws RomaException {
-        RingInteger1 diceVal = player.getDiceValue(diceRef);
+    void doActivateAction(PlayerState player, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
         PJRomaCard c = player.diceDiscCards.get(diceVal.toR0());
-        player.useupDice(action.getDiceNo());
+        player.useupDiceByVal(action.getDiceVal());
         c.activate(this, masterToken, action.getActionData());
     }
 
      void doAction(PlayerState playerState, RomaAction action) throws RomaException {
 
         if(action instanceof ActivateCardAction) {
-            doActivateAction(playerState, action.getDiceNo(), (ActivateCardAction) action);
+            doActivateAction(playerState, action.getDiceVal(), (ActivateCardAction) action);
         } else if(action instanceof LayCardAction) {
             int cost;
             if(((LayCardAction) action).isFree()) {
@@ -248,17 +247,17 @@ public class GameEngine {
             playerState.money.transferAway(gs.treasury, cost);
 
         } else if(action instanceof TakeCardAction) {
-            playerState.useupDice(action.getDiceNo());
+            playerState.useupDiceByVal(action.getDiceVal());
 
-            int nCards = playerState.dice.getNth(action.getDiceNo());
+            int nCards = action.getDiceVal().asInt();
             ViewableCardDeck deck = gs.maindeck.dealCard(nCards);
             int choice = playerInput.chooseTakeCardCard(deck);
             deck.giveTo(playerState.hand, choice);
             deck.discardTo(gs.discard);
 
         } else if(action instanceof  TakeMoneyAction) {
-            playerState.useupDice(action.getDiceNo());
-            int amount = playerState.dice.getNth(action.getDiceNo());
+            playerState.useupDiceByVal(action.getDiceVal());
+            int amount = action.getDiceVal().asInt();
             gs.treasury.transferAway(playerState.money,amount   );
 
         } else if(action instanceof EndTurnAction) {
@@ -350,9 +349,9 @@ public class GameEngine {
 
 
     // lets you change a die's value
-    public void fiddleDice(int diceNo, int amt, AuthToken tk) {
+    public void fiddleDice(RingInteger1 diceVal, int amt, AuthToken tk) {
         if(authenticateToken(tk)) {
-            gs.currentPlayer().dice.fiddle(diceNo, amt);
+            gs.currentPlayer().dice.fiddle(diceVal, amt);
         }
     }
     public void knockOffDefense(int amt, AuthToken tk) {
@@ -385,9 +384,9 @@ public class GameEngine {
         }
         checkNotNull(action);
 
-            RingInteger0 diceNo = action.getDiceNo();
+            RingInteger1 diceVal = action.getDiceVal();
         try {
-            doActivateAction(player, diceNo, action);
+            doActivateAction(player, diceVal, action);
         } catch (RomaException e) {
             if(e instanceof RomaGameEndException) {
                 gs.gameOver=true;
