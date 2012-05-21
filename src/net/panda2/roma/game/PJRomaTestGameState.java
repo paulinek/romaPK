@@ -366,6 +366,8 @@ PlayerInteractorAcceptance input;
             return new Kat(5,2);
         } else if(c.name().equalsIgnoreCase("GrimReaper")) {
             return new GrimReaper(6,3);
+        } else if(c.name().equalsIgnoreCase("TelephoneBox")) {
+            return new TelephoneBox(5,2);
         }
         else return null;
     }
