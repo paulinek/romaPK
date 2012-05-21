@@ -159,7 +159,6 @@ public class GameEngine {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
         }
-
     }
     void initialDeal() {
         for(int i = 0; i < ruleSet.playerInitCards; i++) {
@@ -239,10 +238,17 @@ public class GameEngine {
      * RomaAction children are passed around to describe what the action takes
      */
 
+    // doActivateActionFree - the guts of doAction after charging the player
+    // (either by using a diceDisc, or subtracting sestertii) is done
+
     void doActivateActionFree(PJRomaCard  c, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
         c.activate(this, masterToken, action.getActionData());
 
     }
+
+    // use up the die, then pass to the free version
+    // this is separated out so that the CardActivators in the acceptance testing framework can call it
+
     void doActivateAction(PlayerState player, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
         player.useupDiceByVal(action.getDiceVal());
         PJRomaCard c = player.fields.get(diceVal.toR0());
@@ -250,14 +256,17 @@ public class GameEngine {
         doActivateActionFree(c,diceVal,action);
     }
 
+    // entry point for scaenarius to call its mimicked card
     void mimicCard(AuthToken tk,  PJRomaCard c, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
      if(authenticateToken(tk)) {
          doActivateActionFree(c,diceVal,action);
      }
     }
 
-     void doAction(PlayerState playerState, RomaAction action) throws RomaException {
 
+    // this is a Dispatcher function for the RomaAction that is either provided by the interactor
+    // or by the test interface
+     void doAction(PlayerState playerState, RomaAction action) throws RomaException {
         if(action instanceof ActivateCardAction) {
             doActivateAction(playerState, action.getDiceVal(), (ActivateCardAction) action);
         } else if(action instanceof LayCardAction) {
@@ -269,7 +278,6 @@ public class GameEngine {
             }
             playerState.layCard(action.getCardNo(), action.getDiscNo());
             playerState.money.transferAway(gs.treasury, cost);
-
         } else if(action instanceof TakeCardAction) {
             playerState.useupDiceByVal(action.getDiceVal());
 
@@ -304,33 +312,29 @@ public class GameEngine {
         return authenticatedReturn(tk, gs.currentPlayer());
     }
 
-
-    public Stash getVP(AuthToken tk) throws RomaException {
-        authenticateOrDie(tk);
-        return gs.tabletopVPStockpile;
-    }
-
     public PlayerState getNextPlayer(AuthToken tk) {
         return authenticatedReturn(tk, gs.getNextPlayer());
     }
+
 
     // this is the generic battle function.
     // it checks the target dice disc's card vs the attack roll
     // and destroys the card successful
     // attackRoll is passed in rather than rolled internally to allow for the
     // centurion card to modify the attack roll
-    public void battleCard( int attackRoll,RingInteger0 cardLocation, AuthToken tk) {
+    public void battleCard(AuthToken tk, int attackRoll, RingInteger0 cardLocation) {
         if(authenticateToken(tk)) {
             battleCard(attackRoll,cardLocation);
         }
     }
-    public void activateCard(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
+    public void activateCard(AuthToken tk, PlayerState player, ActivateCardAction action) {
         if(!authenticateToken(tk)) {
             return;
         }
         checkNotNull(action);
-
+        checkNotNull(player);
         RingInteger1 diceVal = action.getDiceVal();
+
         try {
             doActivateAction(player, diceVal, action);
         } catch (RomaException e) {
@@ -342,19 +346,21 @@ public class GameEngine {
         }
 
     }
-    public void activateBribe(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
+    public void activateBribe(AuthToken tk, PlayerState player, ActivateCardAction action) {
         if(!authenticateToken(tk)) {
             return;
         }
         checkNotNull(action);
+        checkNotNull(player);
 
         RingInteger1 diceVal = action.getDiceVal();
         try {
+            PJRomaCard c = player.fields.get(action.getDiscNo());
             // use up the action dice
             player.useupDiceByVal(diceVal);
-            PJRomaCard c = player.fields.get(action.getDiscNo());
             // take away money
             player.money.transferAway(gs.treasury, c.getPrice());
+            // do the actual card's action
             doActivateActionFree(c,diceVal,action);
 
         } catch (RomaException e) {
@@ -374,9 +380,6 @@ public class GameEngine {
             gs.discard.giveTo(player.hand,discardIndex);
         }
     }
-    public int countDiscards() {
-        return gs.discard.size();
-    }
 
     public void takeDeckCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
         if(authenticateToken(tk)) {
@@ -384,6 +387,9 @@ public class GameEngine {
         }
     }
 
+    public int countDiscards() {
+        return gs.discard.size();
+    }
     public int countDeckCards() {
         return gs.maindeck.size();
     }
@@ -396,10 +402,9 @@ public class GameEngine {
         return false;
     }
 
-    // internal interface
-    Stash allocateVPs(int amt) {
-        return gs.vpStash.make(amt);
-    }
+
+
+
     void dealTo(PlayerState p) {
         p.hand.addCard(gs.maindeck.dealCard());
     }
@@ -445,11 +450,11 @@ public class GameEngine {
         }
         }
     }
-    public void discardEnemyCard(RingInteger0 which, AuthToken tk) {
+    public void discardEnemyCard(AuthToken tk, RingInteger0 which) {
         if(authenticateToken(tk))
             discardCard(gs.getNextPlayer(), which);
     }
-    public void discardMyCard(RingInteger0 which, AuthToken tk) {
+    public void discardMyCard(AuthToken tk, RingInteger0 which) {
         if(authenticateToken(tk) ){
             discardCard(gs.currentPlayer(), which);
         }
@@ -458,14 +463,14 @@ public class GameEngine {
 
     // lets you change a die's value
     // primarily for consul to use
-    public void fiddleDice(RingInteger1 diceVal, int amt, AuthToken tk) {
+    public void fiddleDice(AuthToken tk, RingInteger1 diceVal, int amt) {
         if(authenticateToken(tk)) {
             gs.currentPlayer().dice.fiddle(diceVal, amt);
         }
     }
     // set defense delta
     // for essedum (turris calculated separately)
-    public void knockOffDefense(int amt, AuthToken tk) {
+    public void knockOffDefense(AuthToken tk, int amt) {
         if(authenticateToken(tk)) {
             gs.getNextPlayer().fields.reduceDefense(amt);
         }

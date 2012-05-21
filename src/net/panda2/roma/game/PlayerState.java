@@ -33,11 +33,11 @@ public class PlayerState {
         return playerName;
     }
 
-    public PlayerState(RomaRules rules, GameEngine ge, String playerName, StashFactory<VPStash> VPrepository, StashFactory<MoneyStash> MoneyRepository) {
+    public PlayerState(RomaRules rules, GameEngine ge, RomaGameState romaGameState, String playerName) {
         this.ge = ge;
         this.playerName = playerName;
-        vp = VPrepository.make(rules.playerInitVP, rules.minVP);
-        money = MoneyRepository.make(rules.playerInitSest);
+        vp = ge.allocate("VP",rules.playerInitVP, rules.minVP);
+        money = ge.allocate("money", rules.playerInitSest);
         diceSize = rules.diceSize;
         dice = new ViewableDiceCup(rules.nDice, diceSize);
         fields = new ViewableTableau(rules.numDiceDiscs + rules.numBribeDiscs);
