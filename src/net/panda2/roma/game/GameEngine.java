@@ -28,69 +28,97 @@ public class GameEngine {
     AuthToken currentToken;
     PlayerInteractor playerInput;
 
-    public GameEngine(AuthToken tk, PlayerInteractor input) {
+
+    // This class contains the game logic for the game
+    // The only state stored in this class pertains to actually running the game
+    // eg authentication tokens and an interactor class
+    // all other state related to the game is inside RomaGameState gs
+    // which also has per player state in gs.player[] (PlayerState)
+
+    // constructors
+    // we use the factory design pattern here
+    GameEngine(AuthToken tk, PlayerInteractor input) {
         this.masterToken = tk;
         this.playerInput = input;
 
     }
-
-    public static GameEngine createGameEngine() {
-
-        return new GameEngine(null, new PlayerInteractorConsole());
-    }
+    // the authtoken here is the master token
+    // it is primarily for testing purposes so that the test mechanism can always have a back door
     public static GameEngine createGameEngine(AuthToken tk, PlayerInteractor input) {
          return new GameEngine(tk, input);
     }
+    // the standard way of running the game.  uses the console interactor
+    public static GameEngine createGameEngine() {
+        return createGameEngine(null, new PlayerInteractorConsole());
+    }
 
+    // the authentication mechanism
+    // two tokens - the master token and the current token
+    // cards get given the current token to access the game via the public interface
+    // the master token is for debugging
+    // otherwise the interface is essentially readOnly
     // makes sure that people aren't trying to fiddle by forging tokens
+
+    // some authenticated getters
+    // because the cards are in a different package, they only have access to the public functions in
+    // this package
+    // all cross package communication is authenticated with a token
+    // so that players (which may need to have access to the gameengine object) cannot call any destructive or privacy invading
+    // public functions
+
     public boolean authenticateToken(AuthToken tk) {
-    return(tk.equals(masterToken) || tk.equals(currentToken)) ;
+        return(tk.equals(masterToken) || tk.equals(currentToken)) ;
     }
     public void authenticateOrDie(AuthToken tk) throws RomaException{
         if(!authenticateToken(tk)) {
             throw new RomaUnAuthException();
         }
     }
+    <S> S authenticatedReturn(AuthToken tk, S s) {
+        return (authenticateToken(tk))?s : null;
+    }
 
-
+    // these two functions are create and create-and-run
     public void createGame() {
         ruleSet = new RomaRules();
-        try {
-            gs = RomaGameState.createGameState(ruleSet, this);
-        } catch(RomaException e) {
+        gs = RomaGameState.createGameState(ruleSet, this);
 
 
-        }
+
+
     }
     public void newGame() {
 
         // set up the initial deck
         createGame();
-        RunGame();
+        runGame();
     }
 
-    Stash allocateVPs(int amt) {
-        return gs.vpStash.make(amt);
-    }
 
-    public void RunGame() {
+    /*****************************
+     * Game sequencing logic
+     *
+     * the only public method is runGame
+     * which is usually called via NewGame above
+     *****************************/
+
+    public void runGame() {
         initialPhase();
- try{
-     while(!gs.gameOver) {
-         phaseOne();
-         phaseTwo();
-         phaseThree();
-         gs.nextPlayerTurn();
-     }
- }  catch (RomaGameEndException e) {
+        try{
+            while(!gs.gameOver) {
+                phaseOne();
+                phaseTwo();
+                phaseThree();
+                gs.nextPlayerTurn();
+            }
+        }  catch (RomaGameEndException e) {
 
-    // the game is over!
+            // the game is over!
 
-        endOfGame();
+            endOfGame();
+        }
     }
-    }
-
-    private void endOfGame() {
+    void endOfGame() {
         PlayerState winnerSoFar = null;
         for(PlayerState p:gs.player) {
             if(winnerSoFar == null) {
@@ -104,12 +132,6 @@ public class GameEngine {
         }
     }
 
-
-    void dealTo(PlayerState p) {
-        p.hand.addCard(gs.maindeck.dealCard());
-    }
-
-
     // phases
     // phase one has no user input
     // phase two asks the user if they want to reroll under certain circumstances
@@ -122,12 +144,7 @@ public class GameEngine {
         initialLay();
 
     }
-
-    PlayerState player(int p) {
-        return gs.player[p];
-    }
-
-    private void initialLay() {
+    void initialLay() {
         //To change body of created methods use File | Settings | File Templates.
         List<LayCardAction> cards[ ] = new List[ruleSet.numPlayers];
 
@@ -146,9 +163,6 @@ public class GameEngine {
         }
 
     }
-
-
-
     void initialDeal() {
         for(int i = 0; i < ruleSet.playerInitCards; i++) {
             for(int p = 0; p < ruleSet.numPlayers; p++) {
@@ -169,14 +183,12 @@ public class GameEngine {
         }
     }
 
-
     void phaseOne() throws RomaGameEndException {
         PlayerState p = gs.currentPlayer();
         // numEmpty returns how many of the diceDisc card slots are empty
         // p transfers that many VPs to the central stockpile
        p.vp.transferAway(gs.tabletopVPStockpile, p.fields.numEmpty());
     }
-
     void phaseTwo() {
         PlayerState p = gs.currentPlayer();
         boolean playerHappy=false;
@@ -191,7 +203,6 @@ public class GameEngine {
             }
         }
     }
-
     void phaseThree() throws RomaGameEndException {
         boolean ended = false;
         while(!ended) {
@@ -208,8 +219,6 @@ public class GameEngine {
             }
         }
     }
-
-
     boolean playerPhaseThree(PlayerGameView gv, PlayerState playerState) throws RomaException {
         ActionData da = null;
         playerInput.printPlayerGameView(gv);
@@ -225,6 +234,12 @@ public class GameEngine {
         }
         return false;
     }
+
+    /*****************************
+     * Activation logic
+     * mainly for the phase 3 actions
+     * RomaAction children are passed around to describe what the action takes
+     */
 
     void doActivateActionFree(PJRomaCard  c, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
         c.activate(this, masterToken, action.getActionData());
@@ -280,18 +295,8 @@ public class GameEngine {
     }
 
 
+    // public interface
     // helper functions for card actions to call
-
-    // some authenticated getters
-    // because the cards are in a different package, they only have access to the public functions in
-    // this package
-    // all cross package communication is authenticated with a token
-    // so that players (which may need to have access to the gameengine object) cannot call any destructive or privacy invading
-    // public functions
-
-    public <S> S authenticatedReturn(AuthToken tk, S s) {
-        return (authenticateToken(tk))?s : null;
-    }
 
     public RomaGameState getGameState(AuthToken tk) {
         return authenticatedReturn(tk, gs);
@@ -301,11 +306,11 @@ public class GameEngine {
         return authenticatedReturn(tk, gs.currentPlayer());
     }
 
-    // this just rolls the battle die
-    public int rollBattle() {
-        return gs.battleDice.roll();
 
+    public PlayerState getNextPlayer(AuthToken tk) {
+        return authenticatedReturn(tk, gs.getNextPlayer());
     }
+
     // this is the generic battle function.
     // it checks the target dice disc's card vs the attack roll
     // and destroys the card successful
@@ -313,23 +318,119 @@ public class GameEngine {
     // centurion card to modify the attack roll
     public void battleCard( int attackRoll,RingInteger0 cardLocation, AuthToken tk) {
         if(authenticateToken(tk)) {
-            PlayerState opponent = gs.getNextPlayer();
-            PJRomaCard opponentCard = opponent.fields.get(cardLocation);
-            checkNotNull(opponentCard);
-            int totalDefense = opponentCard.getDefense() + opponent.defenseBonus();
-            if(opponentCard instanceof Turris) {
-                // hack
-                // we counted the turris before
-                totalDefense--;
-            }
-        if(attackRoll >= totalDefense) {
-            destroyCard(opponent, opponent.fields, cardLocation);
+
         }
+    }
+    public void activateCard(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
+        if(!authenticateToken(tk)) {
+            return;
+        }
+        checkNotNull(action);
+
+        RingInteger1 diceVal = action.getDiceVal();
+        try {
+            doActivateAction(player, diceVal, action);
+        } catch (RomaException e) {
+            if(e instanceof RomaGameEndException) {
+                gs.gameOver=true;
+            } else {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+
+    }
+    public void activateBribe(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
+        if(!authenticateToken(tk)) {
+            return;
+        }
+        checkNotNull(action);
+
+        RingInteger1 diceVal = action.getDiceVal();
+        try {
+            // use up the action dice
+            player.useupDiceByVal(diceVal);
+            PJRomaCard c = player.fields.get();
+            // take away money
+            player.money.transferAway(gs.treasury, c.getPrice());
+            doActivateActionFree(c,diceVal,action);
+
+        } catch (RomaException e) {
+            if(e instanceof RomaGameEndException) {
+                gs.gameOver=true;
+            } else {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+
+    }
+
+
+    // some getters and pluckers
+    public void takeDiscardCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
+        if(authenticateToken(tk)) {
+            gs.discard.giveTo(player.hand,discardIndex);
+        }
+    }
+    public int countDiscards() {
+        return gs.discard.numCards();
+    }
+
+    public void takeDeckCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
+        if(authenticateToken(tk)) {
+            gs.maindeck.giveTo(player.hand,discardIndex);
         }
     }
 
-    // which is 0..5
-    void destroyCard(PlayerState player, ViewableTableau t, RingInteger0 which) {
+    public int countDeckCards() {
+        return gs.maindeck.numCards();
+    }
+
+    public boolean takeVPs(AuthToken tk, PlayerState currentPlayer, int numVPs) throws RomaGameEndException {
+        if(authenticateToken(tk)) {
+            gs.tabletopVPStockpile.transferAway(currentPlayer.vp,numVPs );
+            return true;
+        }
+        return false;
+    }
+
+    // internal interface
+    Stash allocateVPs(int amt) {
+        return gs.vpStash.make(amt);
+    }
+    void dealTo(PlayerState p) {
+        p.hand.addCard(gs.maindeck.dealCard());
+    }
+    PlayerState player(int p) {
+        return gs.player[p];
+    }
+
+
+    // this just rolls the battle die
+    public int rollBattle() {
+        return gs.battleDice.roll();
+
+    }
+
+
+    // card combat and discarding
+    void battleCard(int attackRoll,RingInteger0 cardLocation) {
+        PlayerState opponent = gs.getNextPlayer();
+        PJRomaCard opponentCard = opponent.fields.get(cardLocation);
+        checkNotNull(opponentCard);
+        int totalDefense = opponentCard.getDefense() + opponent.defenseBonus();
+        if(opponentCard instanceof Turris) {
+            // hack
+            // we counted the turris before
+            totalDefense--;
+        }
+        if(attackRoll >= totalDefense) {
+            discardCard(opponent, opponent.fields, cardLocation);
+        }
+    }
+    private void discardCard(PlayerState player, RingInteger0 which) {
+        discardCard(player, player.fields, which);
+    }
+    void discardCard(PlayerState player, ViewableTableau t, RingInteger0 which) {
         PJRomaCard c = t.get(which.asInt());
 
        c.decreaseLives();
@@ -341,30 +442,26 @@ public class GameEngine {
         }
         }
     }
-    public void destroyCard(RingInteger0 which, AuthToken tk) {
-        destroyCard(which, false, tk);
-    }
-
-    public void destroyCard(RingInteger0 whichDiceDisc, boolean me, AuthToken tk) {
-        PlayerState p;
-        if(me) {
-                p = gs.currentPlayer();
-        } else {
-            p = gs.getNextPlayer();
-        }
-
+    public void discardEnemyCard(RingInteger0 which, AuthToken tk) {
         if(authenticateToken(tk))
-            destroyCard(p, p.fields, whichDiceDisc);
-
+            discardCard(gs.currentPlayer(), which);
+    }
+    public void discardMyCard(RingInteger0 which, AuthToken tk) {
+        if(authenticateToken(tk) ){
+            discardCard(gs.getNextPlayer(), which);
+        }
     }
 
 
     // lets you change a die's value
+    // primarily for consul to use
     public void fiddleDice(RingInteger1 diceVal, int amt, AuthToken tk) {
         if(authenticateToken(tk)) {
             gs.currentPlayer().dice.fiddle(diceVal, amt);
         }
     }
+    // set defense delta
+    // for essedum (turris calculated separately)
     public void knockOffDefense(int amt, AuthToken tk) {
         if(authenticateToken(tk)) {
             gs.getNextPlayer().fields.reduceDefense(amt);
@@ -372,8 +469,9 @@ public class GameEngine {
     }
 
 
+    // take card from field to hand
     public void unlayCard(AuthToken tk, boolean me, RingInteger0 opponentCardNo) {
-;
+
         if(!authenticateToken(tk))
             return;
         PlayerState p = me?gs.currentPlayer():gs.getNextPlayer();
@@ -385,60 +483,11 @@ public class GameEngine {
         }
     }
 
-    public PlayerState getNextPlayer(AuthToken tk) {
-        return authenticatedReturn(tk, gs.getNextPlayer());
-    }
-
-    public void activateCard(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
-        if(!authenticateToken(tk)) {
-            return;
-        }
-        checkNotNull(action);
-
-            RingInteger1 diceVal = action.getDiceVal();
-        try {
-            doActivateAction(player, diceVal, action);
-        } catch (RomaException e) {
-            if(e instanceof RomaGameEndException) {
-                gs.gameOver=true;
-            } else {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        }
-
-    }
-
     public void sayToPlayer(AuthToken tk, String s) {
         if(authenticateToken(tk)) {
             playerInput.say(s);
         }
     }
 
-    public boolean takeVPs(AuthToken tk, PlayerState currentPlayer, int numVPs) throws RomaGameEndException {
-        if(authenticateToken(tk)) {
-           gs.tabletopVPStockpile.transferAway(currentPlayer.vp,numVPs );
-           return true;
-        }
-        return false;
-    }
 
-    public void takeDiscardCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
-        if(authenticateToken(tk)) {
-            gs.discard.giveTo(player.hand,discardIndex);
-        }
-    }
-
-    public void takeDeckCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
-        if(authenticateToken(tk)) {
-            gs.maindeck.giveTo(player.hand,discardIndex);
-        }
-    }
-
-    public int countDiscards() {
-        return gs.discard.numCards();
-    }
-
-    public int countDeckCards() {
-        return gs.maindeck.numCards();
-    }
 }
