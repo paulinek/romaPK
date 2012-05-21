@@ -2,6 +2,7 @@ package net.panda2.roma.card.cards;
 
 import framework.interfaces.activators.CenturioActivator;
 import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaTestGameState;
@@ -32,8 +33,9 @@ public class CenturioCardActivator extends AttackCardActivator implements Centur
     public void chooseCenturioAddActionDie(boolean attackAgain) {
         if(attackAgain) {
             chosen=false;
+
+            hasDie=true;
         }
-        hasDie=true;
     }
 
     /**
@@ -75,7 +77,7 @@ public class CenturioCardActivator extends AttackCardActivator implements Centur
     @Override
     public void complete() {
         if(hasDie){
-            getData().stackpush(new RingInteger0(value));
+            getData().stackpush(new RingInteger1(value).toR0());
             getData().stackpush(new RingInteger0(1));
         } else {
             getData().stackpush(new RingInteger0(0));

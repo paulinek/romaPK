@@ -97,8 +97,11 @@ public class PJRomaTestMoveMaker implements MoveMaker {
         } else if(c instanceof Haruspex ) {
             activator = new HaruspexCardActivator(c, gst,player,action);
 
+        } else if(c instanceof TelephoneBox) {
+            throw new UnsupportedOperationException();
         }
         action.getActionData().whichDiceDisc = disc.toR0();
+
         return activator;
     }
 
@@ -216,8 +219,8 @@ public class PJRomaTestMoveMaker implements MoveMaker {
      */
     @Override
     public CardActivator activateBribeDisc(int diceToUse) throws UnsupportedOperationException {
-        PJRomaActivator c = (PJRomaActivator) chooseCardToActivate(diceToUse);
-        c.setBribe();
+        PJRomaActivator c = (PJRomaActivator) chooseCardToActivate(7);
+        c.setBribe(diceToUse);
         return c;
     }
 

@@ -33,11 +33,11 @@ public class PlayerState {
         return playerName;
     }
 
-    public PlayerState(RomaRules rules, GameEngine ge, RomaGameState romaGameState, String playerName) {
+    public PlayerState(RomaRules rules, GameEngine ge, RomaGameState gs, String playerName) {
         this.ge = ge;
         this.playerName = playerName;
-        vp = ge.allocate("VP",rules.playerInitVP, rules.minVP);
-        money = ge.allocate("money", rules.playerInitSest);
+        vp = gs.allocate("VP",rules.playerInitVP, rules.minVP);
+        money = gs.allocate("money", rules.playerInitSest);
         diceSize = rules.diceSize;
         dice = new ViewableDiceCup(rules.nDice, diceSize);
         fields = new ViewableTableau(rules.numDiceDiscs + rules.numBribeDiscs);
@@ -164,5 +164,14 @@ public class PlayerState {
 
     public void useupDiceByVal(int diceValue) {
         useupDiceByVal(new RingInteger1(diceValue));
+    }
+
+    public void blockCard(AuthToken tk, RingInteger1 discVal, int turns) {
+        if(ge.authenticateToken(tk)) {
+            // a turn is actually a single player's turn
+            // so we multiply by the number of players
+
+            fields.setBlockedUntil(discVal, ge.getTurnNo() + turns * ge.numPlayers());
+        }
     }
 }

@@ -21,6 +21,14 @@ import java.util.List;
 public class ViewableTableau extends Tableau<PJRomaCard> implements ViewableCardCollection{
     public ViewableTableau(int slots) {
         super(slots);
+        isBlockedUntil = new int[slots];
+    }
+    int[] isBlockedUntil;
+    void setBlockedUntil(RingInteger1 diceVal, int turn) {
+        isBlockedUntil[diceVal.toR0().asInt()] = turn;
+    }
+    boolean isBlocked(RingInteger1 diceVal, int now) {
+        return now < isBlockedUntil[diceVal.toR0().asInt()];
     }
     public
     List<CardView>

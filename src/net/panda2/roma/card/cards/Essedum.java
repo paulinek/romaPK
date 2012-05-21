@@ -16,6 +16,6 @@ public class Essedum extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        ge.knockOffDefense(2,tk);
+        ge.knockOffDefense(tk, 2);
     }
 }

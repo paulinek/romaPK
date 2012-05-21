@@ -4,6 +4,7 @@ import net.panda2.RingInteger;
 import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.action.*;
+import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.Turris;
 import net.panda2.roma.game.exception.RomaException;
@@ -250,10 +251,12 @@ public class GameEngine {
     // this is separated out so that the CardActivators in the acceptance testing framework can call it
 
     void doActivateAction(PlayerState player, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
-        player.useupDiceByVal(action.getDiceVal());
-        PJRomaCard c = player.fields.get(diceVal.toR0());
 
-        doActivateActionFree(c,diceVal,action);
+        PJRomaCard c = player.fields.get(diceVal.toR0());
+        if(!player.fields.isBlocked(action.getDiceVal(), getTurnNo())) {
+            player.useupDiceByVal(action.getDiceVal());
+            doActivateActionFree(c,diceVal,action);
+        }
     }
 
     // entry point for scaenarius to call its mimicked card
@@ -359,7 +362,7 @@ public class GameEngine {
             // use up the action dice
             player.useupDiceByVal(diceVal);
             // take away money
-            player.money.transferAway(gs.treasury, c.getPrice());
+            player.money.transferAway(gs.treasury, diceVal.asInt());
             // do the actual card's action
             doActivateActionFree(c,diceVal,action);
 
@@ -443,7 +446,7 @@ public class GameEngine {
 
        c.decreaseLives();
         if(c.isDead()) {
-        if(player.hasGrimReaper()) {
+        if(c instanceof CharacterCard && player.hasGrimReaper()) {
             t.discard(which, player.hand);
         } else {
             t.discard(which, gs.discard);
@@ -512,4 +515,12 @@ public class GameEngine {
         }
     }
 
+    public int getTurnNo() {
+        return gs.turnNo.asInt();
+    }
+
+    public int numPlayers() {
+
+        return gs.numPlayers;
+    }
 }

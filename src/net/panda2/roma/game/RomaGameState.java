@@ -42,6 +42,7 @@ public class RomaGameState {
 
     Tableau<PJRomaCard> diceDiscs;
     DiceCollection battleDice;
+    public RingInteger0 turnNo;
 
 
     /***********************************
@@ -63,8 +64,8 @@ public class RomaGameState {
         // RingInteger expects the maximum valid number, so 0..numPlayers-1
         playerNo =new RingInteger0(0,numPlayers);
         // create a new net.panda2.roma.game.PlayerState object for each of numPlayers
-        int i;
 
+        turnNo = new RingInteger0(1);
         // set up tabletop card decks
         discard = new ViewableCardDeck();
         maindeck = new ViewableCardDeck(discard,true);
@@ -78,7 +79,7 @@ public class RomaGameState {
         treasury = allocate("Money", Integer.MAX_VALUE-65536);
 
         // the stashes need to be set up before players so that they can get piles
-        for (i=0; i<numPlayers; i++){
+        for (int i=0; i<numPlayers; i++){
             player[i]=new PlayerState(ruleSet, ge,this,"Player"+i);
         }
 
@@ -109,22 +110,24 @@ public class RomaGameState {
             playerNo.set(player);
     }
 
-     void nextPlayerTurn() {
+    void nextPlayerTurn() {
+        turnNo.inc();
         playerNo.inc();
     }
+
     // internal interface
     <T> T allocate(String type, int amt, int min) {
         StashFactory f = null;
-        if(type.equals("VP"))
+        if(type.equalsIgnoreCase("VP"))
             f = vpStash;
-        else if(type.equals("Money"))
+        else if(type.equalsIgnoreCase("Money"))
             f = moneyStash;
 
         return (T) f.make(amt,min);
 
     }
     <T> T allocate(String s, int amt) {
-        return allocate(s, amt);
+        return allocate(s, amt,-1);
     }
 
 }

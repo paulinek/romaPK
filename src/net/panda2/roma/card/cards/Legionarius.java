@@ -16,6 +16,6 @@ public class Legionarius extends CharacterCard {
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
         int attackRoll = dat.popR0().asInt();
 
-        ge.battleCard(attackRoll, dat.whichDiceDisc, tk);
+        ge.battleCard(tk, attackRoll, dat.whichDiceDisc);
     }
 }

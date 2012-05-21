@@ -22,7 +22,7 @@ public class Velites extends CharacterCard {
         RingInteger0 which = dat.popR0();
         PJRomaCard c = opponent.getDiscCard(which);
         if(c instanceof CharacterCard)
-             ge.battleCard(attackRoll,which, tk);
+             ge.battleCard(tk, attackRoll,which);
 
     }
 }

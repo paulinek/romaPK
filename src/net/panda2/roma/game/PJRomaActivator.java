@@ -1,6 +1,7 @@
 package net.panda2.roma.game;
 
 import framework.interfaces.activators.CardActivator;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.RomaAction;
@@ -19,7 +20,7 @@ public abstract class PJRomaActivator implements CardActivator {
      boolean deferred;
     PJRomaCard card;
     private boolean bribe;
-
+    RingInteger1 diceVal;
     public RomaAction getAction() {
         return action;
     }
@@ -86,10 +87,11 @@ public abstract class PJRomaActivator implements CardActivator {
     @Override
      public void complete() {
         if(bribe) {
-            gst.ge.activateBribe(player, (ActivateCardAction) action, data, gst.tk);
-        }
+            action.setDiceVal(diceVal.toR0());
+            gst.ge.activateBribe(gst.tk, player, (ActivateCardAction) action);
+        } else
         if(!deferred) {
-            gst.ge.activateCard(player, (ActivateCardAction) action, data, gst.tk);
+            gst.ge.activateCard(gst.tk, player, (ActivateCardAction) action);
         }
     }
     public void completeDeferred() throws RomaException {
@@ -108,7 +110,8 @@ public abstract class PJRomaActivator implements CardActivator {
         deferred=true;
     }
 
-    public void setBribe() {
+    public void setBribe(int diceVal) {
+        this.diceVal = new RingInteger1(diceVal);
         this.bribe=true;
     }
 }

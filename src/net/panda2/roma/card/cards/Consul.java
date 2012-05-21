@@ -21,7 +21,7 @@ public class Consul extends CharacterCard {
         RingInteger1 dice = dat.popR0().toR1();
 
 
-        ge.fiddleDice(dice,amt,tk);
+        ge.fiddleDice(tk, dice,amt);
                 //To change body of implemented methods use File | Settings | File Templates.
     }
 }

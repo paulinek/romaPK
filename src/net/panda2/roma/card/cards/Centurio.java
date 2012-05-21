@@ -1,5 +1,7 @@
 package net.panda2.roma.card.cards;
 
+import net.panda2.RingInteger0;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.BattleCard;
 import net.panda2.roma.game.AuthToken;
@@ -21,11 +23,14 @@ public class Centurio extends BattleCard {
         attackRoll = dat.popR0().asInt();
         int ndie = dat.popR0().asInt();
         while(ndie>0) {
-            attackRoll+= dat.popR0().asInt();
+            RingInteger0 diceR0= dat.popR0();
+            RingInteger1 diceVal = diceR0.toR1();
+            ge.getCurrentPlayer(tk).useupDiceByVal(diceVal);
+            attackRoll+= diceVal.asInt();
             ndie--;
         }
 
 
-        ge.battleCard(attackRoll, dat.whichDiceDisc, tk);
+        ge.battleCard(tk, attackRoll, dat.whichDiceDisc);
     }
 }

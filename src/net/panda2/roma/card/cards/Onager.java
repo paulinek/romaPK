@@ -24,7 +24,7 @@ public class Onager extends BuildingCard {
         RingInteger0 which = dat.popR0();
         PJRomaCard c = opponent.getDiscCard(which);
         if(c instanceof BuildingCard) {
-            ge.battleCard(attackRoll,which, tk);
+            ge.battleCard(tk, attackRoll,which);
 
         }
     }
