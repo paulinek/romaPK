@@ -1,5 +1,6 @@
 package net.panda2.roma.game;
 
+import net.panda2.RingInteger0;
 import net.panda2.roma.action.RomaAction;
 
 import java.util.List;
@@ -30,5 +31,5 @@ public abstract class PlayerInteractor {
 
     public abstract RomaAction getAction(PlayerGameView gv, PlayerState playerState);
 
-    public abstract int chooseTakeCardCard(ViewableCardDeck deck);
+    public abstract RingInteger0 chooseTakeCardCard(ViewableCardDeck deck);
 }

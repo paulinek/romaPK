@@ -31,7 +31,7 @@ public class Machina extends BuildingCard {
         }
         while(ncards>0) {
             CardLocation cl = dat.popCardLocation();
-            me.layCardByName(cl);
+            me.layCardByName(cl, true);
             ncards--;
         }
          //To change body of implemented methods use File | Settings | File Templates.

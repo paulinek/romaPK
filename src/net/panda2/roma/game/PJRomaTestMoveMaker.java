@@ -64,33 +64,38 @@ public class PJRomaTestMoveMaker implements MoveMaker {
         PJRomaCard c = player.diceDiscCards.get(disc0);
         RomaAction action = new ActivateCardAction(disc,disc0);
         if(c instanceof Forum) {
-             activator = new ForumCardActivator(gst, player, action);
+             activator = new ForumCardActivator(c, gst, player, action);
         } else if (c instanceof Legionarius ||
                    c instanceof Praetorianus ||
                    c instanceof Sicarius||
                    c instanceof Gladiator ||
-                    c instanceof Nero
+                    c instanceof Nero ||
+                c instanceof Onager ||
+                c instanceof Velites
                 ) {
-             activator = new AttackCardActivator(gst, player, action );
+             activator = new AttackCardActivator(c, gst, player, action );
         } else if(c instanceof Centurio) {
-            activator = new CenturioCardActivator(gst,player,action);
+            activator = new CenturioCardActivator(c, gst,player,action);
         } else if(c instanceof Essedum ||
                   c instanceof Mercatus ||
                   c instanceof Legat ||
                 c instanceof TribunusPlebis) {
 
-                activator = new BasicActivator(gst,player,action);
+                activator = new BasicActivator(c, gst,player,action);
         } else if(c instanceof Consul) {
-            activator = new ConsulCardActivator(gst,player,action);
+            activator = new ConsulCardActivator(c, gst,player,action);
         } else if(c instanceof Consiliarius ||
                 c instanceof Senator ||
                 c instanceof Machina ||
                 c instanceof Architectus) {
-            activator = new MultiCardActivator(gst,player,action);
+            activator = new MultiCardActivator(c, gst,player,action);
         } else if(c instanceof Mercator) {
-            activator= new MercatorCardActivator(gst,player,action);
+            activator= new MercatorCardActivator(c, gst,player,action);
         } else if(c instanceof Scaenicus) {
-            activator=new ScaenicusCardActivator(gst,player,action);
+            activator=new ScaenicusCardActivator(c, gst,player,action,this);
+        } else if(c instanceof Haruspex ||
+                c instanceof Aesculapinum) {
+            activator = new DiscardCardChooserActivator(c, gst,player,action);
         }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;

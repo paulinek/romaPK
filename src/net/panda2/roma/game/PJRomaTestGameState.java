@@ -24,6 +24,8 @@ public class PJRomaTestGameState implements GameState {
     public AuthToken tk;
     public GameEngine ge;
 PlayerInteractorAcceptance input;
+    PlayerState p0,p1;   // to make these easier to find in th
+
     public boolean isGameEnded() {
         return gameEnded;
     }
@@ -39,6 +41,8 @@ PlayerInteractorAcceptance input;
         input = new PlayerInteractorAcceptance();
         ge = GameEngine.createGameEngine(tk, input);
     ge.createGame();
+        p0 = ge.gs.player[0];
+        p1 = ge.gs.player[1];
         }
     /**
      * Get the current turn's player number
@@ -93,18 +97,21 @@ PlayerInteractorAcceptance input;
         return null;
     }
     List<Card> deck2card(ViewableCardDeck cardDeck) {
-        Vector<PJRomaCard> deck = new Vector<PJRomaCard>(cardDeck.getCards());
-        Collections.reverse(deck);
-        List<Card> list = new Vector<Card>();
-        for(PJRomaCard c:deck) {
-            list.add(getCardFromName(c.getName())) ;
-
+        RingInteger0 I = new RingInteger0(0);
+        List<Card> list = new ArrayList<Card>();
+        for(int i = cardDeck.numCards()-1; i>=0;i--) {
+            I.set(i);
+            PJRomaCard c = cardDeck.getCard(I);
+            if(c != null) {
+                list.add(getCardFromName(c.getName())) ;
+            }
         }
         return list;
     }
 
     public List<Card> getDeck() {
-        return deck2card(ge.gs.maindeck);
+        List<Card> deck= deck2card(ge.gs.maindeck);
+        return deck;
     }
 
     /**
@@ -155,7 +162,9 @@ PlayerInteractorAcceptance input;
         cd.setDeck(ListTransformer(cards));
     }
     public void setDiscard(List<Card> discard) {
-        setDeck(ge.gs.discard, discard);
+        List<Card> c = new ArrayList<Card>(discard);
+        Collections.reverse(c);
+        setDeck(ge.gs.discard, c);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

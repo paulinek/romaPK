@@ -4,6 +4,7 @@ import framework.interfaces.activators.*;
 import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -18,9 +19,10 @@ import net.panda2.roma.game.PlayerState;
 public class AttackCardActivator extends PJRomaActivator implements
         LegionariusActivator, PraetorianusActivator, SicariusActivator,
         TribunusPlebisActivator, GladiatorActivator, NeroActivator,
+        OnagerActivator, VelitesActivator,
         Attacker, CardActivator, Targeted {
-    public AttackCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        super(gst,p,a);
+    public AttackCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+        super(card, gst,p,a);
     }
 
 

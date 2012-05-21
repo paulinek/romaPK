@@ -226,10 +226,21 @@ public class GameEngine {
         return false;
     }
 
-    void doActivateAction(PlayerState player, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
-        PJRomaCard c = player.diceDiscCards.get(diceVal.toR0());
-        player.useupDiceByVal(action.getDiceVal());
+    void doActivateActionFree(PJRomaCard  c, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
         c.activate(this, masterToken, action.getActionData());
+
+    }
+    void doActivateAction(PlayerState player, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
+        player.useupDiceByVal(action.getDiceVal());
+        PJRomaCard c = player.diceDiscCards.get(diceVal.toR0());
+
+        doActivateActionFree(c,diceVal,action);
+    }
+
+    void mimicCard(AuthToken tk,  PJRomaCard c, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
+     if(authenticateToken(tk)) {
+         doActivateActionFree(c,diceVal,action);
+     }
     }
 
      void doAction(PlayerState playerState, RomaAction action) throws RomaException {
@@ -251,7 +262,7 @@ public class GameEngine {
 
             int nCards = action.getDiceVal().asInt();
             ViewableCardDeck deck = gs.maindeck.dealCard(nCards);
-            int choice = playerInput.chooseTakeCardCard(deck);
+            RingInteger0 choice = playerInput.chooseTakeCardCard(deck);
             deck.giveTo(playerState.hand, choice);
             deck.discardTo(gs.discard);
 
@@ -409,5 +420,15 @@ public class GameEngine {
            return true;
         }
         return false;
+    }
+
+    public void takeDiscardCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
+        if(authenticateToken(tk)) {
+            gs.discard.giveTo(player.hand,discardIndex);
+        }
+    }
+
+    public int countDiscards() {
+        return gs.discard.numCards();
     }
 }

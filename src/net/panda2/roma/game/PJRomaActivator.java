@@ -4,6 +4,8 @@ import framework.interfaces.activators.CardActivator;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.action.ActivateCardAction;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
+import net.panda2.roma.game.exception.RomaException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +16,8 @@ import net.panda2.roma.action.RomaAction;
  */
 public abstract class PJRomaActivator implements CardActivator {
     //todo - all protected
+     boolean deferred;
+    PJRomaCard card;
     public RomaAction getAction() {
         return action;
     }
@@ -51,30 +55,42 @@ public abstract class PJRomaActivator implements CardActivator {
     PlayerState player;
     PJRomaTestGameState gst;
 
-    public PJRomaActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+    public PJRomaActivator(PJRomaCard c, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         this.gst=gst;
         this.player=p;
         this.action=a;
         data = new ActionData();
         action.setActionData(data);
+        deferred=false;
+        card = c;
 
     }
+    public PJRomaActivator(PJRomaCard c, PJRomaTestGameState gst, PlayerState p, RomaAction a,boolean deferred) {
+        this(c,gst,p,a);
+        this.deferred=deferred;
+    }
 
-    /**
-     * Mark the pending activation as complete.
-     * <p/>
-     * <p>
-     * This method must be called when an activation is complete.
-     * This method cannot be called until all required activation
-     * methods have been called. No other methods in the move maker can
-     * be called after a CardActivator has been received until after its
-     * complete method is called. This is really important.
-     * </p>
-     */
+        /**
+        * Mark the pending activation as complete.
+        * <p/>
+        * <p>
+        * This method must be called when an activation is complete.
+        * This method cannot be called until all required activation
+        * methods have been called. No other methods in the move maker can
+        * be called after a CardActivator has been received until after its
+        * complete method is called. This is really important.
+        * </p>
+        */
     @Override
      public void complete() {
-        gst.ge.activateCard(player, (ActivateCardAction) action, data, gst.tk);
-
+        if(!deferred) {
+            gst.ge.activateCard(player, (ActivateCardAction) action, data, gst.tk);
+        }
+    }
+    public void completeDeferred() throws RomaException {
+        if(card != null) {
+        gst.ge.mimicCard(gst.tk,card,action.getDiceVal(), (ActivateCardAction) action);
+        }
     }
 
     protected GameEngine getGE() {
@@ -82,5 +98,9 @@ public abstract class PJRomaActivator implements CardActivator {
     }
     protected AuthToken getTK() {
         return gst.tk;}
+
+    public void defer() {
+        deferred=true;
+    }
 }
 

@@ -78,4 +78,17 @@ return null
     public int getNDice() {
          return dice.size();
     }
+
+    public void useupByVal(RingInteger1 diceVal) {
+        int diceToUse=diceVal.asInt();
+        for(int i = 0; i< dice.size(); i++)
+        {
+            if(dice.get(i).getScore()==diceToUse && dice.get(i).isUsed() == false) {
+                dice.get(i).setUsed();
+            return;
+            }
+        }
+    }
+
+
 }

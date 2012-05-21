@@ -8,6 +8,7 @@ import framework.interfaces.activators.SenatorActivator;
 import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -21,8 +22,8 @@ import net.panda2.roma.game.PlayerState;
  */
 public class MultiCardActivator extends PJRomaActivator implements
         SenatorActivator,ConsiliariusActivator,MachinaActivator,ArchitectusActivator {
-    public MultiCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        super(gst, p, a);
+    public MultiCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+        super(card,gst, p, a);
         ncards=0;
     }
     int ncards;

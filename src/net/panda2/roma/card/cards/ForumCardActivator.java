@@ -4,6 +4,7 @@ import framework.interfaces.activators.ForumActivator;
 import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -23,13 +24,13 @@ public class ForumCardActivator extends PJRomaActivator implements ForumActivato
     int forumDiceVal;
 
 
-    public ForumCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a, boolean templumActive) {
-        super(gst, p, a);
+    public ForumCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a, boolean templumActive) {
+        super(card, gst, p, a);
         this.templumActive = templumActive;
     }
-    public ForumCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+    public ForumCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
 
-       this(gst,p,a,false);
+       this(card, gst,p,a,false);
     }
 
     /**

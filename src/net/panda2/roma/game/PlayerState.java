@@ -145,8 +145,7 @@ public class PlayerState {
 
     public void useupDiceByVal(RingInteger1 diceValue) {
 
-        RingInteger0 diceRef = findDice(diceValue);
-        useupDice(diceRef);
+        dice.useupByVal(diceValue);
     }
 
     public void takeMoney(AuthToken tk, PlayerState p, int amt) throws RomaGameEndException {
@@ -157,7 +156,7 @@ public class PlayerState {
         return diceDiscCards.get(i);
     }
 
-    public void layCardByName(CardLocation cl) {
+    public void layCardByName(CardLocation cl, boolean b) {
         RingInteger0 cardNo = hand.findCard(cl.name);
         layCard(cardNo, cl.location.toR0());
     }

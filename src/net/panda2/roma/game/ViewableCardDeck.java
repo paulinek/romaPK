@@ -81,25 +81,28 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         return cards.get(i.asInt());
     }
 
-    public void giveTo(ViewableCardDeck toHand, List<Integer> cardChoice) {
+     void giveTo(ViewableCardDeck toHand, List<Integer> cardChoice) {
         Collections.sort(cardChoice, Collections.reverseOrder());
         for(Integer i:cardChoice) {
-               giveTo(toHand, i.intValue());
+               giveTo(toHand, new RingInteger0(i));
 
         }
         //To change body of created methods use File | Settings | File Templates.
     }
 
-    public void giveTo(ViewableCardDeck toHand, int i) {
+     void giveTo(ViewableCardDeck toHand, RingInteger0 I) {
+        int i = I.asInt();
         checkElementIndex(i, numCards());
         PJRomaCard c = cards.get(i);
         cards.remove(i);
         toHand.addCard(c);
 
     }
-    public void discardTo(ViewableCardDeck toDeck) {
-        for(int i = numCards(); i > 0; i--) {
-            giveTo(toDeck, i-1);
+     void discardTo(ViewableCardDeck toDeck) {
+         RingInteger0 I = new RingInteger0(0);
+        for(int i = numCards()-1; i >= 0; i--) {
+            I.set(i);
+            giveTo(toDeck, I);
         }
     }
 
@@ -123,8 +126,8 @@ public class ViewableCardDeck extends CardDeck<PJRomaCard> implements ViewableCa
         ViewableCardDeck c = new ViewableCardDeck();
         checkArgument(cards.size()>= nCards);
         int stop = cards.size() - nCards;
-        for(int i = cards.size(); i >stop; i--) {
-            giveTo(c, i-1);
+        for(int i = cards.size()-1; i >=stop; i--) {
+            giveTo(c, new RingInteger0(i));
         }
         return c;
     }

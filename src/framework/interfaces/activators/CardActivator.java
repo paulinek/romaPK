@@ -22,4 +22,6 @@ public interface CardActivator {
      * </p>
      */
     void complete();
+
+
 }

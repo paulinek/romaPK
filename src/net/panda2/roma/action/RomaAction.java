@@ -12,8 +12,10 @@ import net.panda2.RingInteger1;
  */
 public abstract class RomaAction {
     int cardNo;
+    //0
     int discNo;
 int cost;
+    // 0-5
     private int diceVal;
 
     public ActionData getActionData() {
@@ -28,7 +30,7 @@ int cost;
 
     protected RomaAction(int diceVal) {
         cost=0;
-        this.diceVal = diceVal;
+        this.diceVal = diceVal-1;
     }
 
     protected RomaAction(int cardNo, int discNo) {
@@ -51,6 +53,14 @@ int cost;
     }
 
     public RingInteger1 getDiceVal() {
-        return new RingInteger1(diceVal);
+        return new RingInteger0(diceVal).toR1();
+    }
+
+    public void setDiscNo(RingInteger0 whichDiceDisc) {
+                discNo = whichDiceDisc.asInt();
+    }
+
+    public void setDiceVal(RingInteger0 whichDiceDisc) {
+        diceVal = whichDiceDisc.asInt();
     }
 }

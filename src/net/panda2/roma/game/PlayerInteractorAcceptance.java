@@ -55,20 +55,20 @@ return (List<Integer>)  interactionData.pop();
     }
 
     @Override
-    public int chooseTakeCardCard(ViewableCardDeck deck) {
+    public RingInteger0 chooseTakeCardCard(ViewableCardDeck deck) {
         String chosen = (String) interactionData.pop();
         RingInteger0 r = new RingInteger0(0, deck.size());
         try {
             while(true) {
                 if(deck.getCard(r).getName().equalsIgnoreCase(chosen)) {
-                    return r.asInt();
+                    return r;
                 }
 
 
                 r.iterate();
             }
         } catch (allDoneException e) {
-            return 0;
+            return null;
         }
     }
 }

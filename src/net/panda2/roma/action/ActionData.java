@@ -1,9 +1,12 @@
 package net.panda2.roma.action;
 
+import framework.interfaces.activators.CardActivator;
 import net.panda2.RingInteger0;
 import net.panda2.roma.card.cards.CardLocation;
 
 import java.util.Stack;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,10 +34,15 @@ public class ActionData {
     }
 
     public void stackpush(Object o) {
+        checkArgument(o instanceof RingInteger0 || o instanceof CardLocation || o instanceof CardActivator);
         stack.push(o);
     }
 
     public CardLocation popCardLocation() {
         return (CardLocation) stack.pop();
+    }
+
+    public CardActivator popCardActivator() {
+        return (CardActivator) stack.pop();
     }
 }

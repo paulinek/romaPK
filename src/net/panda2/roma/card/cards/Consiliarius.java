@@ -30,7 +30,7 @@ public class Consiliarius extends CharacterCard {
         }
         while(ncards>0) {
             CardLocation cl = dat.popCardLocation();
-            me.layCardByName(cl);
+            me.layCardByName(cl, true);
             ncards--;
         }
     }

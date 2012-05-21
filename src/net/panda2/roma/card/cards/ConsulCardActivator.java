@@ -4,6 +4,7 @@ import framework.interfaces.activators.ConsulActivator;
 import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -18,8 +19,8 @@ import net.panda2.roma.game.PlayerState;
 public class ConsulCardActivator extends PJRomaActivator implements ConsulActivator {
     private int fiddleAmt;
 
-    public ConsulCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        super(gst, p, a);
+    public ConsulCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+        super(card, gst, p, a);
     }
 
 int dice;

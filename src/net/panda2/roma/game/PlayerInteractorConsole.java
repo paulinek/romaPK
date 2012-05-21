@@ -159,11 +159,11 @@ public class PlayerInteractorConsole extends PlayerInteractor {
 
     }
     @Override
-    public int chooseTakeCardCard(ViewableCardDeck deck) {
+    public RingInteger0 chooseTakeCardCard(ViewableCardDeck deck) {
         printCardviewList(deck.getCardView(), 1, "C");
         say("Enter card to keep");
         Integer choice = new Integer(readNumber("", 1, deck.size())-1);
-        return choice.intValue();
+        return new RingInteger0(choice);
     }
 
     private RAction getActionChoice(String s) {

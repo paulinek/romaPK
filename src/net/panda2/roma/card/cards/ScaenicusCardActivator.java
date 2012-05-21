@@ -1,8 +1,11 @@
 package net.panda2.roma.card.cards;
 
+import framework.interfaces.MoveMaker;
 import framework.interfaces.activators.CardActivator;
 import framework.interfaces.activators.ScaenicusActivator;
+import net.panda2.RingInteger1;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -15,8 +18,12 @@ import net.panda2.roma.game.PlayerState;
  * To change this template use File | Settings | File Templates.
  */
 public class ScaenicusCardActivator extends PJRomaActivator implements ScaenicusActivator {
-    public ScaenicusCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        super(gst, p, a);
+    MoveMaker m;
+    RingInteger1 diceDiscForTarget;
+    PJRomaActivator c;
+    public ScaenicusCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a, MoveMaker m) {
+        super(card, gst, p, a);
+        this.m = m;
     }
 
     /**
@@ -33,7 +40,10 @@ public class ScaenicusCardActivator extends PJRomaActivator implements Scaenicus
      */
     @Override
     public CardActivator getScaenicusMimicTarget(int diceDisc) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        diceDiscForTarget = new RingInteger1(diceDisc);
+        c= (PJRomaActivator) m.chooseCardToActivate(diceDisc);
+        c.defer();
+        return c;
     }
 
     /**
@@ -49,6 +59,10 @@ public class ScaenicusCardActivator extends PJRomaActivator implements Scaenicus
      */
     @Override
     public void complete() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // should pass the activator across
+        // should construct a RomaAction and ActionData for the other card
+        getData().stackpush(c);
+        getData().stackpush(diceDiscForTarget.toR0());
+        super.complete();    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

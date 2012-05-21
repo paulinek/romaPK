@@ -72,6 +72,7 @@ public
     int stashVPs;
      int myVPs;
      int myMoney;
+
      List<CardView> opponent;
      List<CardView> mydiscs;
      List<DiceView> mydice;

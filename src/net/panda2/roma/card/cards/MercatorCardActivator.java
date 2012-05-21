@@ -3,6 +3,7 @@ package net.panda2.roma.card.cards;
 import framework.interfaces.activators.MercatorActivator;
 import net.panda2.RingInteger0;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.PJRomaActivator;
 import net.panda2.roma.game.PJRomaTestGameState;
 import net.panda2.roma.game.PlayerState;
@@ -15,8 +16,8 @@ import net.panda2.roma.game.PlayerState;
  * To change this template use File | Settings | File Templates.
  */
 public class MercatorCardActivator extends PJRomaActivator implements MercatorActivator {
-    public MercatorCardActivator(PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        super(gst, p, a);
+    public MercatorCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+        super(card, gst, p, a);
     }
 
     /**
