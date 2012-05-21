@@ -6,6 +6,7 @@ import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.CardLocation;
 import net.panda2.roma.game.exception.RomaException;
+import net.panda2.roma.game.exception.RomaGameEndException;
 
 import java.util.ArrayList;
 import java.util.List;

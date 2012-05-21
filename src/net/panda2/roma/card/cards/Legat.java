@@ -7,7 +7,6 @@ import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
 import net.panda2.roma.game.PlayerState;
-import net.panda2.roma.game.RomaGameState;
 import net.panda2.roma.game.exception.RomaException;
 
 public class Legat extends CharacterCard {
@@ -21,11 +20,10 @@ public class Legat extends CharacterCard {
 
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        RomaGameState gs = ge.getGameState(tk);
         PlayerState opponent, me;
 
-        opponent = gs.getNextPlayer(tk);
-        me = gs.currentPlayer(tk);
+        opponent = ge.getNextPlayer(tk);
+        me = ge.getCurrentPlayer(tk);
 
         Tableau<PJRomaCard> discs = opponent.getTableau(tk);
 

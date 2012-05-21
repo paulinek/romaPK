@@ -10,6 +10,7 @@ import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.*;
 import net.panda2.roma.game.exception.RomaException;
+import net.panda2.roma.game.exception.RomaGameEndException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -215,7 +216,9 @@ public class PJRomaTestMoveMaker implements MoveMaker {
      */
     @Override
     public CardActivator activateBribeDisc(int diceToUse) throws UnsupportedOperationException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        PJRomaActivator c = (PJRomaActivator) chooseCardToActivate(diceToUse);
+        c.setBribe();
+        return c;
     }
 
     /**

@@ -107,7 +107,7 @@ public class PlayerInteractorConsole extends PlayerInteractor {
                         valid=true;
                         break;
                     case 1: // hand card, dice disc
-                        cardNo = readNumber0("Enter number of card in hand", playerState.hand.numCards());
+                        cardNo = readNumber0("Enter number of card in hand", playerState.hand.size());
                         discNo =  readNumber1("Enter which disc to put it on", playerState.fields.getSize() +1);
                         valid=true;
                         break;

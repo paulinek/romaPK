@@ -1,6 +1,7 @@
 package net.panda2.game.card;
 
 import net.panda2.roma.game.AuthToken;
+import net.panda2.roma.game.RomaEmptyDeckException;
 import net.panda2.roma.game.exception.RomaException;
 import net.panda2.roma.game.exception.RomaUnAuthException;
 
@@ -55,11 +56,11 @@ public class CardDeck<C> {
             }
         }
         // deal the top card
-       protected C deal() throws IndexOutOfBoundsException {
+       protected C deal() throws RomaEmptyDeckException {
 
             int s = cards.size();
             if(s == 0) {
-                throw new IndexOutOfBoundsException();
+                throw new RomaEmptyDeckException();
             }
             C c = cards.lastElement();
             cards.removeElementAt(s-1);

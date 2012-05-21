@@ -7,6 +7,7 @@ import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.Turris;
 import net.panda2.roma.game.exception.RomaException;
+import net.panda2.roma.game.exception.RomaGameEndException;
 import net.panda2.roma.game.exception.RomaUnAuthException;
 
 import java.util.ArrayList;
@@ -82,9 +83,6 @@ public class GameEngine {
     public void createGame() {
         ruleSet = new RomaRules();
         gs = RomaGameState.createGameState(ruleSet, this);
-
-
-
 
     }
     public void newGame() {
@@ -307,6 +305,11 @@ public class GameEngine {
     }
 
 
+    public Stash getVP(AuthToken tk) throws RomaException {
+        authenticateOrDie(tk);
+        return gs.tabletopVPStockpile;
+    }
+
     public PlayerState getNextPlayer(AuthToken tk) {
         return authenticatedReturn(tk, gs.getNextPlayer());
     }
@@ -318,7 +321,7 @@ public class GameEngine {
     // centurion card to modify the attack roll
     public void battleCard( int attackRoll,RingInteger0 cardLocation, AuthToken tk) {
         if(authenticateToken(tk)) {
-
+            battleCard(attackRoll,cardLocation);
         }
     }
     public void activateCard(PlayerState player, ActivateCardAction action, ActionData data, AuthToken tk) {
@@ -349,7 +352,7 @@ public class GameEngine {
         try {
             // use up the action dice
             player.useupDiceByVal(diceVal);
-            PJRomaCard c = player.fields.get();
+            PJRomaCard c = player.fields.get(action.getDiscNo());
             // take away money
             player.money.transferAway(gs.treasury, c.getPrice());
             doActivateActionFree(c,diceVal,action);
@@ -372,7 +375,7 @@ public class GameEngine {
         }
     }
     public int countDiscards() {
-        return gs.discard.numCards();
+        return gs.discard.size();
     }
 
     public void takeDeckCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
@@ -382,7 +385,7 @@ public class GameEngine {
     }
 
     public int countDeckCards() {
-        return gs.maindeck.numCards();
+        return gs.maindeck.size();
     }
 
     public boolean takeVPs(AuthToken tk, PlayerState currentPlayer, int numVPs) throws RomaGameEndException {
@@ -444,11 +447,11 @@ public class GameEngine {
     }
     public void discardEnemyCard(RingInteger0 which, AuthToken tk) {
         if(authenticateToken(tk))
-            discardCard(gs.currentPlayer(), which);
+            discardCard(gs.getNextPlayer(), which);
     }
     public void discardMyCard(RingInteger0 which, AuthToken tk) {
         if(authenticateToken(tk) ){
-            discardCard(gs.getNextPlayer(), which);
+            discardCard(gs.currentPlayer(), which);
         }
     }
 
@@ -483,11 +486,25 @@ public class GameEngine {
         }
     }
 
+    public PJRomaCard dealRandomCard(AuthToken tk) {
+        if(authenticateToken(tk)) {
+            gs.maindeck.shuffleDeck();
+            PJRomaCard c = gs.maindeck.dealCard();
+            return c;
+        }
+        return null;
+    }
+
+    public    void reshuffleDeck(AuthToken tk) {
+        if(authenticateToken(tk)) {
+            gs.maindeck.shuffleDeck();
+        }
+    }
+
     public void sayToPlayer(AuthToken tk, String s) {
         if(authenticateToken(tk)) {
             playerInput.say(s);
         }
     }
-
 
 }

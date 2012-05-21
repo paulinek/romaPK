@@ -13,7 +13,7 @@ import net.panda2.RingInteger1;
 public class ActivateCardAction extends RomaAction {
     public ActivateCardAction(RingInteger1 diceVal, RingInteger0 discNo) {
 
-        super(diceVal.asInt());
+        super(diceVal);
 
         this.discNo = discNo.asInt();
     }

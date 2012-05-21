@@ -32,7 +32,16 @@ int cost;
         cost=0;
         this.diceVal = diceVal-1;
     }
+    protected RomaAction(RingInteger1 diceVal) {
+        cost=0;
+        this.diceVal = diceVal.asInt()-1;
+    }
 
+    protected  RomaAction(RingInteger1 diceVal, RingInteger0 discno) {
+        cost=0;
+        this.diceVal = diceVal.asInt()-1;
+        this.discNo = discno.asInt();
+    }
     protected RomaAction(int cardNo, int discNo) {
         cost=0;
         this.cardNo = cardNo;

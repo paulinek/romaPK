@@ -4,7 +4,7 @@ import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.BuildingCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
-import net.panda2.roma.game.RomaGameEndException;
+import net.panda2.roma.game.exception.RomaGameEndException;
 
 /**
  * Created with IntelliJ IDEA.

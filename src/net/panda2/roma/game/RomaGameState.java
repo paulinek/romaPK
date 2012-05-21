@@ -5,7 +5,6 @@ import net.panda2.RingInteger0;
 import net.panda2.game.card.Tableau;
 import net.panda2.game.dice.DiceCollection;
 import net.panda2.roma.card.PJRomaCard;
-import net.panda2.roma.game.exception.RomaCheatingException;
 import net.panda2.roma.game.exception.RomaException;
 
 /**
@@ -33,30 +32,11 @@ public class RomaGameState {
     MoneyStash treasury
            ;
 
-    public PJRomaCard dealRandomCard(AuthToken tk) {
-        if(ge.authenticateToken(tk)) {
-            maindeck.shuffleDeck();
-            PJRomaCard c = maindeck.dealCard();
-            return c;
-        }
-        return null;
-    }
 
-    public    void reshuffleDeck(AuthToken tk) {
-        if(ge.authenticateToken(tk)) {
-            maindeck.shuffleDeck();
-        }
-    }
 
-    public    PlayerState currentPlayer(AuthToken tk) {
-    return        ge.authenticatedReturn(tk, currentPlayer());
-     }
 
     PlayerState currentPlayer() {
         return player[playerNo.get()];
-    }
-    public PlayerState getNextPlayer(AuthToken tk) {
-        return ge.authenticatedReturn(tk, getNextPlayer());
     }
 
     PlayerState getNextPlayer () {
@@ -64,7 +44,7 @@ public class RomaGameState {
 
     }
 
-    private RomaGameState(RomaRules ruleSet, GameEngine ge) throws RomaException {
+    private RomaGameState(RomaRules ruleSet, GameEngine ge) {
         //ref rules for numPlayers
         numPlayers=ruleSet.numPlayers;
         this.ge = ge;
@@ -87,47 +67,17 @@ public class RomaGameState {
         tabletopVPStockpile=vpStash.make(ruleSet.tableInitVP, ruleSet.minVP);
         treasury = moneyStash.make(Integer.MAX_VALUE-65536);
 
-        if (sanityCheckInitVPTotal(ruleSet)!=true){
-            throw new RomaException("Sanity Check Failed: VP init doesn't add up");
-        }
-        maindeck = new ViewableCardDeck();
         discard = new ViewableCardDeck();
+        maindeck = new ViewableCardDeck(discard,true);
+
         FredCardFactory.createInitialCards(maindeck);
         battleDice = new DiceCollection();  // TODO - parameterise this
         //
         }
 
-    public Stash getVP(AuthToken tk) throws RomaException {
-        ge.authenticateOrDie(tk);
-        return tabletopVPStockpile;
-    }
 
 
-    private boolean sanityCheckInitVPTotal(RomaRules ruleSet) throws RomaCheatingException {
-        // VP post-init sanity check
-        // get amount from each player
-        // get amount from tabletop stockpile
-        // add them all up, and game total should be rules.gameTotalVP
-
-        if(vpStash.checkForCheaters()) {
-            return false;
-        }
-        boolean saneQ=true;
-
-        int gameTotalVPSoFar=0;
-        int j;
-        for (j=0; j<player.length; j++){
-            gameTotalVPSoFar+=player[j].vp.getAmount();
-        }
-        gameTotalVPSoFar+=tabletopVPStockpile.getAmount();
-
-        if (gameTotalVPSoFar!=ruleSet.gameTotalVP){
-            saneQ=false;
-        }
-        return saneQ;
-    }
-
-    public static RomaGameState createGameState(RomaRules rules, GameEngine gameEngine) throws RomaException {
+    public static RomaGameState createGameState(RomaRules rules, GameEngine gameEngine) {
         return new RomaGameState(rules, gameEngine);
     }
 

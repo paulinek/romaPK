@@ -18,7 +18,7 @@ public class Nero extends CharacterCard {
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
         RingInteger0 which = dat.popR0();
         // TODO - check it's a building card
-        ge.destroyCard(which,tk);
-        ge.destroyCard(dat.whichDiceDisc, true, tk);
+        ge.discardEnemyCard(which, tk);
+        ge.discardMyCard(dat.whichDiceDisc, tk);
     }
 }

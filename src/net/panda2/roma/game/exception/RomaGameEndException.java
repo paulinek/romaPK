@@ -1,4 +1,4 @@
-package net.panda2.roma.game;
+package net.panda2.roma.game.exception;
 
 import net.panda2.roma.game.exception.RomaException;
 

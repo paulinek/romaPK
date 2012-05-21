@@ -18,6 +18,8 @@ public abstract class PJRomaActivator implements CardActivator {
     //todo - all protected
      boolean deferred;
     PJRomaCard card;
+    private boolean bribe;
+
     public RomaAction getAction() {
         return action;
     }
@@ -83,13 +85,16 @@ public abstract class PJRomaActivator implements CardActivator {
         */
     @Override
      public void complete() {
+        if(bribe) {
+            gst.ge.activateBribe(player, (ActivateCardAction) action, data, gst.tk);
+        }
         if(!deferred) {
             gst.ge.activateCard(player, (ActivateCardAction) action, data, gst.tk);
         }
     }
     public void completeDeferred() throws RomaException {
         if(card != null) {
-        gst.ge.mimicCard(gst.tk,card,action.getDiceVal(), (ActivateCardAction) action);
+            gst.ge.mimicCard(gst.tk,card,action.getDiceVal(), (ActivateCardAction) action);
         }
     }
 
@@ -101,6 +106,10 @@ public abstract class PJRomaActivator implements CardActivator {
 
     public void defer() {
         deferred=true;
+    }
+
+    public void setBribe() {
+        this.bribe=true;
     }
 }
 

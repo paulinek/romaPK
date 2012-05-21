@@ -19,7 +19,7 @@ public class Sicarius extends CharacterCard {
         RingInteger0
                 which = dat.popR0();
         // TODO - check it's a characterCard
-        ge.destroyCard(which,tk);
-        ge.destroyCard(dat.whichDiceDisc, true, tk);
+        ge.discardEnemyCard(which, tk);
+        ge.discardMyCard(dat.whichDiceDisc, tk);
     }
 }

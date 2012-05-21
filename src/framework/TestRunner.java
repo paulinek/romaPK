@@ -290,6 +290,8 @@ public class TestRunner {
                 if (colorful) {
                     System.out.print(COLOR_YELLOW);
                 }
+                ex.printStackTrace(System.out);
+
                 System.out.println("      Error in test. Please report this to your "
                         + "representative.\n");
                 if (colorful) {

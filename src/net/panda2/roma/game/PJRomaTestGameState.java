@@ -7,6 +7,7 @@ import net.panda2.roma.card.CardView;
 import net.panda2.roma.card.NullCardView;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.*;
+import net.panda2.roma.game.exception.RomaGameEndException;
 
 import java.util.*;
 
@@ -99,7 +100,7 @@ PlayerInteractorAcceptance input;
     List<Card> deck2card(ViewableCardDeck cardDeck) {
         RingInteger0 I = new RingInteger0(0);
         List<Card> list = new ArrayList<Card>();
-        for(int i = cardDeck.numCards()-1; i>=0;i--) {
+        for(int i = cardDeck.size()-1; i>=0;i--) {
             I.set(i);
             PJRomaCard c = cardDeck.getCard(I);
             if(c != null) {

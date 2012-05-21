@@ -57,7 +57,8 @@ public class AttackCardActivator extends PJRomaActivator implements
      */
     @Override
     public void complete() {
-        getData().stackpush(attackRoll);
+        if(attackRoll != null)
+             getData().stackpush(attackRoll);
         super.complete();
         //To change body of implemented methods use File | Settings | File Templates.
     }
