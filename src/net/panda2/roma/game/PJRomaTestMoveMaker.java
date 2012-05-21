@@ -6,10 +6,7 @@ import framework.interfaces.MoveMaker;
 import framework.interfaces.activators.CardActivator;
 import net.panda2.RingInteger0;
 import net.panda2.RingInteger1;
-import net.panda2.roma.action.ActivateCardAction;
-import net.panda2.roma.action.LayCardAction;
-import net.panda2.roma.action.RomaAction;
-import net.panda2.roma.action.TakeCardAction;
+import net.panda2.roma.action.*;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.card.cards.*;
 import net.panda2.roma.game.exception.RomaException;
@@ -61,7 +58,7 @@ public class PJRomaTestMoveMaker implements MoveMaker {
         CardActivator activator = null;
 
         PlayerState player = ge.getCurrentPlayer(gst.tk);
-        PJRomaCard c = player.diceDiscCards.get(disc0);
+        PJRomaCard c = player.fields.get(disc0);
         RomaAction action = new ActivateCardAction(disc,disc0);
         if(c instanceof Forum) {
              activator = new ForumCardActivator(c, gst, player, action);
@@ -93,9 +90,12 @@ public class PJRomaTestMoveMaker implements MoveMaker {
             activator= new MercatorCardActivator(c, gst,player,action);
         } else if(c instanceof Scaenicus) {
             activator=new ScaenicusCardActivator(c, gst,player,action,this);
-        } else if(c instanceof Haruspex ||
+        } else if(
                 c instanceof Aesculapinum) {
             activator = new DiscardCardChooserActivator(c, gst,player,action);
+        } else if(c instanceof Haruspex ) {
+            activator = new HaruspexCardActivator(c, gst,player,action);
+
         }
         action.getActionData().whichDiceDisc = disc.toR0();
         return activator;
@@ -177,8 +177,9 @@ public class PJRomaTestMoveMaker implements MoveMaker {
     @Override
     public void activateMoneyDisc(int diceToUse) throws UnsupportedOperationException {
         try {
-            gst.ge.gs.treasury.transferAway(gst.ge.getCurrentPlayer(gst.tk).money,diceToUse);
-        } catch (RomaGameEndException e) {
+            TakeMoneyAction a = new TakeMoneyAction(new RingInteger1(diceToUse));
+            gst.ge.doAction(gst.ge.getCurrentPlayer(gst.tk), a);
+        } catch (RomaException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         //To change body of implemented methods use File | Settings | File Templates.

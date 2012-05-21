@@ -136,7 +136,7 @@ public class GameEngine {
             cards[p] = new ArrayList<LayCardAction>();
                 try {
                     while(cards[p].size()>0)         {
-                        LayCardAction action = (LayCardAction) playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].diceDiscCards, true);
+                        LayCardAction action = (LayCardAction) playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].fields, true);
 
                         doAction(player(p),action);
                     }
@@ -174,7 +174,7 @@ public class GameEngine {
         PlayerState p = gs.currentPlayer();
         // numEmpty returns how many of the diceDisc card slots are empty
         // p transfers that many VPs to the central stockpile
-       p.vp.transferAway(gs.tabletopVPStockpile, p.diceDiscCards.numEmpty());
+       p.vp.transferAway(gs.tabletopVPStockpile, p.fields.numEmpty());
     }
 
     void phaseTwo() {
@@ -232,7 +232,7 @@ public class GameEngine {
     }
     void doActivateAction(PlayerState player, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
         player.useupDiceByVal(action.getDiceVal());
-        PJRomaCard c = player.diceDiscCards.get(diceVal.toR0());
+        PJRomaCard c = player.fields.get(diceVal.toR0());
 
         doActivateActionFree(c,diceVal,action);
     }
@@ -314,7 +314,7 @@ public class GameEngine {
     public void battleCard( int attackRoll,RingInteger0 cardLocation, AuthToken tk) {
         if(authenticateToken(tk)) {
             PlayerState opponent = gs.getNextPlayer();
-            PJRomaCard opponentCard = opponent.diceDiscCards.get(cardLocation);
+            PJRomaCard opponentCard = opponent.fields.get(cardLocation);
             checkNotNull(opponentCard);
             int totalDefense = opponentCard.getDefense() + opponent.defenseBonus();
             if(opponentCard instanceof Turris) {
@@ -323,7 +323,7 @@ public class GameEngine {
                 totalDefense--;
             }
         if(attackRoll >= totalDefense) {
-            destroyCard(opponent, opponent.diceDiscCards, cardLocation);
+            destroyCard(opponent, opponent.fields, cardLocation);
         }
         }
     }
@@ -354,7 +354,7 @@ public class GameEngine {
         }
 
         if(authenticateToken(tk))
-            destroyCard(p, p.diceDiscCards, whichDiceDisc);
+            destroyCard(p, p.fields, whichDiceDisc);
 
     }
 
@@ -367,7 +367,7 @@ public class GameEngine {
     }
     public void knockOffDefense(int amt, AuthToken tk) {
         if(authenticateToken(tk)) {
-            gs.getNextPlayer().diceDiscCards.reduceDefense(amt);
+            gs.getNextPlayer().fields.reduceDefense(amt);
         }
     }
 
@@ -378,10 +378,10 @@ public class GameEngine {
             return;
         PlayerState p = me?gs.currentPlayer():gs.getNextPlayer();
 
-        PJRomaCard c = p.diceDiscCards.get(opponentCardNo);
+        PJRomaCard c = p.fields.get(opponentCardNo);
         if(c != null) {
             p.hand.addCard(c);
-            p.diceDiscCards.set(opponentCardNo, null);
+            p.fields.set(opponentCardNo, null);
         }
     }
 
@@ -428,7 +428,17 @@ public class GameEngine {
         }
     }
 
+    public void takeDeckCard(AuthToken tk, PlayerState player, RingInteger0 discardIndex) {
+        if(authenticateToken(tk)) {
+            gs.maindeck.giveTo(player.hand,discardIndex);
+        }
+    }
+
     public int countDiscards() {
         return gs.discard.numCards();
+    }
+
+    public int countDeckCards() {
+        return gs.maindeck.numCards();
     }
 }

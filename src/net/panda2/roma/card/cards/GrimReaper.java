@@ -9,19 +9,17 @@ import net.panda2.roma.game.exception.RomaException;
 /**
  * Created with IntelliJ IDEA.
  * User: pacchi
- * Date: 20/05/12
- * Time: 7:29 PM
+ * Date: 21/05/12
+ * Time: 4:39 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Kat extends CharacterCard {
+public class GrimReaper extends CharacterCard {
     @Override
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-        ge.sayToPlayer(tk, "Miao");
+    // does nothing
+        }
 
-    }
-
-    public Kat(int price, int defense) {
-        super("Kat", price, defense);
-        this.lives=9;
+    public GrimReaper( int price, int defense) {
+        super("GrimReaper", price, defense);
     }
 }

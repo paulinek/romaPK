@@ -23,7 +23,7 @@ public class PlayerState {
     ViewableCardDeck hand;
     MoneyStash money;
     ViewableDiceCup dice;
-    ViewableTableau diceDiscCards;
+    ViewableTableau fields;
     String playerName;
      boolean grimReaperActive;
     int diceSize;
@@ -39,7 +39,7 @@ public class PlayerState {
         money = MoneyRepository.make(rules.playerInitSest);
         diceSize = rules.diceSize;
         dice = new ViewableDiceCup(rules.nDice, diceSize);
-        diceDiscCards = new ViewableTableau(rules.numDiceDiscs + rules.numBribeDiscs);
+        fields = new ViewableTableau(rules.numDiceDiscs + rules.numBribeDiscs);
         hand = new ViewableCardDeck();
     }
 
@@ -50,15 +50,15 @@ public class PlayerState {
 
     }
     public ViewableTableau getTableau(AuthToken tk) {
-        if(ge.authenticateToken(tk)) return diceDiscCards;
+        if(ge.authenticateToken(tk)) return fields;
         return null;
     }
     List<CardView> getDiscView() {
-        return diceDiscCards.getCardView();
+        return fields.getCardView();
     }
 
     int getIndexOfCard(PJRomaCard c) {
-        return diceDiscCards.getIndexOfCard(c);
+        return fields.getIndexOfCard(c);
     }
 
     public void receiveCard(AuthToken tk, PJRomaCard c) {
@@ -68,10 +68,10 @@ public class PlayerState {
 
     public void layCard(RingInteger0 cardNo, RingInteger0 discNo) {
 
-        if(diceDiscCards.get(discNo) != null) {
-            diceDiscCards.discard(discNo, ge.gs.discard);
+        if(fields.get(discNo) != null) {
+            fields.discard(discNo, ge.gs.discard);
         }
-   hand.layCard(cardNo, diceDiscCards, discNo);
+   hand.layCard(cardNo, fields, discNo);
     }
 
     public void useupDice(RingInteger0 diceNo) {
@@ -85,14 +85,14 @@ public class PlayerState {
     public boolean hasGrimReaper() {
 
 
-        return diceDiscCards.howManyOfThese("GrimReaper") > 0;
+        return fields.howManyOfThese("GrimReaper") > 0;
     }
 
     public int defenseBonus() {
         int bonus = 0;
         // todo:
         // search for turris and return 1
-        bonus += diceDiscCards.howManyOfThese("Turris");
+        bonus += fields.howManyOfThese("Turris");
     return bonus;
     }
 
@@ -101,7 +101,7 @@ public class PlayerState {
     }
 
     public int hasAdjacentCard(RingInteger0 disc, String type) {
-        List<CardView> cv = diceDiscCards.getCardView();
+        List<CardView> cv = fields.getCardView();
         int n = 0;
         if(cv.get(disc.prev()).equals(type) ){
             n++;
@@ -113,7 +113,7 @@ public class PlayerState {
     }
 
     public int getNdiscs() {
-        return diceDiscCards.getSize();
+        return fields.getSize();
     }
 
     public int[] getDiceArray() {
@@ -134,7 +134,7 @@ public class PlayerState {
     }
 
     public int countForums() {
-        return diceDiscCards.howManyOfThese("Forum");
+        return fields.howManyOfThese("Forum");
     }
 
     public void takeVPs(AuthToken tk, PlayerState p, int numVPs) throws RomaGameEndException {
@@ -153,7 +153,7 @@ public class PlayerState {
     }
 
     public PJRomaCard getDiscCard(RingInteger0 i) {
-        return diceDiscCards.get(i);
+        return fields.get(i);
     }
 
     public void layCardByName(CardLocation cl, boolean b) {

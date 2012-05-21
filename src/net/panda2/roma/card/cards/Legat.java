@@ -2,18 +2,20 @@ package net.panda2.roma.card.cards;
 
 import net.panda2.game.card.Tableau;
 import net.panda2.roma.action.ActionData;
+import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
-import net.panda2.roma.game.RomaGameState;
 import net.panda2.roma.game.PlayerState;
+import net.panda2.roma.game.RomaGameState;
 import net.panda2.roma.game.exception.RomaException;
 
-public class Legat extends PJRomaCard {
+public class Legat extends CharacterCard {
 
 
 	public Legat(int price, int defense){
-        super("Legat", price, defense, true);
+
+        super("Legat", price, defense);
 	}
 
 

@@ -1,12 +1,11 @@
 package net.panda2.roma.card.cards;
 
 
+import net.panda2.RingInteger0;
 import net.panda2.roma.action.ActionData;
 import net.panda2.roma.card.CharacterCard;
-import net.panda2.roma.card.PJRomaCard;
 import net.panda2.roma.game.AuthToken;
 import net.panda2.roma.game.GameEngine;
-import net.panda2.roma.game.RomaGameState;
 import net.panda2.roma.game.exception.RomaException;
 
 public class Haruspex extends CharacterCard {
@@ -20,8 +19,7 @@ public class Haruspex extends CharacterCard {
 
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
     // we implement this as give the player a random card
-       RomaGameState gs = ge.getGameState(tk);
-        PJRomaCard c = gs.dealRandomCard(tk);
-        ge.getCurrentPlayer(tk).receiveCard(tk, c);
+        RingInteger0 cardIndex = dat.popR0();
+        ge.takeDeckCard(tk,ge.getCurrentPlayer(tk), cardIndex);
     }
 }

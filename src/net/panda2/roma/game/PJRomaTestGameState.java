@@ -127,8 +127,9 @@ PlayerInteractorAcceptance input;
      */
     @Override
     public void setDeck(List<Card> deck) {
-        Collections.reverse(deck);
-        setDeck(ge.gs.maindeck, deck);
+        ArrayList<Card> d = new ArrayList<Card>(deck);
+        Collections.reverse(d);
+        setDeck(ge.gs.maindeck, d);
      }
 
     /**
@@ -361,6 +362,10 @@ PlayerInteractorAcceptance input;
         }
         else if(c.name().equalsIgnoreCase("Turris")) {
             return new Turris(6,6);
+        } else if(c.name().equalsIgnoreCase("Kat")) {
+            return new Kat(5,2);
+        } else if(c.name().equalsIgnoreCase("GrimReaper")) {
+            return new GrimReaper(6,3);
         }
         else return null;
     }
@@ -409,7 +414,7 @@ PlayerInteractorAcceptance input;
     @Override
     public Card[] getPlayerCardsOnDiscs(int playerNum) {
         PlayerState p = pN(playerNum);
-        List<CardView> discCardsList = p.diceDiscCards.getCardView();
+        List<CardView> discCardsList = p.fields.getCardView();
         Card[] discCards = new Card[discCardsList.size()];
         for(int i = 0; i < discCards.length; i++) {
             Card c;
@@ -449,9 +454,9 @@ PlayerInteractorAcceptance input;
     @Override
     public void setPlayerCardsOnDiscs(int playerNum, Card[] discCards) {
         PlayerState p = pN(playerNum);
-        checkArgument(discCards.length == p.diceDiscCards.getSize());
+        checkArgument(discCards.length == p.fields.getSize());
         for(int i=0; i < discCards.length; i++) {
-            p.diceDiscCards.setCard(new RingInteger0(i),makeRomaCard(discCards[i]));
+            p.fields.setCard(new RingInteger0(i),makeRomaCard(discCards[i]));
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }

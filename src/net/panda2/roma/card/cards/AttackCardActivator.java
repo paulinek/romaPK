@@ -24,6 +24,7 @@ public class AttackCardActivator extends PJRomaActivator implements
     public AttackCardActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
         super(card, gst,p,a);
     }
+    RingInteger0 attackRoll;
 
 
     /**
@@ -40,7 +41,7 @@ public class AttackCardActivator extends PJRomaActivator implements
     @Override
     public void giveAttackDieRoll(int roll) {
         //To change body of implemented methods use File | Settings | File Templates.
-        getData().stackpush(new RingInteger0(roll));
+        attackRoll = new RingInteger0(roll);
     }
 
     /**
@@ -56,6 +57,7 @@ public class AttackCardActivator extends PJRomaActivator implements
      */
     @Override
     public void complete() {
+        getData().stackpush(attackRoll);
         super.complete();
         //To change body of implemented methods use File | Settings | File Templates.
     }

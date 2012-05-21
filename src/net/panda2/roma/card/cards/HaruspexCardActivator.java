@@ -1,6 +1,6 @@
 package net.panda2.roma.card.cards;
 
-import framework.interfaces.activators.AesculapinumActivator;
+import framework.interfaces.activators.HaruspexActivator;
 import net.panda2.RingInteger0;
 import net.panda2.roma.action.RomaAction;
 import net.panda2.roma.card.PJRomaCard;
@@ -12,12 +12,12 @@ import net.panda2.roma.game.PlayerState;
  * Created with IntelliJ IDEA.
  * User: pacchi
  * Date: 21/05/12
- * Time: 10:38 AM
+ * Time: 6:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DiscardCardChooserActivator extends PJRomaActivator implements AesculapinumActivator {
-    public DiscardCardChooserActivator(PJRomaCard card, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
-        super(card, gst, p, a);
+public class HaruspexCardActivator extends PJRomaActivator implements HaruspexActivator {
+    public HaruspexCardActivator(PJRomaCard c, PJRomaTestGameState gst, PlayerState p, RomaAction a) {
+        super(c, gst, p, a);
     }
 
     /**
@@ -32,8 +32,8 @@ public class DiscardCardChooserActivator extends PJRomaActivator implements Aesc
      */
     @Override
     public void chooseCardFromPile(int indexOfCard) {
-        // indexes run the opposite way
+        getData().stackpush(new RingInteger0(getGE().countDeckCards() - 1 - indexOfCard));
 
-        getData().stackpush(new RingInteger0(getGE().countDiscards() - 1 - indexOfCard));
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }

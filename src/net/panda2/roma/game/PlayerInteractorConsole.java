@@ -108,7 +108,7 @@ public class PlayerInteractorConsole extends PlayerInteractor {
                         break;
                     case 1: // hand card, dice disc
                         cardNo = readNumber0("Enter number of card in hand", playerState.hand.numCards());
-                        discNo =  readNumber1("Enter which disc to put it on", playerState.diceDiscCards.getSize() +1);
+                        discNo =  readNumber1("Enter which disc to put it on", playerState.fields.getSize() +1);
                         valid=true;
                         break;
                     case 2:
@@ -126,7 +126,7 @@ public class PlayerInteractorConsole extends PlayerInteractor {
                 if(valid) {
                     if(choice.equals(RAction.ACTIVATECARD)) {
                         x = new ActivateCardAction(playerState.getDiceValue(diceNo.toR0()), discNo.toR0());
-                        PJRomaCard c = playerState.diceDiscCards.get(discNo);
+                        PJRomaCard c = playerState.fields.get(discNo);
                         switch(c.dataMode) {
                             case 0:
                                 break;
