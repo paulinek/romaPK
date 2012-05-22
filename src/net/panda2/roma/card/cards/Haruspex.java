@@ -18,7 +18,7 @@ public class Haruspex extends CharacterCard {
 
 
     public void activate(GameEngine ge, AuthToken tk, ActionData dat) throws RomaException {
-    // we implement this as give the player a random card
+
         RingInteger0 cardIndex = dat.popR0();
         ge.takeDeckCard(tk,ge.getCurrentPlayer(tk), cardIndex);
     }

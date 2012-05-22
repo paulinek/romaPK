@@ -2,6 +2,7 @@ package net.panda2.roma.game;
 
 import net.panda2.RingInteger0;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.game.exception.RomaInputException;
 
 import java.util.List;
 
@@ -30,6 +31,17 @@ public abstract class PlayerInteractor {
     public abstract void printPlayerGameView(PlayerGameView gv);
 
     public abstract RomaAction getAction(PlayerGameView gv, PlayerState playerState);
+    public abstract RingInteger0 chooseEnemyDisc();
 
     public abstract RingInteger0 chooseTakeCardCard(ViewableCardDeck deck);
-}
+
+    public abstract void gameInitialHandshake();
+
+    public abstract RingInteger0 chooseMyDice();
+
+    public abstract boolean yesOrNo() throws RomaInputException;
+
+    public abstract boolean yesOrNo(String prompt);
+
+    public abstract RingInteger0 getMercatorVPs();
+    }

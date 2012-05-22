@@ -6,7 +6,7 @@ import net.panda2.RingInteger1;
 import net.panda2.roma.action.*;
 import net.panda2.roma.card.CharacterCard;
 import net.panda2.roma.card.PJRomaCard;
-import net.panda2.roma.card.cards.Turris;
+import net.panda2.roma.card.cards.*;
 import net.panda2.roma.game.exception.RomaException;
 import net.panda2.roma.game.exception.RomaGameEndException;
 import net.panda2.roma.game.exception.RomaUnAuthException;
@@ -69,6 +69,9 @@ public class GameEngine {
     // public functions
 
     public boolean authenticateToken(AuthToken tk) {
+        if(tk == null) {
+            return false;
+        }
         return(tk.equals(masterToken) || tk.equals(currentToken)) ;
     }
     public void authenticateOrDie(AuthToken tk) throws RomaException{
@@ -138,6 +141,7 @@ public class GameEngine {
 
     void initialPhase() {
         gs.maindeck.shuffleDeck();
+        playerInput.gameInitialHandshake();
         initialDeal();
         initialTrade();
         initialLay();
@@ -148,10 +152,10 @@ public class GameEngine {
         List<LayCardAction> cards[ ] = new List[ruleSet.numPlayers];
 
         for(int p = 0; p < ruleSet.numPlayers; p++) {
-            playerInput.say(player(p).getPlayerName() + "'s turn");
+            playerInput.say(player(p).getPlayerName() + "'s turn to lay cards");
             cards[p] = new ArrayList<LayCardAction>();
                 try {
-                    while(cards[p].size()>0)         {
+                    while(gs.player[p].hand.size() > 0)         {
                         LayCardAction action = (LayCardAction) playerInput.getLayCardAction("Which card to lay?", gs.player[p].hand, gs.player[p].fields, true);
 
                         doAction(player(p),action);
@@ -217,21 +221,147 @@ public class GameEngine {
             }
         }
     }
-    boolean playerPhaseThree(PlayerGameView gv, PlayerState playerState) throws RomaException {
+    boolean playerPhaseThree(PlayerGameView gv, PlayerState p) throws RomaException {
         ActionData da = null;
         playerInput.printPlayerGameView(gv);
-        RomaAction action = playerInput.getAction(gv,playerState);
+        RomaAction action = playerInput.getAction(gv,p);
         if(action != null) {
             if(action instanceof
          EndTurnAction) {
                 return true;
         } else {
-                doAction(playerState, action);
-            }
+                if(action instanceof ActivateCardAction) {
+                    // need to find out what arguments the card needs and obtain them from the playerInput
+                    ActivateCardAction aa = (ActivateCardAction) action;
+                    PJRomaCard c = p.getDiscCard(aa.getCardNo());
+                    if(c == null) {
+                        playerInput.say("There is no card there!");
+                        return false;
+                    }
+                    // needs a battleRoll only
+                    if (c instanceof Legionarius) {
+                        aa.push(getBattleRoll());
 
+
+                    }
+                    // targeted attack - needs battleRoll and target
+                    if(
+                            c instanceof Gladiator ||
+                            c instanceof Onager ||
+                            c instanceof Velites
+                            )  {aa.push(getTargetDisc());
+                            aa.push(getBattleRoll());
+                    }
+                    // assassin - need target only
+                    if(
+                    c instanceof Sicarius||
+                            c instanceof Nero ||
+                            c instanceof Praetorianus
+                            ) {
+                            aa.push(getTargetDisc());
+                    }
+
+                    // these need no options
+
+                    if(c instanceof Essedum ||
+                            c instanceof Mercatus ||
+                            c instanceof Legat ||
+                            c instanceof TribunusPlebis) {
+                     // donothing
+                    }
+
+                    // needs an optional actionDie only (no battleRoll)
+                    if(c instanceof Forum) {
+                        RingInteger0 diceRef = getActionDiceChoice();
+                        int templumBonus = checkTemplum();
+                        aa.push(new RingInteger0(p.getDiceValue(diceRef).asInt() + templumBonus));
+                        }
+                    if(c instanceof Consul) {
+                        // consul is funny
+                        // it wants
+                        RingInteger0 diceRef = getActionDiceChoice();
+                        RingInteger consulArg = getConsulArg();
+                    }
+
+                if(c instanceof Centurio) {
+                    RingInteger0 roll = getBattleRoll();
+                    RingInteger0 centurionRef = getCenturionDice(roll);
+                    if(centurionRef != null) {
+                       aa.push(p.getDiceValue(centurionRef).toR0());
+                        aa.push(new RingInteger0(1));
+                    } else {
+                        aa.push(new RingInteger0(0));
+                    }
+                    aa.push(roll);
+                }
+                    if(c instanceof Mercator) {
+                        RingInteger0 vps = playerInput.getMercatorVPs();
+                    }
+
+
+                     if(c instanceof Haruspex ) {
+                            playerInput.say("Have a random card!");
+                         aa.push(new RingInteger0(0));
+                     }
+                }
+                doAction(p, action);
+            }
         }
         return false;
+
     }
+
+    private RingInteger0 getCenturionDice(RingInteger0 roll) {
+        boolean useDice = playerInput.yesOrNo("You rolled a " + roll.asInt() + ".  Do you want to use a dice?");
+        if(useDice) {
+            return getActionDiceChoice();
+        } else
+            return null;
+
+    }
+
+    private RingInteger getConsulArg() {
+        boolean increase = playerInput.yesOrNo("Do you want to increase this (no for decrease)");
+        if(increase) {
+            return new RingInteger0(2);
+        } else {
+            return new RingInteger0(0);
+
+        }
+    }
+
+    private int checkTemplum() {
+        PlayerState me = gs.currentPlayer();
+        if(me.fields.howManyOfThese("Templum") > 0) {
+            // have a templum
+            boolean wantTemplum = playerInput.yesOrNo("Do you want to use a templum?");
+            if(wantTemplum) {
+                RingInteger0 diceChoice = getActionDiceChoice();
+                if(!me.dice.isNthUsed(diceChoice)) {
+                    me.useupDice(diceChoice);
+                    return me.dice.getNth(diceChoice);
+                } else{
+                    return 0;
+                }
+            }
+        }
+        return 0;
+    }
+
+    private RingInteger0 getActionDiceChoice() {
+        return playerInput.chooseMyDice();
+    }
+
+    private RingInteger0 getBattleRoll() {
+        return new RingInteger0(rollBattle());
+    }
+
+
+    private RingInteger0 getTargetDisc() {
+        RingInteger0 discVal = playerInput.chooseEnemyDisc();
+        return discVal;
+    }
+
 
     /*****************************
      * Activation logic
@@ -243,7 +373,8 @@ public class GameEngine {
     // (either by using a diceDisc, or subtracting sestertii) is done
 
     void doActivateActionFree(PJRomaCard  c, RingInteger1 diceVal, ActivateCardAction action) throws RomaException {
-        c.activate(this, masterToken, action.getActionData());
+        currentToken = new AuthToken();
+        c.activate(this, currentToken, action.getActionData());
 
     }
 

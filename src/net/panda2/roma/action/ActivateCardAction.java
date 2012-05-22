@@ -17,4 +17,7 @@ public class ActivateCardAction extends RomaAction {
 
         this.discNo = discNo.asInt();
     }
+    public void push(Object o) {
+        getActionData().stackpush(o);
+    }
 }

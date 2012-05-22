@@ -4,6 +4,7 @@ import net.panda2.RingInteger0;
 import net.panda2.allDoneException;
 import net.panda2.roma.action.LayCardAction;
 import net.panda2.roma.action.RomaAction;
+import net.panda2.roma.game.exception.RomaInputException;
 
 import java.util.List;
 import java.util.Stack;
@@ -55,6 +56,36 @@ return (List<Integer>)  interactionData.pop();
     }
 
     @Override
+    public RingInteger0 chooseEnemyDisc() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void gameInitialHandshake() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public RingInteger0 chooseMyDice() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean yesOrNo() throws RomaInputException {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean yesOrNo(String prompt) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public RingInteger0 getMercatorVPs() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
     public RingInteger0 chooseTakeCardCard(ViewableCardDeck deck) {
         String chosen = (String) interactionData.pop();
         RingInteger0 r = new RingInteger0(0, deck.size());
@@ -63,8 +94,6 @@ return (List<Integer>)  interactionData.pop();
                 if(deck.getCard(r).getName().equalsIgnoreCase(chosen)) {
                     return r;
                 }
-
-
                 r.iterate();
             }
         } catch (allDoneException e) {

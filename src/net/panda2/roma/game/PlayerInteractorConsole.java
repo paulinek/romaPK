@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,6 +30,8 @@ public class PlayerInteractorConsole extends PlayerInteractor {
     static RAction[] actionChoices = {RAction.TAKECARD, RAction.TAKEMONEY,RAction.LAYCARD, RAction.ACTIVATECARD, RAction.ENDTURN};
     static String[] noYes = {"NO", "YES"};
     Scanner s;PrintStream out;
+    private PlayerGameView gv
+            ;
 
     public PlayerInteractorConsole() {
         setupReader(System.in, System.out);
@@ -92,6 +95,7 @@ public class PlayerInteractorConsole extends PlayerInteractor {
 
 
     public RomaAction getAction(PlayerGameView gv, PlayerState playerState) {
+            this.gv= gv;
             ActionData dat = new ActionData();
             RingInteger1 diceNo = null, discNo=null;
             RingInteger0 cardNo = null;
@@ -148,6 +152,11 @@ public class PlayerInteractorConsole extends PlayerInteractor {
             return x;
         }
 
+    @Override
+    public RingInteger0 chooseEnemyDisc() {
+        return readNumber1("Choose an enemy dice disc",gv.getOpponent().size()).toR0();
+    }
+
     // read a number from 1 to max
     RingInteger1 readNumber1(String s, int max) {
         return new RingInteger1(readNumber(s, 1, max));
@@ -164,6 +173,17 @@ public class PlayerInteractorConsole extends PlayerInteractor {
         say("Enter card to keep");
         Integer choice = new Integer(readNumber("", 1, deck.size())-1);
         return new RingInteger0(choice);
+    }
+
+    @Override
+    public void gameInitialHandshake() {
+        say("Welcome to ROMA by PKJH");
+        say("Have a fun game!");
+    }
+
+    @Override
+    public RingInteger0 chooseMyDice() {
+       return readNumber1("Which dice do you want to choose?", gv.getMydice().size()).toR0();
     }
 
     private RAction getActionChoice(String s) {
@@ -197,18 +217,30 @@ public class PlayerInteractorConsole extends PlayerInteractor {
 
         int num = min-1;
         while (num < min || num > max) {
-            speak(prompt);
+            try {
+                speak(prompt);
             num = s.nextInt();
+            } catch (InputMismatchException e) {
+//                say("Please enter a valid number");
+                String x = s.next();  // to discardit
+            }
         }
         return num;
     }
 
+    @Override
     public boolean yesOrNo() throws RomaInputException{
         return yesOrNo(defaultPrompt);
     }
 
+    @Override
     public boolean yesOrNo(String prompt) {
         return (choice(prompt, noYes) > 0);
+    }
+
+    @Override
+    public RingInteger0 getMercatorVPs() {
+return readNumber0("How many VPs to buy?", gv.myMoney/2+1);
     }
 
     public RAction choice() {
