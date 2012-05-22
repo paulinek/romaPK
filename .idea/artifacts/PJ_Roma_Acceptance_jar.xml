@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Acceptance:jar">
+  <artifact type="jar" name="PJ_Roma_Acceptance:jar">
     <output-path>$PROJECT_DIR$/output/Acceptance_jar</output-path>
     <root id="archive" name="Acceptance.jar">
       <element id="directory" name="META-INF">
